@@ -1,11 +1,19 @@
-# Funciones disponibles para el proyecto
+# Funciones disponibles para minishell
 
+# Contenidos
+
+1. [Leer de la terminal e historial](#leer-de-la-terminal-e-historial)
+2. [C clasics](#c-clasics)
+3. [Manejo de procesos](#manejo-de-procesos)
+4. [Manejo de directorios y archivos](#manejo-de-directorios-y-archivos)
+5. [Manejo de errores](#manejo-de-errores)
+6. [Manejo de terminal](#manejo-de-terminal)
+# 
 ## Leer de la terminal e historial
 - ### readline
 Lee una línea de la entrada estándar.  
 Parametros de entrada: prompt para indicar al usuario que debe ingresar información. OPCIONAL  
 Parámetros de salida: Retorna la línea leída como una cadena.  
-  
 Cada vez que se utiliza la función readline() para leer una línea de entrada del usuario, esa línea se agrega automáticamente al historial. El usuario puede navegar por el historial de líneas utilizando las flechas arriba y abajo. 
 
 - ### rl_clear_history
@@ -25,8 +33,8 @@ Para actualizar la línea de entrada mostrada en la pantalla.
 - ### add_history
 Permite agregar una línea al historial.  
 Parametros de entrada: la linea a agregar al historial.
-
-# C clasics
+# 
+## C clasics
 - ### printf 
 - ### malloc 
 - ### free 
@@ -49,7 +57,7 @@ Proporcionan más opciones y detalles sobre el estado de finalización de los pr
 - ### sigaction 
 - ### kill 
 - ### exit 
-
+# 
 ## Manejo de directorios y archivos
 - ### getcwd 
 Se utiliza para obtener el directorio de trabajo actual del proceso.
@@ -72,13 +80,13 @@ Se utiliza para abrir un directorio para leer. Devuelve un puntero a una estruct
 Se utiliza para leer una entrada del directorio abierto con opendir. Devuelve un puntero a una estructura dirent que contiene información sobre la entrada del directorio.
 - ### closedir 
 Se utiliza para cerrar un directorio abierto con opendir.
-
+# 
 ## Manejo de errores
 - ### strerror 
 Obtener una cadena que describe un código de error.
 - ### perror
 Imprimir un mensaje de error a stderr.
-
+# 
 ## Manejo de terminal
 - ### isatty 
 Se utiliza para determinar si un descriptor de archivo se refiere a un terminal. Devuelve 1 si es así, y 0 en caso contrario.
