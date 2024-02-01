@@ -1,6 +1,8 @@
 # NAME
 NAME		=	minishell
 
+# LIBFT
+LIBFT		=	libft/libft.a
 # SOURCE
 SRC_DIR		=	src/
 SRC_FILES	=	main.c
@@ -13,6 +15,7 @@ OBJ_FILES	=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 # COMPILER
 CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror
+INCLUDE		=	-I inc
 RM			=	rm -rf
 
 # COLORS
@@ -27,8 +30,11 @@ CLEAR	=		\033[0m
 all:	$(NAME)
 
 $(NAME):	$(OBJ_FILES)
+	@echo "\n$(BLUE)Compiling libft.$(CLEAR)"
+	@make -sC libft
+	@echo "$(GREEN)[libft --> OK]$(CLEAR)"
 	@echo "$(BLUE)Compiling minishell program.$(CLEAR)"
-	$(CC) $(FLAGS) $(OBJ_FILES) -o $(NAME)
+	$(CC) $(FLAGS) $(LIBFT) $(OBJ_FILES) -o $(NAME)
 	@echo "$(GREEN)[minishell --> OK]\n$(CLEAR)$(GREEN)Success!$(CLEAR)\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
@@ -37,11 +43,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 clean:
 	@echo "$(BLUE)Removing compiled files.$(CLEAR)"
+	@make clean -sC libft
 	$(RM) $(OBJ_DIR)
 	@echo "$(GREEN)Object files removed correctly\n$(CLEAR)"
 
 fclean: clean
 	@echo "$(BLUE)Removing binary files.$(CLEAR)"
+	@make fclean -sC libft
 	$(RM) $(NAME)
 	@echo "$(GREEN)Object files and binary removed correctly\n$(CLEAR)"
 
