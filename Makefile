@@ -5,7 +5,8 @@ NAME		=	minishell
 LIBFT		=	libft/libft.a
 # SOURCE
 SRC_DIR		=	src/
-SRC_FILES	=	main.c
+SRC_FILES	=	main.c \
+				builtins.c
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 # OBJECTS

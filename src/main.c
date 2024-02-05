@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/01 17:49:02 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/02/05 09:16:36 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (argc != 1)
 		return (EXIT_FAILURE);
-	ft_printf("HOLA DESDE MAIN\n");
+	if (pwd() == EXIT_FAILURE)
+		return (1);
 	return (0);
 }
