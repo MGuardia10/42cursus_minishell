@@ -16,6 +16,7 @@ OBJ_FILES	=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 # COMPILER
 CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror
+RLFLAGS		=	-lreadline
 INCLUDE		=	-I inc
 RM			=	rm -rf
 
@@ -35,7 +36,7 @@ $(NAME):	$(OBJ_FILES)
 	@make -sC libft
 	@echo "$(GREEN)[libft --> OK]$(CLEAR)"
 	@echo "$(BLUE)Compiling minishell program.$(CLEAR)"
-	$(CC) $(FLAGS) $(LIBFT) $(OBJ_FILES) -o $(NAME)
+	$(CC) $(FLAGS) $(LIBFT) $(RLFLAGS) $(OBJ_FILES) -o $(NAME)
 	@echo "$(GREEN)[minishell --> OK]\n$(CLEAR)$(GREEN)Success!$(CLEAR)\n"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
