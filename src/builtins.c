@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 08:31:21 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/07 23:40:22 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/08 11:51:06 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	msh_pwd(void)
 {
-	char buffer[PATH_MAX];
+	char	buffer[PATH_MAX];
 
 	if (!getcwd(buffer, PATH_MAX))
 	{
@@ -46,12 +46,12 @@ int	msh_cd(char *dir)
 	return (EXIT_SUCCESS);
 }
 
-int	echoPrintEnv(char *msg, int *i)
+int	echo_print_env(char *msg, int *i)
 {
 	int		j;
 	char	*env;
 	char	*exp_env;
-	
+
 	j = 0;
 	j = *i;
 	while (msg[*i] != '\0' && msg[*i] != ' ')
@@ -66,7 +66,7 @@ int	echoPrintEnv(char *msg, int *i)
 	return (EXIT_SUCCESS);
 }
 
-int	echoWithQuotes(char *msg)
+int	echo_with_quotes(char *msg)
 {
 	int	i;
 
@@ -75,7 +75,7 @@ int	echoWithQuotes(char *msg)
 	{
 		if (msg[i] == '$')
 		{
-			if (echoPrintEnv(msg, &i) == 1)
+			if (echo_print_env(msg, &i) == 1)
 				return (EXIT_FAILURE);
 		}
 		ft_printf("%c", msg[i]);
@@ -84,8 +84,7 @@ int	echoWithQuotes(char *msg)
 	return (EXIT_SUCCESS);
 }
 
-
-int	echoNoQuotes(char *msg)
+int	echo_no_quotes(char *msg)
 {
 	char	**argv;
 	char	*env;
@@ -122,7 +121,7 @@ int	msh_echo(char *msg, int flag)
 {
 	if (msg[0] == '"')
 	{
-		if (echoWithQuotes(msg) == 1)
+		if (echo_with_quotes(msg) == 1)
 		{
 			perror("echo");
 			return (EXIT_FAILURE);
@@ -130,7 +129,7 @@ int	msh_echo(char *msg, int flag)
 	}
 	else
 	{
-		if (echoNoQuotes(msg) == 1)
+		if (echo_no_quotes(msg) == 1)
 		{
 			perror("echo");
 			return (EXIT_FAILURE);

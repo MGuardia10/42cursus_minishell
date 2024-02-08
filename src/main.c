@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/07 23:43:01 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/08 11:52:00 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "../libft/inc/libft.h"
 #include "readline/readline.h"
 
-char *getdir(char *cmd)
+char	*getdir(char *cmd)
 {
 	char	*dir;
 	int		i;
 	int		j;
-	
+
 	i = 2;
 	while (cmd[i] != '\0' && cmd[i] == ' ')
 		i++;
@@ -34,7 +34,9 @@ char *getdir(char *cmd)
 
 int	main(int argc, char **argv)
 {
-	char *str = NULL;
+	char	*str;
+
+	str = NULL;
 	(void)argv;
 	if (argc == 0)
 		return (EXIT_FAILURE);
