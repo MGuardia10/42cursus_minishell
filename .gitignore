@@ -1,4 +1,6 @@
+objs
 *.o
 *.a
 minishell
 .DS_Store
+.vscode
