@@ -6,7 +6,9 @@ LIBFT		=	libft/libft.a
 # SOURCE
 SRC_DIR		=	src/
 SRC_FILES	=	main.c \
-				builtins.c
+				src/builtins/cd.c \
+				src/builtins/echo.c \
+				src/builtins/pwd.c \
 SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 # OBJECTS

@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/08 11:52:00 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/08 12:00:51 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int	main(int argc, char **argv)
 			msh_echo(ft_substr(str, 8, ft_strlen(str) - 8), 1);
 	} while (ft_strcmp(str, "exit") != 0);
 	free(str);
+	system("leaks minishell");
 	return (EXIT_SUCCESS);
 }

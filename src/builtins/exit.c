@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/14 09:01:30 by raalonso         ###   ########.fr       */
+/*   Created: 2024/02/14 08:56:53 by raalonso          #+#    #+#             */
+/*   Updated: 2024/02/14 09:01:11 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../inc/minishell.h"
 
-int		msh_pwd(void);
-int		msh_cd(char *cmd);
-int		msh_echo(char *msg, int flag);
-
-#endif
+/*void msh_exit(int t)
+{
+	// aqui se liberará la memoria que haga falta y se terminaran todos los procesos.
+	ft_printf("exit\n");
+	exit(t);
+}*/
