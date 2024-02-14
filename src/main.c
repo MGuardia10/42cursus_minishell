@@ -6,57 +6,46 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/08 12:00:51 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/13 19:12:59 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../libft/inc/libft.h"
-#include "readline/readline.h"
+#include "../libft/inc/colors.h"
 
-char	*getdir(char *cmd)
+// void	leaks(void)
+// {
+// 	system("leaks -q minishell");
+// }
+// atexit(leaks);
+
+int	main(int argc, char **argv, char **env)
 {
-	char	*dir;
-	int		i;
-	int		j;
-
-	i = 2;
-	while (cmd[i] != '\0' && cmd[i] == ' ')
-		i++;
-	j = i;
-	while (cmd[j] != '\0' && cmd[j] != ' ')
-		j++;
-	dir = ft_substr(cmd, i, j - i);
-	if (!dir)
-		return (NULL);
-	return (dir);
-}
-
-int	main(int argc, char **argv)
-{
-	char	*str;
-
-	str = NULL;
+	t_shell	shell;
+	
 	(void)argv;
 	if (argc == 0)
 		return (EXIT_FAILURE);
-	do
+	ft_memset(&shell, 0, sizeof(t_shell));
+	if (create_env_list(&shell, env))
+		return (ft_lstclear((t_list **)&shell.envi, free_env), EXIT_FAILURE);
+	while (1)
 	{
-		free(str);
-		str = readline(">> ");
-		if (ft_strcmp(str, "pwd") == 0)
-			msh_pwd();
-		else if (ft_strnstr(str, "cd", ft_strlen(str)))
-			msh_cd(getdir(str));
-		else if (ft_strcmp(str, "ls") == 0)
-			system("ls");
-		else if (ft_strnstr(str, "echo", ft_strlen(str))
-				&& ft_strnstr(str, "-n", ft_strlen(str)) == NULL)
-			msh_echo(ft_substr(str, 5, ft_strlen(str) - 5), 0);
-		else if (ft_strnstr(str, "echo -n", ft_strlen(str)))
-			msh_echo(ft_substr(str, 8, ft_strlen(str) - 8), 1);
-	} while (ft_strcmp(str, "exit") != 0);
-	free(str);
-	system("leaks minishell");
-	return (EXIT_SUCCESS);
+		shell.line_read = readline(BCYN"Minishell $ "RES);
+		if (!shell.line_read || shell.line_read[0] == '\0')
+			continue ;
+		free(shell.line_read);
+		// ft_lstclear((t_list **)&shell.string_list, free);
+	}
+	ft_lstclear((t_list **)&shell.envi, free_env);
+	return (0);
 }
+
+/*
+Para el parseo:
+	- parsear de manera independiente si el una built nuestra, para que el input
+	llegue limpio a las funciones especificas.
+	- si no es built nuestra, parsear comando, flags, y de mas argumentos para
+	pasarselos a el built que toque
+*/

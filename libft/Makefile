@@ -47,7 +47,9 @@ SRC_FILES		=	ft_isalpha.c \
 					ft_is_readable.c \
 					ft_atoi_base.c \
 					ft_atol_base.c \
-					ft_strtol.c
+					ft_strtol.c \
+					ft_change_pointers.c \
+					ft_sort_ascii.c
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 # BONUS FILES
@@ -95,7 +97,7 @@ all:		$(NAME)
 # ar: "archiver" -> agrupa varios archivos objeto en un archivo de libreria
 # r: indica a "ar" que debe reemplazar o agregar archivos a la libreria
 # c: indica que debe crear la libreria si no existe
-$(NAME):	$(OBJS) gnl printf
+$(NAME):	$(OBJS) bonus gnl printf
 			ar -rcs $(NAME) $(OBJS)
 
 bonus:		$(OBJS_BONUS)
