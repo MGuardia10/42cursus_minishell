@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:54 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/13 18:18:11 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:50:28 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	ft_unset(t_env_list **envi, t_line_p *args)
 	{
 		if (check_unset_errors(args))
 		{
-			printf("minishell: unset: `%s': not a valid identifier\n", \
-																args->content);
+			printf("Minishell: unset: `%s': ", args->content);
+			printf("not a valid identifier\n");
 		}
 		else if (already_exists(envi, args->content) == true)
 			delete_env(envi, args->content);

@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 17:47:55 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/13 19:18:20 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:55:01 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_change_pointers(char **a, char **b)
 {
 	char	*temp;
-	 
+
 	temp = *a;
 	*a = *b;
 	*b = temp;
