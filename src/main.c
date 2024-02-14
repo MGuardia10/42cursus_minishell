@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
 /*   Updated: 2024/02/13 19:12:59 by mguardia         ###   ########.fr       */
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **env)
 	t_shell	shell;
 	
 	(void)argv;
-	if (argc != 1)
+	if (argc == 0)
 		return (EXIT_FAILURE);
 	ft_memset(&shell, 0, sizeof(t_shell));
 	if (create_env_list(&shell, env))

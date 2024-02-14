@@ -14,7 +14,10 @@ SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 BI_DIR		=	src/builtins/
 BI_FILES	=	env.c \
 				export.c \
-				unset.c
+				unset.c \
+        cd.c \
+        echo.c \
+        pwd.c
 BUILTINS	=	$(addprefix $(BI_DIR), $(BI_FILES))
 
 # ENV
@@ -37,6 +40,7 @@ OBJ_FILES	=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o) \
 # COMPILER
 CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror
+RLFLAGS		=	-lreadline
 INCLUDE		=	-I inc
 RM			=	rm -rf
 
