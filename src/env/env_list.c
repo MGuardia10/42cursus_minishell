@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/13 18:10:08 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/02/14 09:35:37 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,12 @@ int	create_env_list(t_shell *shell, char **env)
 	{
 		node_content = set_env_content(env[i]);
 		if (!node_content)
-			return (1);
+			return (perror("Minishell"), 1);
 		if (create_new_env(&shell->envi, node_content))
-			return (free_env(node_content), 1);
+		{
+			free_env(node_content);
+			return (perror("Minishell"), 1);
+		}
 	}
 	return (0);
 }
