@@ -15,9 +15,9 @@ BI_DIR		=	src/builtins/
 BI_FILES	=	env.c \
 				export.c \
 				unset.c \
-        cd.c \
-        echo.c \
-        pwd.c
+    			cd.c \
+        		echo.c \
+        		pwd.c
 BUILTINS	=	$(addprefix $(BI_DIR), $(BI_FILES))
 
 # ENV
