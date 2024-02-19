@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/19 19:07:04 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:32:31 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ struct s_command
 	char	*exe; // ejecutable (Ej: ls, cd, echo, etc)
 	char	**args; // array de argumentos (incluye tmb las flags)
 	int		redir; // tipo de redirección, ('|', '>', '>>', '<'), si no tiene -1.
-	
 };
 
 struct s_cmd_list
@@ -88,7 +87,7 @@ struct	s_shell
 	char		*line_read;
 	t_env_list	*envi;
 	t_line_p	*string_list;
-	t_command	*input; // array de comandos
+	t_cmd_list	*cmds;
 };
 
 /*
@@ -108,6 +107,12 @@ int		ft_unset(t_env_list **envi, t_line_p *args);
 int		msh_pwd(void);
 int		msh_cd(char *cmd);
 int		msh_echo(char *msg, int flag);
+
+/*
+*	PARSE
+*/
+int		init_line(t_shell *shell);
+int		closed_quotes(t_shell *shell);
 
 /*
 *	UTILS

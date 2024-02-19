@@ -20,6 +20,11 @@ BI_FILES	=	env.c \
         		pwd.c
 BUILTINS	=	$(addprefix $(BI_DIR), $(BI_FILES))
 
+# PARSE
+PARS_DIR	=	src/parse/
+PARS_FILES	=	init.c
+PARSE		=	$(addprefix $(PARS_DIR), $(PARS_FILES))
+
 # ENV
 ENV_DIR		=	src/env/
 ENV_FILES	=	env_list.c
@@ -34,6 +39,7 @@ UTILS		=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 OBJ_DIR		=	objs/
 OBJ_FILES	=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o) \
 				$(BUILTINS:$(BI_DIR).c=$(OBJ_DIR).o) \
+				$(PARSE:$(PARS_DIR).c=$(OBJ_DIR).o) \
 				$(ENV:$(ENV_DIR).c=$(OBJ_DIR).o) \
 				$(UTILS:$(UTILS_DIR).c=$(OBJ_DIR).o)
 
