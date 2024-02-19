@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/13 19:12:59 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:49:34 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char **argv, char **env)
 		if (!shell.line_read || shell.line_read[0] == '\0')
 			continue ;
 		free(shell.line_read);
+		
 		// ft_lstclear((t_list **)&shell.string_list, free);
 	}
 	ft_lstclear((t_list **)&shell.envi, free_env);
