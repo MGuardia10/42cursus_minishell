@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/20 17:46:32 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:28:35 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,14 @@ int		msh_echo(char *msg, int flag);
 */
 int		init_line(t_shell *shell);
 int		check_quotes(t_shell *shell);
-int		closed_quotes(char *line);
+int		expand_line(t_shell *shell);
 
 /*
 *	UTILS
 */
 void	free_env(void *content);
 bool	already_exists(t_env_list **envi, char *key);
+int		isdelimiter(char c);
 
 
 #endif

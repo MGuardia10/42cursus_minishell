@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/20 18:12:52 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:43:47 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,77 +26,11 @@
 // pero gestionando el envio de señales (Ctrl C, etc) enviandolas a sus procesos hijos en ejecución.
 // 		1º Separar entre si es builtin o no.
 
-char	*extractenv(char *line, int i)
-{
-	char	*env;
-	char	*exp_env;
-	int		j;
-
-	j = i;
-	while (line[i] != '\0' && line[i] != ' ' && line[i] != '"' && line[i] != '\n')
-		i++;
-	env = ft_substr(line, j, i - j);
-	if (!env)
-		return (NULL);
-	exp_env = getenv(env);
-	if (!exp_env)
-		return (NULL);
-	free(env);
-	return (exp_env);
-}
-
-int	expand_env(t_shell *shell)
-{
-	char	*env;
-	char	*exp = NULL;
-	char	*aux;
-	int		i;
-	int		j;
-
-	j = 0;
-	i = 0;
-	while (shell->line_read[i] != '\0')
-	{
-		if (shell->line_read[i] == '$')
-		{
-			env = extractenv(shell->line_read, i + 1);
-			if (!env)
-				return (1);
-			if (!exp)
-				exp = ft_substr(shell->line_read, j, i);
-			else
-			{
-				aux = ft_strjoin(exp, ft_substr(shell->line_read, j, i - j));
-				free(exp);
-				exp = aux;
-			}
-			aux = ft_strjoin(exp, env);
-			free(exp);
-			exp = aux;
-			while (shell->line_read[i] != '\0' && shell->line_read[i] != ' ' && shell->line_read[i] != '"' && shell->line_read[i] != '\n')
-				i++;
-			j = i;
-		}
-		i++;
-	}
-	if (!exp)
-		exp = ft_substr(shell->line_read, j, i);
-	else
-	{
-		aux = ft_strjoin(exp, ft_substr(shell->line_read, j, i));
-		free(exp);
-		exp = aux;
-	}
-	free(shell->line_read);
-	shell->line_read = exp;
-	return (0);
-}
-
 int	init_line(t_shell *shell)
 {
 	if (check_quotes(shell) == 1)
 		return (1);
-	if (expand_env(shell) == 1) // expandir las variables de entorno del input (pendiente: no expandir variables dentro de comillas simples, leaks)
+	if (expand_line(shell) == 1) // expandir las variables de entorno del input (pendiente: no expandir variables dentro de comillas simples, leaks)
 		return (1);
 	printf("\n%s\n", shell->line_read);
 	return (0);
