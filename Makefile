@@ -4,44 +4,45 @@ NAME		=	minishell
 # LIBFT
 LIBFT		=	libft/libft.a
 
+# VPATH
+VPATH		=	src:src/builtins:src/env:src/signals:src/utils
+
 # SOURCE
-SRC_DIR		=	src/
-SRC_FILES	=	main.c
-# SRC_FILES	=	main2.c
-SRC			=	$(addprefix $(SRC_DIR), $(SRC_FILES))
+# SRC_FILES	=	main.c
+SRC			=	main2.c
 
 # BUILTINS
-BI_DIR		=	src/builtins/
-BI_FILES	=	env.c \
+BUILTINS	=	env.c \
 				export.c \
 				unset.c \
-        cd.c \
-        echo.c \
-        pwd.c
-BUILTINS	=	$(addprefix $(BI_DIR), $(BI_FILES))
+        		cd.c \
+        		echo.c \
+        		pwd.c
 
 # ENV
-ENV_DIR		=	src/env/
-ENV_FILES	=	env_list.c
-ENV			=	$(addprefix $(ENV_DIR), $(ENV_FILES))
+ENV			=	env_list.c
+
+# SIGNALS
+SIGNALS		=	signals.c
 
 # UTILS
-UTILS_DIR	=	src/utils/
-UTILS_FILES	=	utils_1.c
-UTILS		=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
+UTILS		=	utils_1.c
 
 # OBJECTS
 OBJ_DIR		=	objs/
-OBJ_FILES	=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o) \
-				$(BUILTINS:$(BI_DIR).c=$(OBJ_DIR).o) \
-				$(ENV:$(ENV_DIR).c=$(OBJ_DIR).o) \
-				$(UTILS:$(UTILS_DIR).c=$(OBJ_DIR).o)
+OBJ_FILES	=	$(SRC:%.c=$(OBJ_DIR)%.o) \
+				$(BUILTINS:%.c=$(OBJ_DIR)%.o) \
+				$(ENV:%.c=$(OBJ_DIR)%.o) \
+				$(SIGNALS:%.c=$(OBJ_DIR)%.o) \
+				$(UTILS:%.c=$(OBJ_DIR)%.o)
 
 # COMPILER
-CC			=	cc
-FLAGS		=	-Wall -Wextra -Werror
-RLFLAGS		=	-lreadline
-INCLUDE		=	-I inc
+CC			=	gcc -g3
+CFLAGS		=	-Wall -Wextra -Werror
+CPPFLAGS	=	-I/usr/local/opt/readline/include
+LDFLAGS		=	-L/usr/local/opt/readline/lib
+RLFLAG		=	-lreadline
+INCLUDES	=	-I libft/inc -I inc
 RM			=	rm -rf
 
 # COLORS
@@ -60,12 +61,12 @@ $(NAME): $(OBJ_FILES)
 	@make -sC libft
 	@echo "$(GREEN)[libft --> OK]$(CLEAR)"
 	@echo "$(BLUE)Compiling minishell program.$(CLEAR)"
-	$(CC) $(FLAGS) $(LIBFT) -lreadline $(OBJ_FILES) -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDES) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJ_FILES) $(LIBFT) $(RLFLAG) -o $(NAME)
 	@echo "$(GREEN)[minishell --> OK]\n$(CLEAR)$(GREEN)Success!$(CLEAR)"
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+$(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
 
 clean:
 	@echo "$(BLUE)Removing compiled files.$(CLEAR)"
