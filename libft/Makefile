@@ -49,7 +49,8 @@ SRC_FILES		=	ft_isalpha.c \
 					ft_atol_base.c \
 					ft_strtol.c \
 					ft_change_pointers.c \
-					ft_sort_ascii.c
+					ft_sort_ascii.c \
+					ft_isspace.c
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 # BONUS FILES
