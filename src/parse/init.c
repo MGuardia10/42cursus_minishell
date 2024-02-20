@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/20 23:16:52 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:50:13 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // pero gestionando el envio de señales (Ctrl C, etc) enviandolas a sus procesos hijos en ejecución.
 // 		1º Separar entre si es builtin o no.
 
-int	num_of_cmds(char *line)
+int	num_of_tokens(char *line)
 {
 	int	i;
 	int	count;
@@ -63,31 +63,30 @@ char	**get_tokens(char *line)
 	i = 0;
 	j = 0;
 	last = 0;
-	cmds = (char **)malloc(sizeof(char *) * (num_of_cmds(line) + 1));
+	cmds = (char **)malloc(sizeof(char *) * (num_of_tokens(line) + 1));
 	while (line[i])
 	{
-		if (line[i] == ' ')
+		if (line[i] == ' ' || line[i] == '|' || line[i] == '>')
 		{
 			cmds[j] = ft_substr(line, last, i - last);
 			if (!cmds[j])
 				return (NULL);
-			last = i + 1;
-			j++;
-		}
-		else if (line[i] == '|' || line[i] == '>')
-		{
-			cmds[j] = ft_substr(line, last, i - last);
-			if (!cmds[j])
-				return (NULL);
-			last = i + 1;
-			j++;
-			if (line[i + 1] == '>')
+			if (line[i] == '|' || line[i] == '>')
 			{
-				cmds[j] = ft_substr(line, i, 2);
-				i++;
+				j++;
+				if (line[i + 1] == '>')
+				{
+					cmds[j] = ft_substr(line, i, 2);
+					i++;
+				}	
+				else
+					cmds[j] = ft_substr(line, i, 1);
+				while (line[i + 1] == ' ')
+					i++;
+				last = i + 1;
 			}
 			else
-				cmds[j] = ft_substr(line, i, 1);
+				last = i + 1;
 			j++;
 		}
 		i++;
