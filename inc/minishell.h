@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/20 19:28:35 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:18:48 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_env		t_env;
 typedef struct s_env_list	t_env_list;
 typedef struct s_line_p		t_line_p;
 typedef struct s_command	t_command;
-typedef struct s_cmd_list	t_cmd_list;
 
 /*
 *	Structs
@@ -69,12 +68,6 @@ struct s_command
 	int		redir; // tipo de redirección, ('|', '>', '>>', '<'), si no tiene -1.
 };
 
-struct s_cmd_list
-{
-	t_command	*content;
-	t_cmd_list	*next;
-};
-
 // line parsed nodes
 struct s_line_p
 {
@@ -88,7 +81,8 @@ struct	s_shell
 	char		*line_read;
 	t_env_list	*envi;
 	t_line_p	*string_list;
-	t_cmd_list	*cmds;
+	t_command	*cmds; // array de comandos
+	int			n_cmds; // numero de comandos
 };
 
 /*

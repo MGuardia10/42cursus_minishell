@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/20 19:42:56 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 22:01:51 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	expand_line(t_shell *shell)
 
 	j = 0;
 	i = 0;
-	while (shell->line_read[i] != '\0')
+	while (shell->line_read[i])
 	{
 		if (shell->line_read[i] == '$')
 		{

@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:36:58 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/20 18:02:56 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 22:02:05 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	closed_quotes(char *line)
 	i = 0;
 	count_d = 0;
 	count_s = 0;
-	while (line[i] != '\0')
+	while (line[i])
 	{
 		// solo cuenta quotes que no esten dentro del otro tipo de quotes,
 		// para ello se mira que el otro tipo sea par, significando que se ha cerrado.
