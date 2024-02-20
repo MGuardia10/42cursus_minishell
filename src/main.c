@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/19 21:40:50 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:07:49 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(void)
 {
 	t_shell	shell;
 	
+	atexit(leaks);
 	while (1)
 	{
 		shell.line_read = readline(BCYN"Minishell $ "RES);

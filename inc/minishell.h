@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/19 20:32:31 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:46:32 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 *	stdio.h  -> printf, perror
 */
 #include "../libft/inc/libft.h"
+#include "../libft/inc/colors.h"
 #include <readline/readline.h>	// readline & co
 #include <readline/history.h>
 #include <sys/wait.h>			// wait, waitpid, wait3, wait4
@@ -112,7 +113,8 @@ int		msh_echo(char *msg, int flag);
 *	PARSE
 */
 int		init_line(t_shell *shell);
-int		closed_quotes(t_shell *shell);
+int		check_quotes(t_shell *shell);
+int		closed_quotes(char *line);
 
 /*
 *	UTILS
