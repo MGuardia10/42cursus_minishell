@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/19 19:07:04 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:22:59 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 *	stdio.h  -> printf, perror
 */
 #include "../libft/inc/libft.h"
+#include "../libft/inc/colors.h"
 #include <readline/readline.h>	// readline & co
 #include <readline/history.h>
 #include <sys/wait.h>			// wait, waitpid, wait3, wait4
@@ -42,7 +43,6 @@ typedef struct s_env		t_env;
 typedef struct s_env_list	t_env_list;
 typedef struct s_line_p		t_line_p;
 typedef struct s_command	t_command;
-typedef struct s_cmd_list	t_cmd_list;
 
 /*
 *	Structs
@@ -66,13 +66,6 @@ struct s_command
 	char	*exe; // ejecutable (Ej: ls, cd, echo, etc)
 	char	**args; // array de argumentos (incluye tmb las flags)
 	int		redir; // tipo de redirección, ('|', '>', '>>', '<'), si no tiene -1.
-	
-};
-
-struct s_cmd_list
-{
-	t_command	*content;
-	t_cmd_list	*next;
 };
 
 // line parsed nodes
@@ -88,7 +81,8 @@ struct	s_shell
 	char		*line_read;
 	t_env_list	*envi;
 	t_line_p	*string_list;
-	t_command	*input; // array de comandos
+	t_command	*cmds; // array de comandos
+	int			n_cmds; // numero de comandos
 };
 
 /*
@@ -110,10 +104,18 @@ int		msh_cd(char *cmd);
 int		msh_echo(char *msg, int flag);
 
 /*
+*	PARSE
+*/
+int		init_line(t_shell *shell);
+int		check_quotes(t_shell *shell);
+int		expand_line(t_shell *shell);
+
+/*
 *	UTILS
 */
 void	free_env(void *content);
 bool	already_exists(t_env_list **envi, char *key);
+int		isdelimiter(char c);
 
 
 #endif
