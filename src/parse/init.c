@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/19 21:03:42 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 12:38:12 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	closed_quotes(t_shell *shell)
 	return (1);
 }
 
-void	check_quotes(t_shell *shell)
+int	check_quotes(t_shell *shell)
 {
 	char	*new_line;
 	char	*input;
@@ -53,18 +53,82 @@ void	check_quotes(t_shell *shell)
 	while(closed_quotes(shell) == 1) // comprobar si ya estan cerradas
 	{
 		new_line = ft_strjoin(shell->line_read, "\n");
+		if (!new_line)
+			return (1);
 		free(shell->line_read);
 		shell->line_read = new_line;
 		input = readline(BCYN"> "RES);
 		new_line = ft_strjoin(shell->line_read, input);
+		if (!new_line)
+			return (1);
 		free(input);
 		free(shell->line_read);
 		shell->line_read = new_line;
 	}
+	return (0);
+}
+
+char	*extractenv(char *line, int i)
+{
+	char	*env;
+	char	*exp_env;
+	int		j;
+
+	j = i;
+	while (line[i] != '\0' && line[i] != ' ' && line[i] != '"' && line[i] != '\n')
+		i++;
+	env = ft_substr(line, j, i - j);
+	if (!env)
+		return (NULL);
+	exp_env = getenv(env);
+	if (!exp_env)
+		return (NULL);
+	free(env);
+	return (exp_env);
+}
+
+int	expand_env(t_shell *shell)
+{
+	char	*env;
+	char	*exp = NULL;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	while (shell->line_read[i] != '\0')
+	{
+		if (shell->line_read[i] == '$')
+		{
+			env = extractenv(shell->line_read, i + 1);
+			if (!env)
+				return (1);
+			if (!exp)
+				exp = ft_substr(shell->line_read, j, i);
+			else
+				exp = ft_strjoin(exp, ft_substr(shell->line_read, j, i - j));
+			exp = ft_strjoin(exp, env);
+			while (shell->line_read[i] != '\0' && shell->line_read[i] != ' ' && shell->line_read[i] != '"' && shell->line_read[i] != '\n')
+				i++;
+			j = i;
+		}
+		i++;
+	}
+	if (!exp)
+		exp = ft_substr(shell->line_read, j, i);
+	else
+		exp = ft_strjoin(exp, ft_substr(shell->line_read, j, i));
+	free(shell->line_read);
+	shell->line_read = exp;
+	return (0);
 }
 
 int	init_line(t_shell *shell)
 {
-	check_quotes(shell); // bucle para cerrar comillas
+	if (check_quotes(shell) == 1) // bucle para cerrar comillas (pendiente: no recoger lo de despues de cerrar comillas)
+		return (1);
+	if (expand_env(shell) == 1) // expandir las variables de entorno del input
+		return (1);
+	printf("\n%s\n", shell->line_read);
 	return (0);
 }
