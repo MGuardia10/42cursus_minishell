@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/20 23:50:13 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/21 06:52:30 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,31 @@ int	num_of_tokens(char *line)
 	count = 0;
 	while (line[i])
 	{
-		if (line[i] == ' ' || line[i] == '|' || line[i] == '>')
+		if (line[i] != ' ' && line[i] != '|' && line[i] != '>')
 		{
 			count++;
-			if (line[i] == '|' || line[i] == '>')
-			{
-				count++;
-				if (line[i + 1] == '>')
-					i += 1;
-			}
-			while (line[i + 1] == ' ')
+			while (line[i] && line[i] != ' ' && line[i] != '|' && line[i] != '>')
 				i++;
 		}
-		i++;
+		else if (line[i] == ' ')
+		{
+			while (line[i] == ' ')
+				i++;
+		}
+		else if (line[i] == '|')
+		{
+			//if (line[i + 1] == '|')
+				// unexpected token error
+			count++;
+			i++;
+		}
+		else if (line[i] == '>')
+		{
+			count++;
+			if (line[i + 1] == '>')
+				i++;
+			i++;
+		}
 	}
 	printf("%d\n", count);
 	return (count);
@@ -66,35 +78,52 @@ char	**get_tokens(char *line)
 	cmds = (char **)malloc(sizeof(char *) * (num_of_tokens(line) + 1));
 	while (line[i])
 	{
-		if (line[i] == ' ' || line[i] == '|' || line[i] == '>')
+		if (line[i] != ' ' && line[i] != '|' && line[i] != '>')
 		{
+			last = i;
+			while (line[i] && line[i] != ' ' && line[i] != '|' && line[i] != '>')
+				i++;
 			cmds[j] = ft_substr(line, last, i - last);
-			if (!cmds[j])
+			if (!cmds)
 				return (NULL);
-			if (line[i] == '|' || line[i] == '>')
-			{
-				j++;
-				if (line[i + 1] == '>')
-				{
-					cmds[j] = ft_substr(line, i, 2);
-					i++;
-				}	
-				else
-					cmds[j] = ft_substr(line, i, 1);
-				while (line[i + 1] == ' ')
-					i++;
-				last = i + 1;
-			}
-			else
-				last = i + 1;
 			j++;
 		}
-		i++;
+		else if (line[i] == ' ')
+		{
+			while (line[i] == ' ')
+				i++;
+		}
+		else if (line[i] == '|')
+		{
+			last = i;
+			i++;
+			cmds[j] = ft_substr(line, last, i - last);
+			if (!cmds)
+				return (NULL);
+			j++;
+		}
+		else if (line[i] == '>')
+		{
+			last = i;
+			if (line[i + 1] == '>')
+			{
+				i += 2;
+				cmds[j] = ft_substr(line, last, i - last);
+				if (!cmds)
+					return (NULL);
+				j++;
+			}
+			else
+			{
+				i++;
+				cmds[j] = ft_substr(line, last, i - last);
+				if (!cmds)
+					return (NULL);
+				j++;
+			}
+		}
 	}
-	cmds[j] = ft_substr(line, last, i - last);
-	if (!cmds[j])
-		return (NULL);
-	cmds[j + 1] = NULL;
+	cmds[j] = NULL;
 	int l = 0;
 	while (cmds[l])
 	{
