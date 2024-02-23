@@ -5,7 +5,7 @@ NAME		=	minishell
 LIBFT		=	libft/libft.a
 
 # VPATH
-VPATH		=	src:src/builtins:src/env:src/signals:src/utils
+VPATH		=	src:src/builtins:src/env:src/executer:src/signals:src/utils
 
 # SOURCE
 # SRC_FILES	=	main.c
@@ -22,6 +22,9 @@ BUILTINS	=	env.c \
 # ENV
 ENV			=	env_list.c
 
+# EXECUTER
+EXECUTER	=	executer.c
+
 # SIGNALS
 SIGNALS		=	signals.c
 
@@ -33,6 +36,7 @@ OBJ_DIR		=	objs/
 OBJ_FILES	=	$(SRC:%.c=$(OBJ_DIR)%.o) \
 				$(BUILTINS:%.c=$(OBJ_DIR)%.o) \
 				$(ENV:%.c=$(OBJ_DIR)%.o) \
+				$(EXECUTER:%.c=$(OBJ_DIR)%.o) \
 				$(SIGNALS:%.c=$(OBJ_DIR)%.o) \
 				$(UTILS:%.c=$(OBJ_DIR)%.o)
 
