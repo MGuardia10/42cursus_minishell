@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/20 23:22:59 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:03:20 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 typedef struct s_shell		t_shell;
 typedef struct s_env		t_env;
 typedef struct s_env_list	t_env_list;
-typedef struct s_line_p		t_line_p;
 typedef struct s_command	t_command;
 
 /*
@@ -50,7 +49,7 @@ typedef struct s_command	t_command;
 // env nodes
 struct s_env
 {
-	char	*key;		// siempre existe una key, lo que puede no existir es un value "hola=" es permitido.
+	char	*key;
 	char	*value;
 };
 
@@ -68,21 +67,14 @@ struct s_command
 	int		redir; // tipo de redirección, ('|', '>', '>>', '<'), si no tiene -1.
 };
 
-// line parsed nodes
-struct s_line_p
-{
-	char		*content;
-	t_line_p	*next;
-};
-
 // general struct
 struct	s_shell
 {
 	char		*line_read;
 	t_env_list	*envi;
-	t_line_p	*string_list;
 	t_command	*cmds; // array de comandos
 	int			n_cmds; // numero de comandos
+	int			exit_status;
 };
 
 /*
@@ -95,13 +87,14 @@ int		create_new_env(t_env_list **envi, t_env *node_content);
 /*
 *	BUILTINS
 */
-int		ft_env(t_env_list **envi, t_line_p *args);
-int		ft_export(t_env_list **envi, t_line_p *args);
-int		print_export(t_env_list **envi);
-int		ft_unset(t_env_list **envi, t_line_p *args);
-int		msh_pwd(void);
-int		msh_cd(char *cmd);
-int		msh_echo(char *msg, int flag);
+int		ft_env(t_env_list **envi, char **args);
+int		ft_export(t_env_list **envi, char **args);	
+int		ft_unset(t_env_list **envi, char **args);
+int		ft_pwd(void);
+int		ft_cd(t_env_list *envi, char *args);
+int		ft_echo(char **args);
+int		ft_exit(t_shell *shell);
+// int		ft_echo(char *msg, int flag);
 
 /*
 *	PARSE
@@ -111,11 +104,17 @@ int		check_quotes(t_shell *shell);
 int		expand_line(t_shell *shell);
 
 /*
+*	EXECUTER
+*/
+int		executer(t_shell *shell);
+int		handle_builtins(t_shell *shell, char *cmd);
+
+/*
 *	UTILS
 */
 void	free_env(void *content);
 bool	already_exists(t_env_list **envi, char *key);
 int		isdelimiter(char c);
-
+bool	is_builtin(char *cmd);
 
 #endif

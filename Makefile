@@ -17,13 +17,15 @@ BUILTINS	=	env.c \
 				unset.c \
         		cd.c \
         		echo.c \
-        		pwd.c
+        		pwd.c \
+				exit.c
 
 # ENV
 ENV			=	env_list.c
 
 # EXECUTER
-EXECUTER	=	executer.c
+EXECUTER	=	executer.c \
+				handle_builtins.c
 
 # SIGNALS
 SIGNALS		=	signals.c

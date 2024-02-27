@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:05 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/13 15:18:38 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:38:24 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
  * "t_line_p".
  * @return 0.
  */
-int	ft_env(t_env_list **envi, t_line_p *args)
+int	ft_env(t_env_list **envi, char **args)
 {
 	t_env_list	*aux;
 
-	if (args)
+	if (args && args[0])
 		return (0);
 	aux = *envi;
 	while (aux)

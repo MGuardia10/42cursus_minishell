@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:52:47 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/14 14:52:15 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:49:37 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,27 @@ bool	already_exists(t_env_list **envi, char *key)
 		aux = aux->next;
 	}
 	return (false);
+}
+
+/**
+ * The function `is_builtin` checks if a given command is a built-in command in
+ * a shell program.
+ * 
+ * @param cmd The `is_builtin` function checks if a given command is a built-in
+ * command in a shell. The function compares the given command `cmd` with the 
+ * list built-in commands such as "echo", "cd", "pwd", "export", "unset", "env",
+ * and "exit".
+ * 
+ * @return The function `is_builtin` returns a boolean value (true or false)
+ * indicating whether the input command `cmd` is one of the built-in commands.
+ */
+inline bool	is_builtin(char *cmd)
+{
+	return (ft_strcmp(cmd, "echo") == 0 \
+			|| ft_strcmp(cmd, "cd") == 0 \
+			|| ft_strcmp(cmd, "pwd") == 0 \
+			|| ft_strcmp(cmd, "export") == 0 \
+			|| ft_strcmp(cmd, "unset") == 0 \
+			|| ft_strcmp(cmd, "env") == 0 \
+			|| ft_strcmp(cmd, "exit") == 0);
 }

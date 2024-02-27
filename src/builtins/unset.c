@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:54 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/14 14:50:28 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:22:07 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,16 @@
  * character is not alphanumeric or an underscore, it returns 1 too. If all
  * characters in the string are either alphanumeric or '_', it returns 0.
  */
-int	check_unset_errors(t_line_p *arg)
+int	check_unset_errors(char *arg)
 {
-	char	*str;
 	int		i;
 
-	str = arg->content;
 	i = 0;
-	if (ft_isdigit(str[i]))
+	if (ft_isdigit(arg[i]))
 		return (1);
-	while (str[i])
+	while (arg[i])
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 			return (1);
 		i++;
 	}
@@ -83,18 +81,21 @@ void	delete_env(t_env_list **envi, char *str)
  * 
  * @return an integer value of 0.
  */
-int	ft_unset(t_env_list **envi, t_line_p *args)
+int	ft_unset(t_env_list **envi, char **args)
 {
-	while (args)
+	int	i;
+
+	i = 0;
+	while (args[i])
 	{
-		if (check_unset_errors(args))
+		if (check_unset_errors(args[i]))
 		{
-			printf("Minishell: unset: `%s': ", args->content);
+			printf("Minishell: unset: `%s': ", args[i]);
 			printf("not a valid identifier\n");
 		}
-		else if (already_exists(envi, args->content) == true)
-			delete_env(envi, args->content);
-		args = args->next;
+		else if (already_exists(envi, args[i]) == true)
+			delete_env(envi, args[i]);
+		i++;
 	}
 	return (0);
 }
