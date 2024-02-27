@@ -6,22 +6,34 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 08:52:43 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/23 10:08:03 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:31:27 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	executer(t_shell *shell)
+int	simple_cmds(t_shell *shell)
+{
+	if (is_builtin(shell->cmds->exe))
+		return (handle_builtins(shell, shell->cmds->exe));
+	else
+		// return (handle_commmands());
+		return (0);
+}
+
+int compound_cmds(t_shell *shell)
 {
 	(void)shell;
-	// Si hay heredoc, resolverlo previamente TODO
 	return (0);
 }
 
-// if (ft_strncmp(first_node->content, "env", 3) == 0)
-// 			ft_env(&shell.envi, second_node);
-// 		if (ft_strncmp(shell.line_read, "unset", 5) == 0)
-// 			ft_unset(&shell.envi, second_node);
-// 		if (ft_strncmp(first_node->content, "export", 6) == 0)
-// 			ft_export(&shell.envi, second_node);
+int	executer(t_shell *shell)
+{
+	// Si hay heredoc, resolverlo previamente TODO
+	// distinguir entre comandos simples - builtins o llamadas al sistema // comandos compuestos
+	if (shell->n_cmds == 1)
+		return (simple_cmds(shell));
+	else
+		return (compound_cmds(shell));
+	return (0);
+}
