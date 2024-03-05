@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/27 10:03:20 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/02 12:25:03 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int		expand_line(t_shell *shell);
 */
 int		executer(t_shell *shell);
 int		handle_builtins(t_shell *shell, char *cmd);
+int		handle_simple_commmands(t_shell *shell);
+char	*find_path(char *cmd, t_env_list *envi, int *status);
 
 /*
 *	UTILS
@@ -116,5 +118,9 @@ void	free_env(void *content);
 bool	already_exists(t_env_list **envi, char *key);
 int		isdelimiter(char c);
 bool	is_builtin(char *cmd);
+char	**envi_to_arr(t_env_list *env);
+char	**create_argv(t_command cmd);
+char	*ft_getenv(t_env_list *envi, char *key, int *flag);
+bool	is_directory(const char *path);
 
 #endif
