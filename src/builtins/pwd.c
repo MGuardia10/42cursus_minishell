@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:47:00 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/26 17:05:55 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:07:28 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_pwd(void)
 	char	buffer[PATH_MAX];
 
 	if (!getcwd(buffer, PATH_MAX))
-		return (perror("pwd"), 1);
+		return (perror("minishell: pwd"), 1);
 	ft_printf("%s\n", buffer);
 	return (0);
 }

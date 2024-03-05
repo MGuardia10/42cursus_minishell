@@ -6,14 +6,14 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:56:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/27 10:03:38 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:14:00 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 int	ft_exit(t_shell *shell)
-{	
+{
 	ft_putstr_fd("exit\n", 2);
 	if (!shell->cmds->args || !shell->cmds->args[0])
 		return (EXIT_FAILURE); // Aqui retorna uno pero debe salirse del programa, asique habria que hacer alguna flag.
