@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:55:30 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/27 09:09:04 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:34:32 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <limits.h>
 # include <stdbool.h>
 # include "ft_printf.h"
+# include "ft_fprintf.h"
 # include "get_next_line.h"
 
 /*
