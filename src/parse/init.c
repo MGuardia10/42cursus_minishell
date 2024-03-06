@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/21 06:52:30 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 10:09:53 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,40 @@
 int	num_of_tokens(char *line)
 {
 	int	i;
+	int	aux;
 	int	count;
 
 	i = 0;
 	count = 0;
 	while (line[i])
 	{
-		if (line[i] != ' ' && line[i] != '|' && line[i] != '>')
+		if (line[i] != ' ' && line[i] != '|' && line[i] != '>' && line[i] != '"' && line[i] != '\'')
 		{
 			count++;
-			while (line[i] && line[i] != ' ' && line[i] != '|' && line[i] != '>')
+			while (line[i] && line[i] != ' ' && line[i] != '|' && line[i] != '>' && line[i] != '"' && line[i] != '\'')
 				i++;
+		}
+		else if (line[i] == '"')
+		{
+			i++;
+			aux = i;
+			count++;
+			while (line[i] && line[i] != '"')
+				i++;
+			i++;
+			if (i - aux == 0)
+				count--;
+		}
+		else if (line[i] == '\'')
+		{
+			i++;
+			aux = i;
+			count++;
+			while (line[i] && line[i] != '\'')
+				i++;
+			i++;
+			if (i - aux == 0)
+				count--;
 		}
 		else if (line[i] == ' ')
 		{
@@ -78,14 +101,38 @@ char	**get_tokens(char *line)
 	cmds = (char **)malloc(sizeof(char *) * (num_of_tokens(line) + 1));
 	while (line[i])
 	{
-		if (line[i] != ' ' && line[i] != '|' && line[i] != '>')
+		if (line[i] != ' ' && line[i] != '|' && line[i] != '>' && line[i] != '"' && line[i] != '\'')
 		{
 			last = i;
-			while (line[i] && line[i] != ' ' && line[i] != '|' && line[i] != '>')
+			while (line[i] && line[i] != ' ' && line[i] != '|' && line[i] != '>' && line[i] != '"' && line[i] != '\'')
 				i++;
 			cmds[j] = ft_substr(line, last, i - last);
 			if (!cmds)
 				return (NULL);
+			j++;
+		}
+		else if (line[i] == '"')
+		{
+			i++;
+			last = i;
+			while (line[i] && line[i] != '"')
+				i++;
+			cmds[j] = ft_substr(line, last, i - last);
+			if (!cmds)
+				return (NULL);
+			i++;
+			j++;
+		}
+		else if (line[i] == '\'')
+		{
+			i++;
+			last = i;
+			while (line[i] && line[i] != '\'')
+				i++;
+			cmds[j] = ft_substr(line, last, i - last);
+			if (!cmds)
+				return (NULL);
+			i++;
 			j++;
 		}
 		else if (line[i] == ' ')
@@ -147,7 +194,7 @@ int	init_line(t_shell *shell)
 {
 	if (check_quotes(shell) == 1)
 		return (1);
-	if (expand_line(shell) == 1)
+	if (expand_line(shell) == 1) // ARREGLAR EXPANSION CUANDO ENV ESTA DENTRO DE COMILLAS SIMPLES DENTRO DE COMILLAS DOBLES, SE DEBERIA EXPANDIR.
 		return (1);
 	create_cmd_array(shell);
 	return (0);
