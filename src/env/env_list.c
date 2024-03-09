@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/09 10:26:27 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:15:07 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	create_new_env(t_env_list **envi, t_env *node_content)
 	{
 		new_node = (t_env_list *)ft_lstnew((void *)node_content);
 		if (!new_node)
-			return (free_env((void *)node_content), 1);
+			return (1);
 		ft_lstadd_back((t_list **)envi, (t_list *)new_node);
 	}
 	return (0);
@@ -147,5 +147,7 @@ int	create_env_list(t_shell *shell, char **env)
 		return (perror("minishell"), 1);
 	if (initialize_oldpwd(shell->envi))
 		return(perror("minishell"), 1);
+	if (set_shlvl(shell->envi))
+		return (perror("minishell"), 1);
 	return (0);
 }
