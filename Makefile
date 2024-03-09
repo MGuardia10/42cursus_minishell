@@ -21,7 +21,9 @@ BUILTINS	=	env.c \
 				exit.c
 
 # ENV
-ENV			=	env_list.c
+ENV			=	env_list.c \
+				set_home.c \
+				update_pwds.c
 
 # EXECUTER
 EXECUTER	=	executer.c \

@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/02 12:25:03 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/09 01:09:57 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ struct	s_shell
 	t_env_list	*envi;
 	t_command	*cmds; // array de comandos
 	int			n_cmds; // numero de comandos
+	char		*home;	// para cd ~
 	int			exit_status;
 };
 
@@ -83,6 +84,11 @@ struct	s_shell
 int		create_env_list(t_shell *shell, char **env);
 t_env	*set_env_content(char *env_str);
 int		create_new_env(t_env_list **envi, t_env *node_content);
+int		overwrite_env(t_env_list **envi, char *key, char *value);
+int		set_home(t_shell *shell);
+int		initialize_oldpwd(t_env_list *envi);
+int		update_oldpwd(char *old_pwd, t_env_list *envi);
+int		update_pwd(t_env_list *envi);
 
 /*
 *	BUILTINS
@@ -91,7 +97,7 @@ int		ft_env(t_env_list **envi, char **args);
 int		ft_export(t_env_list **envi, char **args);	
 int		ft_unset(t_env_list **envi, char **args);
 int		ft_pwd(void);
-int		ft_cd(t_env_list *envi, char *args);
+int		ft_cd(t_env_list *envi, char *home, char *args);
 int		ft_echo(char **args);
 int		ft_exit(t_shell *shell);
 // int		ft_echo(char *msg, int flag);
