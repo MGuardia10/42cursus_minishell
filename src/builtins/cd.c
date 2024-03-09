@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:46:54 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/09 11:00:16 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:31:21 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_cd_initial_dir(t_env_list *envi, char *home, char *curr_dir, int *flag)
  * function executes successfully, it returns 0. If there is an error during the
  * execution, it returns 1.
  */
-int ft_cd_minus(t_env_list *envi, char *curr_dir, int *flag)
+int	ft_cd_minus(t_env_list *envi, char *curr_dir, int *flag)
 {
 	char	*oldpwd;
 
@@ -160,7 +160,7 @@ int	ft_cd_dir(char *arg, t_env_list *envi, char *curr_dir)
 int	ft_cd(t_env_list *envi, char *home, char *arg)
 {
 	char	curr_dir[PATH_MAX];
-	int	flag;
+	int		flag;
 
 	if (!getcwd(curr_dir, PATH_MAX))
 		return (perror("minishell: "), 1);
@@ -171,7 +171,7 @@ int	ft_cd(t_env_list *envi, char *home, char *arg)
 		return (0);
 	else if (ft_strcmp(arg, "~") == 0)
 		return (ft_cd_initial_dir(envi, home, curr_dir, &flag));
-	else if(ft_strcmp(arg, "-") == 0)
+	else if (ft_strcmp(arg, "-") == 0)
 		return (ft_cd_minus(envi, curr_dir, &flag));
 	else
 		return (ft_cd_dir(arg, envi, curr_dir));
