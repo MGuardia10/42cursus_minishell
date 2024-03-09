@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:05 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/26 16:38:24 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/09 11:17:37 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,5 @@ int	ft_env(t_env_list **envi, char **args)
 	}
 	return (0);
 }
+
+// actualizar SHLVL

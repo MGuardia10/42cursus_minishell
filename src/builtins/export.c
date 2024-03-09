@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/26 16:37:17 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/07 19:39:29 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,14 +140,13 @@ int	ft_export(t_env_list **envi, char **args)
 
 	if (!args || !args[0])
 		return (print_export(envi));
-	i = 0;
-	while (args[i])
+	i = -1;
+	while (args[++i])
 	{
 		if (check_export_errors(args[i]))
 		{
-			printf("Minishell: export: `%s': ", args[i]);
-			printf("not a valid identifier\n");
-			i++;
+			ft_fprintf(2, "Minishell: export: `%s': not a valid identifier\n", \
+				args[i]);
 			continue ;
 		}
 		node_content = set_env_content(args[i]);
@@ -155,7 +154,6 @@ int	ft_export(t_env_list **envi, char **args)
 			return (perror("minishell"), 1);
 		if (create_new_env(envi, node_content))
 			return (free_env(node_content), perror("Minishell"), 1);
-		i++;
 	}
 	return (0);
 }
