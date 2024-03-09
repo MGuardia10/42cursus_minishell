@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/14 09:35:37 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/09 10:26:27 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,14 @@ int	overwrite_env(t_env_list **envi, char *key, char *value)
 		{
 			free(aux->content->value);
 			aux->content->value = ft_strdup(value);
+			free(value);
 			if (!aux->content->value)
 				return (1);
 			return (0);
 		}
 		aux = aux->next;
 	}
-	return (1);
+	return (free(value), 1);
 }
 
 /**
@@ -97,8 +98,10 @@ int	create_new_env(t_env_list **envi, t_env *node_content)
 {
 	t_env_list	*new_node;
 
-	if (already_exists(envi, node_content->key) == true)
+	if (already_exists(envi, node_content->key))
 	{
+		if (ft_strcmp(node_content->key, "_") == 0)
+			return (0);
 		if (overwrite_env(envi, node_content->key, node_content->value))
 			return (1);
 	}
@@ -133,12 +136,16 @@ int	create_env_list(t_shell *shell, char **env)
 	{
 		node_content = set_env_content(env[i]);
 		if (!node_content)
-			return (perror("Minishell"), 1);
+			return (perror("minishell"), 1);
 		if (create_new_env(&shell->envi, node_content))
 		{
 			free_env(node_content);
-			return (perror("Minishell"), 1);
+			return (perror("minishell"), 1);
 		}
 	}
+	if (set_home(shell))
+		return (perror("minishell"), 1);
+	if (initialize_oldpwd(shell->envi))
+		return(perror("minishell"), 1);
 	return (0);
 }
