@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/09 01:09:57 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:17:01 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int		set_home(t_shell *shell);
 int		initialize_oldpwd(t_env_list *envi);
 int		update_oldpwd(char *old_pwd, t_env_list *envi);
 int		update_pwd(t_env_list *envi);
+int		set_shlvl(t_env_list *envi);
 
 /*
 *	BUILTINS

@@ -23,7 +23,8 @@ BUILTINS	=	env.c \
 # ENV
 ENV			=	env_list.c \
 				set_home.c \
-				update_pwds.c
+				update_pwds.c \
+				set_shlvl.c
 
 # EXECUTER
 EXECUTER	=	executer.c \
