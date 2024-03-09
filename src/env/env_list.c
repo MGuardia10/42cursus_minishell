@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/09 12:15:07 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:32:31 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int	create_env_list(t_shell *shell, char **env)
 	if (set_home(shell))
 		return (perror("minishell"), 1);
 	if (initialize_oldpwd(shell->envi))
-		return(perror("minishell"), 1);
+		return (perror("minishell"), 1);
 	if (set_shlvl(shell->envi))
 		return (perror("minishell"), 1);
 	return (0);

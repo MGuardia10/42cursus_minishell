@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:01:30 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/09 11:16:54 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:32:48 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
  */
 int	update_pwd(t_env_list *envi)
 {
-	char	pwd[PATH_MAX];
-	char	*new_pwd;
+	char		pwd[PATH_MAX];
+	char		*new_pwd;
 	t_env_list	*aux;
 
 	if (!already_exists(&envi, "PWD"))
