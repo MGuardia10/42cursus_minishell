@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtins.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:50:28 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/27 10:03:23 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:28:11 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	handle_builtins(t_shell *shell, char *cmd)
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (ft_echo(shell->cmds->args));
 	if (ft_strcmp(cmd, "cd") == 0)
-		return (ft_cd(shell->envi, shell->cmds->args[0]));
+		return (ft_cd(shell->envi, shell->home, shell->cmds->args[0]));
 	else if (ft_strcmp(cmd, "pwd") == 0)
 		return (ft_pwd());
 	else if (ft_strcmp(cmd, "export") == 0)
