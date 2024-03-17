@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/06 17:49:01 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/17 18:53:21 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,21 +97,23 @@ int	is_special_char(char c)
 
 int	quotes_token(char *line, char **cmds, int *i, int *j)
 {
-	int last;
+	int last = 0;
 
-	*i += 1;
-	last = *i;
 	if (line[*i] == '"')
 	{
+		*i += 1;
+		last = *i;
 		while (line[*i] && line[*i] != '"')
 			*i += 1;
 	}
 	else if (line[*i] == '\'')
 	{
+		*i += 1;
+		last = *i;
 		while (line[*i] && line[*i] != '\'')
-			*i += 1;	
+			*i += 1;
 	}
-	cmds[*j] = ft_substr(line, last, *i - last);
+	cmds[*j] = ft_substr(line, last - 1, (*i - last) + 2); // lo devuelvo con comillas para diferenciar redirs.
 	if (!cmds[*j])
 		return (1);
 	*i += 1;
@@ -204,12 +206,43 @@ char	**get_tokens(char *line)
 	return (cmds);
 }
 
+/*int count_cmd(char **tokens, t_shell *shell)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 1;
+	while (tokens[i])
+	{
+		if (ft_strchr(tokens[i], '|') && ft_strlen(tokens[i]) == 1)
+			count++;
+		else if ((ft_strchr(tokens[i], '<') || ft_strchr(tokens[i], '>')) && ft_strlen(tokens[i]) <= 2)
+		{
+			count++;
+			break ;
+		}
+		i++;
+	}
+}
+
+int	store_tokens(char **tokens, t_shell *shell)
+{
+	// 1º Contar cuantos comandos va a haber para alojar memoria.
+	shell->cmds = (t_command *)malloc(sizeof(t_command) * count_cmd(tokens, shell));
+	
+	// 2º Alojar 
+	
+	return (0);
+}*/
+
 int	create_cmd_array(t_shell *shell)
 {
 	char	**tokens;
-	tokens = get_tokens(shell->line_read);
+	tokens = get_tokens(shell->line_read); // debo devolver con comillas los que tengan comillas y quitarlas luego en "store tokens".
 	if (!tokens)
 		return (1);
+	//store_tokens(tokens, shell);
 	ft_free_matrix((void *)tokens);
 	return (0);
 }
@@ -218,8 +251,9 @@ int	init_line(t_shell *shell)
 {
 	if (check_quotes(shell) == 1)
 		return (1);
-	if (expand_line(shell) == 1) // ARREGLAR EXPANSION CUANDO ENV ESTA DENTRO DE COMILLAS SIMPLES DENTRO DE COMILLAS DOBLES, SE DEBERIA EXPANDIR.
+	if (expand_line(shell) == 1) // GESTIONAR SI NO EXISTE ENV, CAMBIAR GETENV POR FT_GETENV, GESTIONAR $?, HEREDOC GESTIONAR EXPANSION DELIMITADOR
 		return (1);
-	create_cmd_array(shell);
+	if (create_cmd_array(shell) == 1) // GESTIONAR COMILLAS VACIAS
+		return (1);
 	return (0);
 }

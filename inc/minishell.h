@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/02/20 23:18:48 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:12:29 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,34 @@
 /*
 *	Typedefs
 */
-typedef struct s_shell		t_shell;
-typedef struct s_env		t_env;
-typedef struct s_env_list	t_env_list;
-typedef struct s_line_p		t_line_p;
-typedef struct s_command	t_command;
+typedef struct 	s_shell		t_shell;
+typedef struct 	s_env		t_env;
+typedef struct 	s_env_list	t_env_list;
+typedef struct 	s_line_p	t_line_p;
+typedef struct 	s_command	t_command;
+typedef struct	s_io_files	t_io_files;
+
+
+typedef	enum	e_redir		t_redir;
+
+/*
+*	Enums
+*/
+enum	e_redir
+{
+	NONE,
+	PIPE,	// '|'
+	IN,		// '<'
+	OUT,	// '>'
+	APPOUT,	// '>>'
+	HEREDOC // '<<'
+};
 
 /*
 *	Structs
 */
 // env nodes
-struct s_env
+struct	s_env
 {
 	char	*key;		// siempre existe una key, lo que puede no existir es un value "hola=" es permitido.
 	char	*value;
@@ -60,12 +77,19 @@ struct	s_env_list
 	t_env_list	*next;
 };
 
+struct	s_io_files
+{
+	t_redir	redir;
+	char	*filename;
+	bool	expheredoc;
+};
+
 // command struct
 struct s_command 
 {
 	char	*exe; // ejecutable (Ej: ls, cd, echo, etc)
 	char	**args; // array de argumentos (incluye tmb las flags)
-	int		redir; // tipo de redirección, ('|', '>', '>>', '<'), si no tiene -1.
+	t_redir	redir; // tipo de redirección, ('|', '>', '>>', '<'), si no tiene -1.
 };
 
 // line parsed nodes
