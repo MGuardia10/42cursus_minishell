@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:12:07 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/04 22:40:12 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/18 10:05:05 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	child_task(t_shell *shell)
 	if (!env)
 		exit(1);
 	execve(path, argv, env);
-	exit(status);
+	perror("minishell");
+	exit(127);
 }
 
 /*
