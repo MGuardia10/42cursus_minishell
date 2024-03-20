@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/20 22:53:44 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/20 23:12:00 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,11 +427,23 @@ void printall(t_shell *shell)
 {
 	for (int i = 0; i < shell->n_cmds; i++)
 	{
-		printf("-------------------------\n");
-		printf("EXE COMANDO: %s\n", shell->cmds[i].exe);
+		printf("-------------------------\n\n");
+		printf("EXE COMANDO: \n%s\n\n", shell->cmds[i].exe);
 		printf("ARGUMENTOS: \n");
 		for (int j = 0; shell->cmds[i].args[j]; j++)
 			printf("%s\n", shell->cmds[i].args[j]);
+		printf("\nINFILES: \n");
+		for (int j = 0; j < shell->cmds[i].infile_count; j++)
+		{
+			printf("Tipo redir -> %u\n", shell->cmds[i].infile[j].redir);
+			printf("Filename -> %s\n\n", shell->cmds[i].infile[j].filename);
+		}
+		printf("OUTFILES: \n");
+		for (int j = 0; j < shell->cmds[i].outfile_count; j++)
+		{
+			printf("Tipo redir -> %u\n", shell->cmds[i].outfile[j].redir);
+			printf("Filename -> %s\n\n", shell->cmds[i].outfile[j].filename);
+		}
 		printf("-------------------------\n");
 	}
 }
