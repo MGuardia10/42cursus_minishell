@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/17 19:12:29 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:39:21 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct 	s_env_list	t_env_list;
 typedef struct 	s_line_p	t_line_p;
 typedef struct 	s_command	t_command;
 typedef struct	s_io_files	t_io_files;
-
-
 typedef	enum	e_redir		t_redir;
 
 /*
@@ -79,17 +77,30 @@ struct	s_env_list
 
 struct	s_io_files
 {
-	t_redir	redir;
+	// tipo de redireccion
+ 	t_redir	redir;
+	// nombre del archivo
 	char	*filename;
+	// si expande o no el heredoc, en caso que redir == HEREDOC
 	bool	expheredoc;
 };
 
 // command struct
 struct s_command 
 {
-	char	*exe; // ejecutable (Ej: ls, cd, echo, etc)
-	char	**args; // array de argumentos (incluye tmb las flags)
-	t_redir	redir; // tipo de redirección, ('|', '>', '>>', '<'), si no tiene -1.
+	// comando principal
+	char	*exe;
+	
+	// flags y argumentos del comando
+	char	**args;
+	
+	// infiles del comando 
+	t_io_files	*infile;
+	int			infile_count;
+
+	// outfiles del comando
+	t_io_files	*outfile;
+	int			outfile_count;
 };
 
 // line parsed nodes
