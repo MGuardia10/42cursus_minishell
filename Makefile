@@ -30,7 +30,11 @@ ENV			=	env_list.c \
 EXECUTER	=	executer.c \
 				handle_builtins.c \
 				handle_simple_cmds.c \
-				find_path.c
+				find_path.c \
+				infiles.c \
+				outfiles.c \
+				heredoc.c \
+				heredoc_utils.c
 
 # SIGNALS
 SIGNALS		=	signals.c
@@ -51,10 +55,10 @@ OBJ_FILES	=	$(SRC:%.c=$(OBJ_DIR)%.o) \
 # COMPILER
 CC			=	gcc -g3
 CFLAGS		=	-Wall -Wextra -Werror
-# LDFLAGS		=	-L $(HOME)/.brew/opt/readline/lib
-# CPPFLAGS	=	-I $(HOME)/.brew/opt/readline/include
-CPPFLAGS	=	-I/usr/local/Cellar/readline/8.2.10/include
-LDFLAGS     =	-L/usr/local/Cellar/readline/8.2.10/lib
+LDFLAGS		=	-L $(HOME)/.brew/opt/readline/lib
+CPPFLAGS	=	-I $(HOME)/.brew/opt/readline/include
+# CPPFLAGS	=	-I/usr/local/Cellar/readline/8.2.10/include
+# LDFLAGS     =	-L/usr/local/Cellar/readline/8.2.10/lib
 RLFLAG		=	-lreadline
 INCLUDES	=	-I libft/inc -I inc
 RM			=	rm -rf
