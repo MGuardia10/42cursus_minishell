@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:12:07 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/18 10:05:05 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/22 11:13:19 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 	- si execve KO, liberar y exit 1
 	- Exit status posibles: 0, 1, 127 (no path OR not found), 126 (directorio)
 */
-void	child_task(t_shell *shell)
+void	child_task(t_shell *shell, int fd_in, int fd_out)
 {
 	char	*path;
 	char	**argv;
@@ -32,10 +32,11 @@ void	child_task(t_shell *shell)
 	argv = create_argv(shell->cmds[0]);
 	if (!argv)
 		exit(1);
-	// print_arr(argv);
 	env = envi_to_arr(shell->envi);
 	if (!env)
 		exit(1);
+	dup2(fd_in, STDIN_FILENO);
+	dup2(fd_out, STDOUT_FILENO);
 	execve(path, argv, env);
 	perror("minishell");
 	exit(127);
@@ -47,7 +48,7 @@ void	child_task(t_shell *shell)
 	3. esperar al hijo finalizar
 	4. 
 */
-int	handle_simple_commmands(t_shell *shell)
+int	handle_simple_commmands(t_shell *shell, int fd_in, int fd_out)
 {
 	pid_t	pid;
 	int		wstatus;
@@ -58,7 +59,7 @@ int	handle_simple_commmands(t_shell *shell)
 		return (perror("minishell"), 1);
 	if (pid == 0)
 	{
-		child_task(shell);
+		child_task(shell, fd_in, fd_out);
 	}
 	if (pid > 0)
 	{
@@ -66,5 +67,5 @@ int	handle_simple_commmands(t_shell *shell)
 	}
 	if (WIFEXITED(wstatus))
 		printf("exit status child -> [ %d ]\n", WEXITSTATUS(wstatus));
-	return (0);
+	return (WEXITSTATUS(wstatus));
 }
