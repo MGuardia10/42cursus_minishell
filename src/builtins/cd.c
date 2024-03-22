@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:46:54 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/09 12:31:21 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:16:21 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,10 @@ int	ft_cd_minus(t_env_list *envi, char *curr_dir, int *flag)
 		if (*flag == 1)
 			ft_fprintf(2, "minishell: cd: OLDPWD not set\n");
 		else
-			perror("minishell: cd");
+		{
+			ft_fprintf(2, "minishell: cd: %s: ", oldpwd);
+			perror("");
+		}
 		return (1);
 	}
 	printf("%s\n", oldpwd);
@@ -163,7 +166,7 @@ int	ft_cd(t_env_list *envi, char *home, char *arg)
 	int		flag;
 
 	if (!getcwd(curr_dir, PATH_MAX))
-		return (perror("minishell: "), 1);
+		return (perror("minishell"), 1);
 	flag = 0;
 	if (!arg || arg[0] == '\0')
 		return (ft_cd_home(envi, curr_dir, &flag));
