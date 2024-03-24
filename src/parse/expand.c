@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 21:20:23 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/24 21:37:00 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,13 @@ char	*expenv(t_shell *shell, int i)
 	env = ft_substr(shell->line_read, j, i - j);
 	if (!env)
 		return (NULL);
-	exp_env = ft_getenv(shell->envi, env, &j);
+	if (ft_strcmp(env, "?") == 0)
+	{
+		free(env);
+		return (ft_itoa(shell->exit_status));
+	}
+	// exp_env = ft_getenv(shell->envi, env, &j);
+	exp_env = getenv(env);
 	free(env);	
 	if (!exp_env)
 		return ("");

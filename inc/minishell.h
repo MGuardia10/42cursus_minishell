@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 21:13:51 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/24 21:36:32 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ struct	s_shell
 	t_env_list	*envi;
 	t_line_p	*string_list;
 	t_command	*cmds; // array de comandos
+	int			exit_status;
 	int			n_cmds; // numero de comandos
 };
 
