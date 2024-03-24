@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:55:30 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/20 11:15:24 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:34:32 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <limits.h>
 # include <stdbool.h>
 # include "ft_printf.h"
+# include "ft_fprintf.h"
 # include "get_next_line.h"
 
 /*
@@ -96,5 +97,6 @@ long		ft_strtol(const char *str, int str_base);
 void		ft_change_pointers(char **a, char **b);
 void		ft_sort_ascii(char **array);
 bool		ft_isspace(char c);
+size_t		ft_arrsize(void **arr);
 
 #endif

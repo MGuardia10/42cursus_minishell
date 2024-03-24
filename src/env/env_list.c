@@ -6,16 +6,15 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/14 09:35:37 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:39:35 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /**
- * The function `set_env_key_value` takes a string `env_str` and creates a new
- * node in a linked list, setting the key and value of the node based on the
- * string.
+ * takes a string `env_str` and creates a new node in a linked list, setting the
+ * key and value of the node based on the string.
  * 
  * @param new_node A pointer to a struct of type t_env_list, which represents a
  * node in a linked list.
@@ -47,8 +46,7 @@ t_env	*set_env_content(char *env_str)
 }
 
 /**
- * The function "overwrite_env" updates the value of a given key in a linked
- * list of environment variables.
+ * updates the value of a given key in a linked list of environment variables.
  * 
  * @param envi A pointer to a pointer to a linked list of environment variables.
  * @param key A string representing the key of the environment variable to be
@@ -71,13 +69,14 @@ int	overwrite_env(t_env_list **envi, char *key, char *value)
 		{
 			free(aux->content->value);
 			aux->content->value = ft_strdup(value);
+			free(value);
 			if (!aux->content->value)
 				return (1);
 			return (0);
 		}
 		aux = aux->next;
 	}
-	return (1);
+	return (free(value), 1);
 }
 
 /**
@@ -97,8 +96,10 @@ int	create_new_env(t_env_list **envi, t_env *node_content)
 {
 	t_env_list	*new_node;
 
-	if (already_exists(envi, node_content->key) == true)
+	if (already_exists(envi, node_content->key))
 	{
+		if (ft_strcmp(node_content->key, "_") == 0)
+			return (0);
 		if (overwrite_env(envi, node_content->key, node_content->value))
 			return (1);
 	}
@@ -106,7 +107,7 @@ int	create_new_env(t_env_list **envi, t_env *node_content)
 	{
 		new_node = (t_env_list *)ft_lstnew((void *)node_content);
 		if (!new_node)
-			return (free_env((void *)node_content), 1);
+			return (1);
 		ft_lstadd_back((t_list **)envi, (t_list *)new_node);
 	}
 	return (0);
@@ -133,12 +134,18 @@ int	create_env_list(t_shell *shell, char **env)
 	{
 		node_content = set_env_content(env[i]);
 		if (!node_content)
-			return (perror("Minishell"), 1);
+			return (perror("minishell"), 1);
 		if (create_new_env(&shell->envi, node_content))
 		{
 			free_env(node_content);
-			return (perror("Minishell"), 1);
+			return (perror("minishell"), 1);
 		}
 	}
+	if (set_home(shell))
+		return (perror("minishell"), 1);
+	if (initialize_oldpwd(shell->envi))
+		return (perror("minishell"), 1);
+	if (set_shlvl(shell->envi))
+		return (perror("minishell"), 1);
 	return (0);
 }

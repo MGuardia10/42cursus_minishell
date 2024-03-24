@@ -50,7 +50,8 @@ SRC_FILES		=	ft_isalpha.c \
 					ft_strtol.c \
 					ft_change_pointers.c \
 					ft_sort_ascii.c \
-					ft_isspace.c
+					ft_isspace.c \
+					ft_arrsize.c
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 # BONUS FILES
@@ -79,6 +80,11 @@ PRINTF_FILES	=	ft_printf.c \
 					ft_printf_utils.c
 PRINTF			=	$(addprefix $(PRINTF_DIR), $(PRINTF_FILES))
 
+# FPRINTF_FILES
+FPRINTF_DIR		=	src/ft_fprintf/
+FPRINTF_FILES	=	ft_fprintf.c \
+					ft_fprintf_utils.c
+FPRINTF			=	$(addprefix $(FPRINTF_DIR), $(FPRINTF_FILES))
 
 # OBJECT FILES
 OBJS_DIR		=	objs/
@@ -86,6 +92,7 @@ OBJS			=	$(SRC:$(SRC_DIR)%.c=$(OBJS_DIR)%.o)
 OBJS_BONUS		=	$(BONUS:$(BONUS_DIR)%.c=$(OBJS_DIR)%.o)
 OBJS_GNL		=	$(GNL:$(GNL_DIR)%.c=$(OBJS_DIR)%.o)
 OBJS_PRINTF		=	$(PRINTF:$(PRINTF_DIR)%.c=$(OBJS_DIR)%.o)
+OBJS_FPRINTF	=	$(FPRINTF:$(FPRINTF_DIR)%.c=$(OBJS_DIR)%.o)
 
 # COMPILER OPTIONS
 CC				=	gcc
@@ -98,7 +105,7 @@ all:		$(NAME)
 # ar: "archiver" -> agrupa varios archivos objeto en un archivo de libreria
 # r: indica a "ar" que debe reemplazar o agregar archivos a la libreria
 # c: indica que debe crear la libreria si no existe
-$(NAME):	$(OBJS) bonus gnl printf
+$(NAME):	$(OBJS) bonus gnl printf fprintf
 			ar -rcs $(NAME) $(OBJS)
 
 bonus:		$(OBJS_BONUS)
@@ -109,6 +116,9 @@ gnl:		$(OBJS_GNL)
 
 printf:		$(OBJS_PRINTF)
 			ar -rcs $(NAME) $(OBJS_PRINTF)
+
+fprintf:	$(OBJS_FPRINTF)
+			ar -rcs $(NAME) $(OBJS_FPRINTF)
 
 # -p: se utiliza para crear un directorio junto con sus directorios padres, en
 # nuestro caso lo utilizamos para crear por primera vez el directorio objs/ y
@@ -126,6 +136,10 @@ $(OBJS_DIR)%.o: $(GNL_DIR)%.c
 		${CC} ${FLAGS} $(INCLUDE) -c $< -o $@
 
 $(OBJS_DIR)%.o: $(PRINTF_DIR)%.c
+		@mkdir -p $(OBJS_DIR)
+		${CC} ${FLAGS} $(INCLUDE) -c $< -o $@
+
+$(OBJS_DIR)%.o: $(FPRINTF_DIR)%.c
 		@mkdir -p $(OBJS_DIR)
 		${CC} ${FLAGS} $(INCLUDE) -c $< -o $@
 

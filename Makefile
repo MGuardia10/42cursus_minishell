@@ -5,7 +5,7 @@ NAME		=	minishell
 LIBFT		=	libft/libft.a
 
 # VPATH
-VPATH		=	src:src/builtins:src/env:src/signals:src/utils
+VPATH		=	src:src/builtins:src/env:src/executer:src/signals:src/utils
 
 # SOURCE
 # SRC_FILES	=	main.c
@@ -17,30 +17,49 @@ BUILTINS	=	env.c \
 				unset.c \
         		cd.c \
         		echo.c \
-        		pwd.c
+        		pwd.c \
+				exit.c
 
 # ENV
-ENV			=	env_list.c
+ENV			=	env_list.c \
+				set_home.c \
+				update_pwds.c \
+				set_shlvl.c
+
+# EXECUTER
+EXECUTER	=	executer.c \
+				handle_builtins.c \
+				handle_simple_cmds.c \
+				handle_compound_cmds.c \
+				find_path.c \
+				infiles.c \
+				outfiles.c \
+				heredoc.c \
+				heredoc_utils.c
 
 # SIGNALS
 SIGNALS		=	signals.c
 
 # UTILS
-UTILS		=	utils_1.c
+UTILS		=	utils_1.c \
+				utils_2.c
 
 # OBJECTS
 OBJ_DIR		=	objs/
 OBJ_FILES	=	$(SRC:%.c=$(OBJ_DIR)%.o) \
 				$(BUILTINS:%.c=$(OBJ_DIR)%.o) \
 				$(ENV:%.c=$(OBJ_DIR)%.o) \
+				$(EXECUTER:%.c=$(OBJ_DIR)%.o) \
 				$(SIGNALS:%.c=$(OBJ_DIR)%.o) \
 				$(UTILS:%.c=$(OBJ_DIR)%.o)
 
 # COMPILER
 CC			=	gcc -g3
 CFLAGS		=	-Wall -Wextra -Werror
-CPPFLAGS	=	-I/usr/local/opt/readline/include
-LDFLAGS		=	-L/usr/local/opt/readline/lib
+LDFLAGS		=	-L $(HOME)/.brew/opt/readline/lib
+CPPFLAGS	=	-I $(HOME)/.brew/opt/readline/include
+# CPPFLAGS	=	-I/usr/local/Cellar/readline/8.2.10/include
+# LDFLAGS     =	-L/usr/local/Cellar/readline/8.2.10/lib
 RLFLAG		=	-lreadline
 INCLUDES	=	-I libft/inc -I inc
 RM			=	rm -rf
@@ -61,7 +80,7 @@ $(NAME): $(OBJ_FILES)
 	@make -sC libft
 	@echo "$(GREEN)[libft --> OK]$(CLEAR)"
 	@echo "$(BLUE)Compiling minishell program.$(CLEAR)"
-	$(CC) $(CFLAGS) $(INCLUDES) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(OBJ_FILES) $(LIBFT) $(RLFLAG) -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDES) $(CFLAGS) $(RLFLAG) $(CPPFLAGS) $(LDFLAGS) $(OBJ_FILES) $(LIBFT) -o $(NAME)
 	@echo "$(GREEN)[minishell --> OK]\n$(CLEAR)$(GREEN)Success!$(CLEAR)"
 
 $(OBJ_DIR)%.o: %.c

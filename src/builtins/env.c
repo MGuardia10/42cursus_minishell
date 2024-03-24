@@ -6,28 +6,28 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:05 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/13 15:18:38 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 18:23:53 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /**
- * The function ft_env prints the key-value pairs of the environment variables
- * stored in the envi (environment variables list).
+ * The function `ft_env` prints out the key-value pairs of environment variables
+ * stored in a linked list.
  * 
- * @param env_list A pointer to a linked list of environment variables. Each
- * node in the linked list contains a key-value pair representing an environment
- * variable.
- * @param args The "args" parameter is a pointer to a structure of type
- * "t_line_p".
- * @return 0.
+ * @param envi a pointer to a pointer to a structure representing an environment
+ * list. The structure contains key-value pairs for environment variables.
+ * @param args a pointer to a pointer to a character array. It is used to pass
+ * arguments to the function.
+ * 
+ * @return the function returns 0.
  */
-int	ft_env(t_env_list **envi, t_line_p *args)
+int	ft_env(t_env_list **envi, char **args)
 {
 	t_env_list	*aux;
 
-	if (args)
+	if (args && args[0])
 		return (0);
 	aux = *envi;
 	while (aux)

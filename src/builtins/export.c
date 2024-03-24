@@ -6,16 +6,15 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/14 09:42:24 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:56:57 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /**
- * The function "create_array" takes a linked list of environment variables and
- * creates an array of strings containing the keys of each variable, sorted in
- * ascending order.
+ * takes a linked list of environment variables and creates an array of strings
+ * containing the keys of each variable, sorted in ascending order.
  * 
  * @param envi The parameter `envi` is of type `t_env_list*`, which is a pointer
  * to a linked list of type `t_env_list`.
@@ -62,8 +61,8 @@ void	print_env_var(char *key, char *value)
 }
 
 /**
- * The function `print_export` prints the environment variables in a sorted
- * order, excluding the variable with the key "_".
+ * prints the environment variables in a sorted order, excluding the variable
+ * with the key "_".
  * 
  * @param envi A pointer to a pointer to a linked list of environment variables.
  * 
@@ -104,18 +103,16 @@ int	print_export(t_env_list **envi)
  * 
  * @return an integer value.
  */
-static int	check_export_errors(t_line_p *arg)
+static int	check_export_errors(char *arg)
 {
-	char	*str;
 	int		i;
 
-	str = arg->content;
 	i = 0;
-	if (ft_isdigit(str[i]))
+	if (ft_isdigit(arg[i]))
 		return (1);
-	while (str[i] && str[i] != '=')
+	while (arg[i] && arg[i] != '=')
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 			return (1);
 		i++;
 	}
@@ -123,9 +120,9 @@ static int	check_export_errors(t_line_p *arg)
 }
 
 /**
- * The `ft_export` function is used to add or update environment variables based
- * on the input arguments, and it also has the functionality to print the
- * current list of environment variables if no arguments are provided.
+ * is used to add or update environment variables based on the input arguments,
+ * and it also has the functionality to print the current list of environment
+ * variables if no arguments are provided.
  * 
  * @param env_list A pointer to a linked list of environment variables. Each
  * node in the linked list contains a key-value pair representing an environment
@@ -135,30 +132,27 @@ static int	check_export_errors(t_line_p *arg)
  * 
  * @return an integer value.
  */
-int	ft_export(t_env_list **envi, t_line_p *args)
+int	ft_export(t_env_list **envi, char **args)
 {
 	t_env	*node_content;
+	int		i;
 
-	if (!args)
+	if (!args || !args[0])
 		return (print_export(envi));
-	while (args)
+	i = -1;
+	while (args[++i])
 	{
-		if (check_export_errors(args))
+		if (check_export_errors(args[i]))
 		{
-			printf("Minishell: export: `%s': ", args->content);
-			printf("not a valid identifier\n");
-			args = args->next;
+			ft_fprintf(2, "Minishell: export: `%s': not a valid identifier\n", \
+				args[i]);
 			continue ;
 		}
-		node_content = set_env_content(args->content);
+		node_content = set_env_content(args[i]);
 		if (!node_content)
 			return (perror("minishell"), 1);
 		if (create_new_env(envi, node_content))
-		{
-			free_env(node_content);
-			return (perror("Minishell"), 1);
-		}
-		args = args->next;
+			return (free_env(node_content), perror("Minishell"), 1);
 	}
 	return (0);
 }
