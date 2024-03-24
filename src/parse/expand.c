@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 16:33:22 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/24 21:09:09 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*expenv(char *line, int i)
 		return (NULL);
 	exp_env = getenv(env); 
 	if (!exp_env)
-		return (NULL);
+		return ("");
 	free(env);
 	return (exp_env);
 }
