@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:56:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/21 20:58:41 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:58:44 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
  * signs and error cases.
  * 
  * @param str The function `ft_exit_atoi` takes a string `str` as input and
- * converts it to an integer. If the string contains a valid integer, it returns
- * the integer value. If the string is not a valid integer, it prints an error
- * message to standard error and returns 255.
+ * converts it to an integer.
  * 
  * @return The function `ft_exit_atoi` is returning the result of the conversion
  * of the input string to an integer value, taking into account any sign
@@ -53,17 +51,15 @@ static int	ft_exit_atoi(char *str)
 }
 
 /**
- * The ft_exit function in C is used to handle the exit command in a shell
- * program, allowing the user to exit the shell with a specified exit status.
+ * is used to handle the exit command in a shell program, allowing the user to
+ * exit the shell with a specified exit status.
  * 
- * @param shell The `shell` parameter is a pointer to a `t_shell` struct, which
- * likely contains information and settings related to the shell environment.
+ * @param shell a pointer to a `t_shell` struct.
  * @param args args is a pointer to an array of strings, where each string
  * represents a command-line argument passed to the shell.
  * 
- * @return The function `ft_exit` on success is exiting the program with the
- * exit status sent by the user. If there is no args, the program exits with a
- * exit code of 0. if there are too many arguments the program does not exit and
+ * @return on success is exiting the program with the exit status sent by the
+ * user. if there are too many arguments the program does not exit and
  * 1 is returned. If there is only one argument the program exits with the
  * status code of (number % 256). If the argument sent is not a number an error
  * is typed and the programs exits with a 255 status code.

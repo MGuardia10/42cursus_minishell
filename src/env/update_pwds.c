@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:01:30 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/09 12:32:48 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:44:16 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,12 @@ int	update_pwd(t_env_list *envi)
  * "OLDPWD" with a new value.
  * 
  * @param old_pwd The `update_oldpwd` function takes in the current working
- * directory path as `old_pwd`. It updates the value of the `OLDPWD` environment
- * variable with the current working directory path.
+ * directory path as `old_pwd`.
  * @param envi The `envi` parameter in the `update_oldpwd` function is a
  * linked list structure containing environment variables.
  * 
- * @return The function `update_oldpwd` returns an integer value. If the 
- * operation is successful, it returns 0. If there are any errors during the
- * process, it returns 1.
+ * @return an integer value. If the operation is successful, it returns 0. 
+ * If there are any errors during the process, it returns 1.
  */
 int	update_oldpwd(char *old_pwd, t_env_list *envi)
 {
@@ -87,10 +85,9 @@ int	update_oldpwd(char *old_pwd, t_env_list *envi)
  * @param envi `envi` is a pointer to a linked list structure `t_env_list` that
  * contains environment variables.
  * 
- * @return The function `initialize_oldpwd` returns an integer value. It returns
- * 0 if the environment variable "OLDPWD" already exists or it´s successfully 
- * created and 1 if there was any issue setting the content or creating the
- * variable.
+ * @return an integer value. It returns 0 if the environment variable "OLDPWD"
+ * already exists or it´s successfully created and 1 if there was any issue
+ * setting the content or creating the variable.
  */
 int	initialize_oldpwd(t_env_list *envi)
 {

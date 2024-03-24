@@ -6,22 +6,18 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:54 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/07 19:23:48 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:55:03 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /**
- * The function "check_unset_errors" checks if a given string contains any
- * invalid characters for an unset command.
+ * checks if a given string contains invalid characters for an unset command.
  * 
- * @param arg The parameter `arg` is a pointer to a structure type `t_line_p`.
+ * @param arg a string that represent the argument.
  * 
- * @return an integer value. If the first character is a digit, it returns 1.
- * Otherwise, it checks each character in the string `str` and if any
- * character is not alphanumeric or an underscore, it returns 1 too. If all
- * characters in the string are either alphanumeric or '_', it returns 0.
+ * @return an integer value. On success, returns 0, otherwise return 1.
  */
 int	check_unset_errors(char *arg)
 {
@@ -47,8 +43,6 @@ int	check_unset_errors(char *arg)
  * (t_env_list).
  * @param str The parameter `str` is a pointer to a character array, which
  * represents the key of the environment variable that needs to be deleted.
- * 
- * @return void.
  */
 void	delete_env(t_env_list **envi, char *str)
 {

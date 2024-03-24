@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:50:33 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/09 12:28:02 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:43:03 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,10 @@
  * The function `ft_all_digits` checks if a given string consists only of
  * digits.
  * 
- * @param str The function `ft_all_digits` takes a string `str` as input and
- * checks if all characters in the string are digits. It skips the first
- * character if it is a minus sign ('-') and then iterates through the rest of
- * the string, checking if each character is a digit.
+ * @param str a string. It´s use for checking if all characters are digits.
  * 
- * @return The function `ft_all_digits` is returning a boolean value `true` if
- * all characters in the input string `str` are digits, and `false` otherwise.
+ * @return a boolean value `true` if all characters in the input string are
+ * digits, and `false` otherwise.
  */
 bool	ft_all_digits(char *str)
 {
@@ -41,15 +38,13 @@ bool	ft_all_digits(char *str)
 }
 
 /**
- * The function `create_shlvl` sets the environment variable SHLVL to 1.
+ * The function `create_shlvl` sets the environment variable SHLVL to 1s.
  * 
- * @param envi The `envi` parameter seems to be a pointer to a linked list
- * structure `t_env_list` that represents environment variables. The function
- * `create_shlvl` is creating a new environment variable `SHLVL` with a value of
- * `1` and adding it to the `envi`.
+ * @param envi a pointer to a linked list structure `t_env_list` that represents
+ * environment variables.
  * 
- * @return The function `create_shlvl` is returning an integer value. If the
- * function is successful, it returns 0. If there is an error it returns 1.
+ * @return an integer value. If the function is successful, it returns 0. If
+ * there is an error it returns 1.
  */
 int	create_shlvl(t_env_list *envi)
 {
@@ -71,13 +66,10 @@ int	create_shlvl(t_env_list *envi)
  * variable by 1 if it exists and is a valid integer, otherwise it creates the
  * variable with a value of 1.
  * 
- * @param envi The function `set_shlvl` takes a pointer to a structure
- * `t_env_list` named `envi` as a parameter. This structure likely contains
- * environment variables and their values. The function is responsible for
- * updating the value of the `SHLVL` environment variable.
- * 
- * @return The function `set_shlvl` is returning the result of the
- * `overwrite_env` function.
+ * @param envi a pointer to a structure `t_env_list` that contains environment
+ * variables and their values. 
+ *  
+ * @return an integer that is the result of the `overwrite_env` function.
  */
 int	set_shlvl(t_env_list *envi)
 {

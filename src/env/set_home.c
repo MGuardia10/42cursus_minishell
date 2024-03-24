@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:42:35 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/09 11:05:02 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:37:59 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,10 @@
  * The function creates a substring from a given string up to the second
  * occurrence of the '/' character.
  * 
- * @param value The function `create_from_pwd` takes a string `value` as
- * input and processes it to extract a specific part of the path. The function
- * looks for the second occurrence of the character '/' in the input string and
- * returns a substring containing everything before that second occurrence.
+ * @param value a string to extract a specific part of the path.
  * 
- * @return The function `create_from_pwd` returns a string that represents the
- * home directory path based on the input `value`.
+ * @return a string that represents the home directory path based on the
+ * input `value`.
  */
 static char	*create_from_pwd(char *value)
 {
@@ -78,15 +75,13 @@ char	*find_home(t_env_list *envi, int *flag)
 }
 
 /**
- * The function `set_home` sets the home directory path in a shell structure
- * based on the HOME environment variable.
+ * sets the home directory path in a shell structure based on the HOME
+ * environment variable.
  * 
- * @param shell The function `set_home` takes a pointer to a `t_shell` struct
- * as a parameter. This struct contains information related to the shell
- * environment.
+ * @param shell a pointer to a `t_shell` struct.
  * 
- * @return The function `set_home` returns an integer value. If the function is
- * successful, it returns 0. If there is an error, it returns 1.
+ * @return an integer value. If the function is successful, it returns 0. If
+ * there is an error, it returns 1.
  */
 int	set_home(t_shell *shell)
 {

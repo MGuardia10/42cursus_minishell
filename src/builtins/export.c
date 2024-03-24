@@ -6,16 +6,15 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/07 19:39:29 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:56:57 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /**
- * The function "create_array" takes a linked list of environment variables and
- * creates an array of strings containing the keys of each variable, sorted in
- * ascending order.
+ * takes a linked list of environment variables and creates an array of strings
+ * containing the keys of each variable, sorted in ascending order.
  * 
  * @param envi The parameter `envi` is of type `t_env_list*`, which is a pointer
  * to a linked list of type `t_env_list`.
@@ -62,8 +61,8 @@ void	print_env_var(char *key, char *value)
 }
 
 /**
- * The function `print_export` prints the environment variables in a sorted
- * order, excluding the variable with the key "_".
+ * prints the environment variables in a sorted order, excluding the variable
+ * with the key "_".
  * 
  * @param envi A pointer to a pointer to a linked list of environment variables.
  * 
@@ -121,9 +120,9 @@ static int	check_export_errors(char *arg)
 }
 
 /**
- * The `ft_export` function is used to add or update environment variables based
- * on the input arguments, and it also has the functionality to print the
- * current list of environment variables if no arguments are provided.
+ * is used to add or update environment variables based on the input arguments,
+ * and it also has the functionality to print the current list of environment
+ * variables if no arguments are provided.
  * 
  * @param env_list A pointer to a linked list of environment variables. Each
  * node in the linked list contains a key-value pair representing an environment

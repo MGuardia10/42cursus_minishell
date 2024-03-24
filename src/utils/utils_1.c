@@ -6,19 +6,16 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:52:47 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/28 10:51:57 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:52:39 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /**
- * The function "free_env" frees the memory allocated for a structure of type
- * "t_env" and its contents.
+ * frees the memory allocated for a structure of type `t_env` and its contents.
  * 
- * @param content The parameter `content` is a void pointer, which means it can
- * point to any type of data. In this case, it is expected to point to a
- * structure of type `t_env`.
+ * @param content a void pointer, which means it can point to any type of data. 
  */
 void	free_env(void *content)
 {
@@ -36,8 +33,8 @@ void	free_env(void *content)
  * environment variables.
  * 
  * @param envi A pointer to a pointer to a linked list of environment variables.
- * @param key The "key" parameter is a string that represents the key we are
- * checking for existence in the linked list.
+ * @param key a string that represents the key we are checking for existence in
+ * the linked list.
  * 
  * @return a boolean value. It returns true if the key already exists in the
  * linked list of environment variables, and false otherwise.
@@ -60,13 +57,10 @@ bool	already_exists(t_env_list **envi, char *key)
  * The function `is_builtin` checks if a given command is a built-in command in
  * a shell program.
  * 
- * @param cmd The `is_builtin` function checks if a given command is a built-in
- * command in a shell. The function compares the given command `cmd` with the 
- * list built-in commands such as "echo", "cd", "pwd", "export", "unset", "env",
- * and "exit".
+ * @param cmd a string that represents the command.
  * 
- * @return The function `is_builtin` returns a boolean value (true or false)
- * indicating whether the input command `cmd` is one of the built-in commands.
+ * @return a boolean value (true or false) indicating whether the input command
+ * is one of the built-in commands.
  */
 inline bool	is_builtin(char *cmd)
 {
@@ -80,14 +74,12 @@ inline bool	is_builtin(char *cmd)
 }
 
 /**
- * The function `env_to_arr` converts a linked list of environment variables
- * into an array of strings.
+ * converts a linked list of environment variables into an array of strings.
  * 
- * @param env The `env` parameter in the `env_to_arr` function is of type
- * `t_env_list *`, which seems to be a linked list structure containing
- * environment variables.
+ * @param env a pointer to a estruct of type `t_env_list`, which seems to be a
+ * linked list structure containing environment variables.
  * 
- * @return The function `env_to_arr` is returning an array of strings.
+ * @return an array of strings.
  */
 char	**envi_to_arr(t_env_list *env)
 {
@@ -109,18 +101,15 @@ char	**envi_to_arr(t_env_list *env)
 }
 
 /**
- * The function create_argv creates an array of strings from a given command
- * structure. It´s used to create the second argument for the execve function.
+ * creates an array of strings from a given command structure. It´s used to
+ * create the second argument for the execve function.
  * 
- * @param cmd The `create_argv` function takes a `t_command` structure as a
- * parameter. This structure likely contains information about a command to be
- * executed, such as the executable name (`cmd.exe`) and an array of arguments
- * (`cmd.args`). The function dynamically allocates memory to create an array of
- * strings (`
+ * @param cmd a `t_command` structure. This structure contains info about the 
+ * command to be executed.
  * 
- * @return The function `create_argv` is returning a dynamically allocated array
- * of strings (char **), which contains the executable name followed by the
- * arguments from the input `t_command cmd`. The array is terminated with NULL.
+ * @return a dynamically allocated array of strings, which contains the
+ * executable name followed by the arguments from the input `t_command cmd`.
+ * The array is terminated with NULL.
  */
 char	**create_argv(t_command cmd)
 {

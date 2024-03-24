@@ -6,16 +6,15 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/09 12:32:31 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:39:35 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /**
- * The function `set_env_key_value` takes a string `env_str` and creates a new
- * node in a linked list, setting the key and value of the node based on the
- * string.
+ * takes a string `env_str` and creates a new node in a linked list, setting the
+ * key and value of the node based on the string.
  * 
  * @param new_node A pointer to a struct of type t_env_list, which represents a
  * node in a linked list.
@@ -47,8 +46,7 @@ t_env	*set_env_content(char *env_str)
 }
 
 /**
- * The function "overwrite_env" updates the value of a given key in a linked
- * list of environment variables.
+ * updates the value of a given key in a linked list of environment variables.
  * 
  * @param envi A pointer to a pointer to a linked list of environment variables.
  * @param key A string representing the key of the environment variable to be
