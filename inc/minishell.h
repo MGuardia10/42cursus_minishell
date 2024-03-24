@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/22 17:39:33 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/23 19:37:01 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,9 @@ struct	s_shell
 	int			infile_dup;
 	int			outfile_dup;
 
+	// last pid
+	pid_t		last_pid;
+
 	// codigo de error del ultimo comando
 	int			exit_status;
 };
@@ -172,14 +175,17 @@ int		expand_line(t_shell *shell);
 */
 int		executer(t_shell *shell);
 int		handle_builtins(t_shell *shell, t_command cmd, int fd_in, int fd_out);
+int		exec_builtin(t_shell *shell, char *cmd, char **args);
 int		handle_simple_commmands(t_shell *shell, int fd_in, int fd_out);
 char	*find_path(char *cmd, t_env_list *envi, int *status);
-int		manage_infiles(t_shell *shell, t_io_files *infiles, int in_count);
-int		manage_outfiles(t_io_files *outfiles, int out_count);
+int		manage_infiles(t_shell *shell, t_io_files *infiles, int in_count, int pipe);
+int		manage_outfiles(t_io_files *outfiles, int out_count, int pipe);
 int		resolve_heredoc(t_shell *shell, t_io_files *infiles, int i, int in_count);
 char	*create_temp_file(void);
 int		check_access_tmp_folder(char *tmp_path);
 void	remove_temp_files(t_io_files *infiles, int in_count);
+void	create_child(t_shell *shell, int *fd1, int *fd2, int i);
+int		wait_all_childs(int last_pid);
 
 /*
 *	UTILS

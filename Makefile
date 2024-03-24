@@ -30,6 +30,7 @@ ENV			=	env_list.c \
 EXECUTER	=	executer.c \
 				handle_builtins.c \
 				handle_simple_cmds.c \
+				handle_compound_cmds.c \
 				find_path.c \
 				infiles.c \
 				outfiles.c \
