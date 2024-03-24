@@ -6,24 +6,22 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:50:24 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/04 22:43:01 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/24 15:24:22 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /**
- * The function is_accessible checks if a command is accessible and updates the
- * status accordingly.
+ * checks if a command is accessible and updates the status accordingly.
  * 
- * @param cmd The `cmd` parameter is a pointer to a character array, which
- * typically represents a command or file path that you want to check for
- * accessibility.
- * @param status The `status` parameter is a pointer to an integer that will be
- * used to store the status of the accessibility check.
+ * @param cmd is a pointer to a character array, which represents a command or
+ * file path that you want to check for accessibility.
+ * @param status a pointer to an integer that is used to store the status of
+ * the command execution.
  * 
- * @return The function `is_accessible` returns a boolean value (true or false)
- * based on the conditions specified in the code snippet.
+ * @return true if is a accesible file, and false if it´s a directory or the
+ * file is not accessible.
  */
 bool	is_accessible(char *cmd, int *status)
 {
@@ -34,6 +32,19 @@ bool	is_accessible(char *cmd, int *status)
 	return (*status = 0, true);
 }
 
+/**
+ * attempts to create a full path to the command by searching through the PATH
+ * variable.
+ * 
+ * @param cmd represents the command that needs to be located in the system's
+ * PATH variable.
+ * @param envi represents a linked list containing environment variables.
+ * @param status a pointer to an integer that is used to store the status of
+ * the command execution.
+ * 
+ * @return If it successfully finds an accessible path for `cmd`, it will return
+ * that full path. If it cannot find an accessible path, it will return `NULL`.
+ */
 char	*create_path(char *cmd, t_env_list *envi, int *status)
 {
 	char	**paths;
@@ -62,6 +73,15 @@ char	*create_path(char *cmd, t_env_list *envi, int *status)
 	return (NULL);
 }
 
+/**
+ * handles different types of path-related errors.
+ * 
+ * @param cmd represents the command that needs to be located in the system's
+ * PATH variable.
+ * @param envi represents a linked list containing environment variables.
+ * @param status a pointer to an integer that is used to store the status of
+ * the command execution.
+ */
 void	manage_path_errors(char *cmd, t_env_list *envi, int *status)
 {
 	if (*status == 2)
@@ -84,14 +104,21 @@ void	manage_path_errors(char *cmd, t_env_list *envi, int *status)
 	}
 }
 
-/*
-*	Status codes
-*	0 == OK OR MALLOC ERROR if path == NULL
-*	1 == PATH var not found
-*	2 == path found is a directory
-*	3 == path found is not accesible (permisos)
-*	Status codes
-*/
+/**
+ * determines the full path of a command based on the input command and PATH
+ * environment variable.
+ * 
+ * @param cmd represents the command that needs to be located in the system's
+ * PATH variable.
+ * @param envi represents a linked list containing environment variables.
+ * @param status a pointer to an integer that is used to store the status of
+ * the command execution. Possible status: 0 == OK, 1 == PATH env not found,
+ * 2 == path found is a directory, 3 == path found not accessible.
+ * 
+ * @return either the input `cmd` if it contains a forward slash ('/'), or the
+ * result of calling `create_path` function, or NULL If `create_path` fails to 
+ * create a valid path.
+ */
 char	*find_path(char *cmd, t_env_list *envi, int *status)
 {
 	char	*path;
