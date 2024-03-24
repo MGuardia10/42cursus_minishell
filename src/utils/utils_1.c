@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:52:47 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/20 19:26:42 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:24:06 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,4 @@ bool	already_exists(t_env_list **envi, char *key)
 		aux = aux->next;
 	}
 	return (false);
-}
-
-int	isdelimiter(char c)
-{
-	if (c == '\0' || c == ' ' || c == '"' || c == '\'' || c == '\n')
-		return (0);
-	return (1);
 }

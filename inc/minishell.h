@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/20 20:39:21 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/24 17:39:33 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ struct s_command
 	
 	// flags y argumentos del comando
 	char	**args;
+	int		args_count;
 	
 	// infiles del comando 
 	t_io_files	*infile;
@@ -144,6 +145,11 @@ int		msh_echo(char *msg, int flag);
 int		init_line(t_shell *shell);
 int		check_quotes(t_shell *shell);
 int		expand_line(t_shell *shell);
+int		num_of_tokens(char *line);
+char	**get_tokens(char *line);
+int		handle_special_char(char *line, char **tokens, int *i, int *j);
+int		store_tokens(char **tokens, t_shell *shell);
+int		init_for_store(char **tokens, t_shell *shell);
 
 /*
 *	UTILS
@@ -151,6 +157,8 @@ int		expand_line(t_shell *shell);
 void	free_env(void *content);
 bool	already_exists(t_env_list **envi, char *key);
 int		isdelimiter(char c);
+bool	is_special_char(char c);
+t_redir	isredir(char *token);
 
 
 #endif

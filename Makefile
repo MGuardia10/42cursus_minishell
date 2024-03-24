@@ -24,7 +24,13 @@ BUILTINS	=	$(addprefix $(BI_DIR), $(BI_FILES))
 PARS_DIR	=	src/parse/
 PARS_FILES	=	init.c \
 				quotes.c \
-				expand.c
+				expand.c \
+				token_count.c \
+				special_char.c \
+				get_tokens.c \
+				store_tokens.c \
+				parse_utils.c \
+				init_for_store.c
 PARSE		=	$(addprefix $(PARS_DIR), $(PARS_FILES))
 
 # ENV
