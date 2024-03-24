@@ -6,28 +6,28 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 21:09:09 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/24 21:20:23 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*expenv(char *line, int i)
+char	*expenv(t_shell *shell, int i)
 {
 	char	*env;
 	char	*exp_env;
 	int		j;
 
 	j = i;
-	while (isdelimiter(line[i]) == 1)
+	while (isdelimiter(shell->line_read[i]) == 1)
 		i++;
-	env = ft_substr(line, j, i - j);
+	env = ft_substr(shell->line_read, j, i - j);
 	if (!env)
 		return (NULL);
-	exp_env = getenv(env); 
+	exp_env = ft_getenv(shell->envi, env, &j);
+	free(env);	
 	if (!exp_env)
 		return ("");
-	free(env);
 	return (exp_env);
 }
 
@@ -98,7 +98,7 @@ int	expand_line(t_shell *shell)
 		{
 			if (join_line(shell, &exp, i, j) == 1)
 				return (1);
-			if (join_expenv(&exp, expenv(shell->line_read, i + 1)) == 1)
+			if (join_expenv(&exp, expenv(shell, i + 1)) == 1)
 				return (1);
 			while (isdelimiter(shell->line_read[i]) == 1)
 				i++;

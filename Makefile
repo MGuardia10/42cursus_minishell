@@ -40,7 +40,8 @@ ENV			=	$(addprefix $(ENV_DIR), $(ENV_FILES))
 
 # UTILS
 UTILS_DIR	=	src/utils/
-UTILS_FILES	=	utils_1.c
+UTILS_FILES	=	utils_1.c \
+				utils_2.c
 UTILS		=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
 # OBJECTS

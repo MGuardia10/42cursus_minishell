@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 17:39:33 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/24 21:13:51 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,8 @@ bool	already_exists(t_env_list **envi, char *key);
 int		isdelimiter(char c);
 bool	is_special_char(char c);
 t_redir	isredir(char *token);
+char	*ft_getenv(t_env_list *envi, char *key, int *flag);
+bool	is_directory(const char *path);
 
 
 #endif
