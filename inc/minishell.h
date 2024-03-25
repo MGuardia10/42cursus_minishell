@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 21:36:32 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/25 00:56:34 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,5 @@ bool	is_special_char(char c);
 t_redir	isredir(char *token);
 char	*ft_getenv(t_env_list *envi, char *key, int *flag);
 bool	is_directory(const char *path);
-
 
 #endif

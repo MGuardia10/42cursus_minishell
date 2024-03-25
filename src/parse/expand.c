@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 21:37:00 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/25 01:18:31 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,6 @@ int	expand_line(t_shell *shell)
 		return (1);
 	free(shell->line_read);
 	shell->line_read = exp;
-	//printf("\n%s\n", shell->line_read);
+	// printf("\n%s\n", shell->line_read);
 	return (0);
 }

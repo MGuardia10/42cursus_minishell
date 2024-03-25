@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 22:56:00 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/25 01:20:17 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	create_cmd_array(t_shell *shell)
 		return (1);
 	if (store_tokens(tokens, shell) == 1)
 		return (1);
-	// printall(shell);
+	printall(shell);
 	ft_free_matrix((void *)tokens);
 	return (0);
 }
@@ -78,20 +78,26 @@ void	free_cmds(t_shell *shell)
 			free(shell->cmds[i].infile[j].filename);
 			j++;
 		}
+		j = 0;
 		while (j < shell->cmds[i].outfile_count)
 		{
 			free(shell->cmds[i].outfile[j].filename);
 			j++;
 		}
+		j = 0;
 		while (j < shell->cmds[i].args_count)
 		{
 			free(shell->cmds[i].args[j]);
 			j++;
 		}
+		j = 0;
+		free(shell->cmds[i].infile);
+		free(shell->cmds[i].outfile);
 		free(shell->cmds[i].args);
 		free(shell->cmds[i].exe);
 		i++;
 	}
+	free(shell->cmds);
 }
 
 int	init_line(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 20:54:17 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/23 21:23:00 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/25 01:27:36 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ int	num_of_tokens(char *line)
 		if (!is_special_char(line[i]))
 		{
 			count++;
-			while (!is_special_char(line[i]))
+			while (line[i] && !is_special_char(line[i]))
 				i++;
 		}
 		if (line[i] == ' ')
 		{
-			while (line[i] == ' ')
+			while (line[i] && line[i] == ' ')
 				i++;
 		}
 		count += quotes_count(line, &i);

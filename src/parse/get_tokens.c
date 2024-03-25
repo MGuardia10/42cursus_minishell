@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:25:34 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 22:34:01 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/25 01:26:34 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	**get_tokens(char *line)
 	j = 0;
 	last = 0;
 	tokens = (char **)malloc(sizeof(char *) * (num_of_tokens(line) + 1));
+	if (!tokens)
+		return (NULL);
 	while (line[i])
 	{
 		if (!is_special_char(line[i]))
