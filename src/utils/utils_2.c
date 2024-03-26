@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 18:30:43 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 17:47:28 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:44:55 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,48 @@ bool	is_directory(const char *path)
 	if (stat(path, &statbuf) != 0)
 		return (false);
 	return (S_ISDIR(statbuf.st_mode));
+}
+
+/**
+ * removes temporary files that were created by the heredoc.
+ * 
+ * @param shell The `shell` parameter is a pointer to a structure `t_shell`.
+ * @param cmds The `cmds` parameter is a pointer to an array of `t_command`
+ * structures.
+ * @param n_cmds The `n_cmds` parameter represents the number of commands in the
+ * array `cmds`.
+ * 
+ * @return If the `unlink` function fails to remove a temporary file, an error
+ * message will be printed using `perror`, and the function will return
+ * without any specific return value.
+ */
+void	remove_temp_files(t_command *cmds, int n_cmds)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < n_cmds)
+	{
+		j = 0;
+		while (j < cmds[i].infile_count)
+		{
+			if (cmds[i].infiles[j].redir == HEREDOC && cmds[i].infiles[j].path)
+				unlink(cmds[i].infiles[j].path);
+			j++;
+		}
+		i++;
+	}
+}
+
+/**
+ * The function `clean_exit` removes temporary files and exits the program
+ * with a failure status.
+ * 
+ * @param shell The `shell` parameter is a pointer to a `t_shell` struct.
+ */
+void	clean_exit(t_shell *shell, int exit_code)
+{
+	remove_temp_files(shell->cmds, shell->n_cmds);
+	exit(exit_code);
 }
