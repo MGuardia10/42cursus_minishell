@@ -31,7 +31,9 @@ PARS_FILES	=	init.c \
 				store_tokens.c \
 				parse_utils.c \
 				init_for_store.c \
-				expand_utils.c
+				expand_utils.c \
+				store_utils.c \
+				free_cmds.c
 PARSE		=	$(addprefix $(PARS_DIR), $(PARS_FILES))
 
 # ENV

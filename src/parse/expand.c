@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 15:35:04 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 23:53:03 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_inside_quotes(t_shell *shell, int i, int f)
 	return (f);
 }
 
-int	expander(t_shell *shell, char *exp, int *i, int *j)
+int	expander(t_shell *shell, char **exp, int *i, int *j)
 {
 	int	f;
 
@@ -61,10 +61,10 @@ int	expander(t_shell *shell, char *exp, int *i, int *j)
 		f = check_inside_quotes(shell, *i, f);
 		if (shell->line_read[*i] == '$')
 		{
-			if (join_line(shell, &exp, *i, *j) == 1)
+			if (join_line(shell, exp, *i, *j) == 1)
 				return (1);
 			*i += 1;
-			if (join_expenv(&exp, expenv(shell, *i, f)) == 1)
+			if (join_expenv(exp, expenv(shell, *i, f)) == 1)
 				return (1);
 			while (isdelimiter(shell->line_read[*i]) == 1)
 				*i += 1;
@@ -88,11 +88,9 @@ int	expand_line(t_shell *shell)
 	exp = NULL;
 	j = 0;
 	i = 0;
-	if (expander(shell, exp, &i, &j) == 1)
+	if (expander(shell, &exp, &i, &j) == 1)
 		return (1);
 	if (clean_line(shell, &exp, i, j) == 1)
 		return (1);
 	return (0);
 }
-
-//

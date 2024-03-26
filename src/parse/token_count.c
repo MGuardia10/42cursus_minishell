@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 20:54:17 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 15:35:52 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 23:53:32 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,3 @@ int	num_of_tokens(char *line)
 	}
 	return (count);
 }
-
-//

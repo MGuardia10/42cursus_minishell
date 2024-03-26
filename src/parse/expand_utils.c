@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:38:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 15:34:58 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 23:53:00 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,3 @@ int	join_expenv(char **exp, char *env)
 	*exp = aux;
 	return (0);
 }
-
-//

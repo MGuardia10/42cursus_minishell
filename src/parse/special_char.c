@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:39:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 15:40:24 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 23:53:22 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,3 @@ int	handle_special_char(char *line, char **tokens, int *i, int *j)
 			*i += 1;
 	return (0);
 }
-
-//
