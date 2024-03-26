@@ -6,47 +6,43 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/23 19:37:01 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:45:25 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/* LIBFT
-*	unistd.h -> write, access, read, close, getcwd , chdir, unlink, execve, dup, dup2, pipe, isatty, ttyname, ttyslot, 
-*	fcntl.h  -> open (permisos)
-*	stdlib.h -> malloc, free, exit, getenv
-*	stdio.h  -> printf, perror
-*/
 # include "../libft/inc/libft.h"
 # include "../libft/inc/colors.h"
-# include <readline/readline.h>	// readline & co
+# include <readline/readline.h>
 # include <readline/history.h>
-# include <sys/wait.h>			// wait, waitpid, wait3, wait4
-# include <sys/stat.h>			// stat, lstat, fstat
-# include <sys/types.h>			// opendir, readdir, closedir
-# include <dirent.h>			// opendir, readdir, closedir
-# include <sys/ioctl.h>			// ioctl
-# include <termios.h>			// tcsetattr, tcgetattr
-# include <curses.h>			// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-# include <term.h>				// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-# include <signal.h>			// signal, sigaction, kill
-# include <string.h>			// strerror
-# include <errno.h>				// para manejar errores
+# include <sys/wait.h>
+# include <sys/stat.h>
+// # include <sys/types.h>	// opendir, readdir, closedir
+// # include <dirent.h>		// opendir, readdir, closedir
+# include <sys/ioctl.h>
+# include <termios.h>		// tcsetattr, tcgetattr
+// # include <curses.h>		// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+// # include <term.h>		// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+# include <signal.h>
+# include <errno.h>
 
 # define TEMP_PATH	"/tmp/msh-"
+
+extern volatile sig_atomic_t	g_signal_status;
 
 /*
 *	Typedefs
 */
-typedef struct s_shell		t_shell;
-typedef struct s_env		t_env;
-typedef struct s_env_list	t_env_list;
-typedef struct s_command	t_command;
-typedef struct s_io_files	t_io_files;
+typedef struct s_shell			t_shell;
+typedef struct s_env			t_env;
+typedef struct s_env_list		t_env_list;
+typedef struct s_command		t_command;
+typedef struct s_io_files		t_io_files;
 
-typedef enum e_redir		t_redir;
+typedef enum e_redir			t_redir;
+typedef enum e_sig_mode			t_sig_mode;
 
 /*
 *	Enums
@@ -60,10 +56,19 @@ enum	e_redir
 	HEREDOC
 };
 
+enum	e_sig_mode
+{
+	INTERACTIVE = 0,
+	SIGINT_HD = 1,
+	NON_INTERACTIVE = 2,
+	SIGINT_FATHER = 3,
+	SIGINT_CHILD = 130,
+	SIGQUIT_CHILD = 131
+};
+
 /*
 *	Structs
 */
-// env nodes
 struct s_env
 {
 	char	*key;
@@ -155,13 +160,12 @@ int		set_shlvl(t_env_list *envi);
 *	BUILTINS
 */
 int		ft_env(t_env_list **envi, char **args);
-int		ft_export(t_env_list **envi, char **args);	
+int		ft_export(t_shell *shell, t_env_list **envi, char **args);
 int		ft_unset(t_env_list **envi, char **args);
-int		ft_pwd(void);
-int		ft_cd(t_env_list *envi, char *home, char *args);
+int		ft_pwd(t_shell *shell);
+int		ft_cd(t_shell *shell, t_env_list *envi, char *arg);
 int		ft_echo(char **args);
 int		ft_exit(t_shell *shell, char **args);
-// int		ft_echo(char *msg, int flag);
 
 /*
 *	PARSE
@@ -174,18 +178,26 @@ int		expand_line(t_shell *shell);
 *	EXECUTER
 */
 int		executer(t_shell *shell);
-int		handle_builtins(t_shell *shell, t_command cmd, int fd_in, int fd_out);
+int		handle_builtins(t_shell *shell, t_command *cmd);
 int		exec_builtin(t_shell *shell, char *cmd, char **args);
-int		handle_simple_commmands(t_shell *shell, int fd_in, int fd_out);
-char	*find_path(char *cmd, t_env_list *envi, int *status);
-int		manage_infiles(t_shell *shell, t_io_files *infiles, int in_count, int pipe);
+int		handle_simple_commmands(t_shell *shell, t_command *cmd);
+char	*find_path(t_shell *shell, char *cmd, t_env_list *envi, int *status);
+int		manage_infiles(t_io_files *infiles, int in_count, int pipe);
 int		manage_outfiles(t_io_files *outfiles, int out_count, int pipe);
-int		resolve_heredoc(t_shell *shell, t_io_files *infiles, int i, int in_count);
-char	*create_temp_file(void);
+int		resolve_heredocs(t_shell *shell, t_command *cmds, int n_cmds);
+char	*create_temp_file(t_shell *shell);
 int		check_access_tmp_folder(char *tmp_path);
-void	remove_temp_files(t_io_files *infiles, int in_count);
 void	create_child(t_shell *shell, int *fd1, int *fd2, int i);
 int		wait_all_childs(int last_pid);
+
+/*
+*	SIGNALS
+*/
+void	signal_handler(sig_t sigint_func, sig_t sigquit_func);
+void	ft_sigint(int signal);
+void	ft_sigint_heredoc(int signal);
+void	ft_sigint_child(int signal);
+void	ft_sigquit(int signal);
 
 /*
 *	UTILS
@@ -198,5 +210,7 @@ char	**envi_to_arr(t_env_list *env);
 char	**create_argv(t_command cmd);
 char	*ft_getenv(t_env_list *envi, char *key, int *flag);
 bool	is_directory(const char *path);
+void	remove_temp_files(t_command *cmds, int n_cmds);
+void	clean_exit(t_shell *shell, int exit_code);
 
 #endif

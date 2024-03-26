@@ -56,8 +56,8 @@ OBJ_FILES	=	$(SRC:%.c=$(OBJ_DIR)%.o) \
 # COMPILER
 CC			=	gcc -g3
 CFLAGS		=	-Wall -Wextra -Werror
-LDFLAGS		=	-L $(HOME)/.brew/opt/readline/lib
-CPPFLAGS	=	-I $(HOME)/.brew/opt/readline/include
+LDFLAGS		=	-L/opt/homebrew/opt/readline/lib
+CPPFLAGS	=	-I/opt/homebrew/opt/readline/include
 # CPPFLAGS	=	-I/usr/local/Cellar/readline/8.2.10/include
 # LDFLAGS     =	-L/usr/local/Cellar/readline/8.2.10/lib
 RLFLAG		=	-lreadline
