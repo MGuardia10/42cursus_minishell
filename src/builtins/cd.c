@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:46:54 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 18:21:00 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:47:55 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  * error during the `chdir` operation or updating the oldpwd or pwd fails, it
  * returns 1.
  */
-int	ft_cd_home(t_env_list *envi, char *curr_dir, int *flag)
+static int	ft_cd_home(t_shell *sh, t_env_list *envi, char *curr_dir, int *flag)
 {
 	if (chdir(ft_getenv(envi, "HOME", flag)) != 0)
 	{
@@ -38,7 +38,7 @@ int	ft_cd_home(t_env_list *envi, char *curr_dir, int *flag)
 		return (1);
 	}
 	if (update_oldpwd(curr_dir, envi) || update_pwd(envi))
-		return (perror("minishell"), 1);
+		(perror("malloc"), clean_exit(sh, EXIT_FAILURE));
 	return (0);
 }
 
@@ -56,20 +56,21 @@ int	ft_cd_home(t_env_list *envi, char *curr_dir, int *flag)
  * @return an integer value. If the function executes successfully, it
  * returns 0. If there is an error during the execution, it returns 1.
  */
-int	ft_cd_initial_dir(t_env_list *envi, char *home, char *curr_dir, int *flag)
+static int	ft_cd_initial_dir(t_shell *shell, t_env_list *envi, \
+									char *curr_dir, int *flag)
 {
 	if (chdir(ft_getenv(envi, "HOME", flag)) != 0)
 	{
 		if (*flag == 1)
 		{
-			if (chdir(home) != 0)
+			if (chdir(shell->home) != 0)
 				return (perror("minishell: cd"), 1);
 		}
 		else
 			return (perror("minishell: cd"), 1);
 	}
 	if (update_oldpwd(curr_dir, envi) || update_pwd(envi))
-		return (perror("minishell"), 1);
+		(perror("malloc"), clean_exit(shell, EXIT_FAILURE));
 	return (0);
 }
 
@@ -84,7 +85,7 @@ int	ft_cd_initial_dir(t_env_list *envi, char *home, char *curr_dir, int *flag)
  * @return an integer value. If the function executes successfully, it
  * returns 0. If there is an error during the execution, it returns 1.
  */
-int	ft_cd_minus(t_env_list *envi, char *curr_dir, int *flag)
+static int	ft_cd_minus(t_shell *sh, t_env_list *envi, char *c_dir, int *flag)
 {
 	char	*oldpwd;
 
@@ -101,8 +102,8 @@ int	ft_cd_minus(t_env_list *envi, char *curr_dir, int *flag)
 		return (1);
 	}
 	printf("%s\n", oldpwd);
-	if (update_oldpwd(curr_dir, envi) || update_pwd(envi))
-		return (perror("minishell"), 1);
+	if (update_oldpwd(c_dir, envi) || update_pwd(envi))
+		(perror("malloc"), clean_exit(sh, EXIT_FAILURE));
 	return (0);
 }
 
@@ -120,7 +121,7 @@ int	ft_cd_minus(t_env_list *envi, char *curr_dir, int *flag)
  * value), it prints an error messageand returns 1. If the updates to the oldpwd
  * or pwd fail, it prints an error message and returns 1. Otherwise, returns 0.
  */
-int	ft_cd_dir(char *arg, t_env_list *envi, char *curr_dir)
+static int	ft_cd_dir(t_shell *sh, char *arg, t_env_list *envi, char *curr_dir)
 {
 	if (chdir(arg) != 0)
 	{
@@ -128,7 +129,7 @@ int	ft_cd_dir(char *arg, t_env_list *envi, char *curr_dir)
 		return (perror(NULL), 1);
 	}
 	if (update_oldpwd(curr_dir, envi) || update_pwd(envi))
-		return (perror("minishell"), 1);
+		(perror("malloc"), clean_exit(sh, EXIT_FAILURE));
 	return (0);
 }
 
@@ -144,23 +145,23 @@ int	ft_cd_dir(char *arg, t_env_list *envi, char *curr_dir)
  * @return an integer value. Returns 0 when the directory is changed correctly
  * and 1 if there was an error.
  */
-int	ft_cd(t_env_list *envi, char *home, char *arg)
+int	ft_cd(t_shell *shell, t_env_list *envi, char *arg)
 {
 	char	curr_dir[PATH_MAX];
 	int		flag;
 
 	if (!getcwd(curr_dir, PATH_MAX))
-		return (perror("minishell"), 1);
+		(perror("getcwd"), clean_exit(shell, EXIT_FAILURE));
 	flag = 0;
 	if (!arg || arg[0] == '\0')
-		return (ft_cd_home(envi, curr_dir, &flag));
+		return (ft_cd_home(shell, envi, curr_dir, &flag));
 	else if (ft_strcmp(arg, "\"\"") == 0)
 		return (0);
 	else if (ft_strcmp(arg, "~") == 0)
-		return (ft_cd_initial_dir(envi, home, curr_dir, &flag));
+		return (ft_cd_initial_dir(shell, envi, curr_dir, &flag));
 	else if (ft_strcmp(arg, "-") == 0)
-		return (ft_cd_minus(envi, curr_dir, &flag));
+		return (ft_cd_minus(shell, envi, curr_dir, &flag));
 	else
-		return (ft_cd_dir(arg, envi, curr_dir));
+		return (ft_cd_dir(shell, arg, envi, curr_dir));
 	return (0);
 }

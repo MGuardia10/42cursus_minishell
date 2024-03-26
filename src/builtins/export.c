@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 17:56:57 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:38:50 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static int	check_export_errors(char *arg)
  * 
  * @return an integer value.
  */
-int	ft_export(t_env_list **envi, char **args)
+int	ft_export(t_shell *shell, t_env_list **envi, char **args)
 {
 	t_env	*node_content;
 	int		i;
@@ -150,9 +150,9 @@ int	ft_export(t_env_list **envi, char **args)
 		}
 		node_content = set_env_content(args[i]);
 		if (!node_content)
-			return (perror("minishell"), 1);
+			(perror("malloc"), clean_exit(shell, EXIT_FAILURE));
 		if (create_new_env(envi, node_content))
-			return (free_env(node_content), perror("Minishell"), 1);
+			(perror("malloc"), clean_exit(shell, EXIT_FAILURE));
 	}
 	return (0);
 }

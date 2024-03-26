@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:47:00 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 17:55:48 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:39:49 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
  * @return Returns 0 if the current working directory is printed successfully,
  * otherwise returns 1.
  */
-int	ft_pwd(void)
+int	ft_pwd(t_shell *shell)
 {
 	char	buffer[PATH_MAX];
 
 	if (!getcwd(buffer, PATH_MAX))
-		return (perror("minishell: pwd"), 1);
+		(perror("getcwd"), clean_exit(shell, EXIT_FAILURE));
 	ft_printf("%s\n", buffer);
 	return (0);
 }
