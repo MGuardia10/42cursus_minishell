@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/25 01:20:17 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:57:21 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void printall(t_shell *shell)
 		for (int j = 0; j < shell->cmds[i].infile_count; j++)
 		{
 			printf("Tipo redir -> %u\n", shell->cmds[i].infile[j].redir);
-			printf("Filename -> %s\n\n", shell->cmds[i].infile[j].filename);
+			printf("Filename -> %s\n", shell->cmds[i].infile[j].filename);
+			printf("Expheredoc -> %d\n\n", shell->cmds[i].infile[j].expheredoc);
 		}
 		printf("OUTFILES(%d): \n", shell->cmds[i].outfile_count);
 		for (int j = 0; j < shell->cmds[i].outfile_count; j++)
@@ -51,6 +52,26 @@ void printall(t_shell *shell)
 	}
 }
 
+int	unexpected_tokens(char **tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens[i])
+	{
+		if (isredir(tokens[i]) != NONE || ft_strcmp(tokens[i], "|") == 0)
+		{
+			if ((isredir(tokens[i + 1]) != NONE || ft_strcmp(tokens[i + 1], "|") == 0) || (ft_strcmp(tokens[i], "|") == 0 && i == 0))
+			{
+				ft_printf("minishell: syntax error near unexpected token `%s'\n", tokens[i]);
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	create_cmd_array(t_shell *shell)
 {
 	char	**tokens;
@@ -58,6 +79,11 @@ int	create_cmd_array(t_shell *shell)
 	tokens = get_tokens(shell->line_read);
 	if (!tokens)
 		return (1);
+	if (unexpected_tokens(tokens) == 1)
+	{
+		ft_free_matrix((void *)tokens);
+		return (1);
+	}
 	if (init_for_store(tokens, shell) == 1)
 		return (1);
 	if (store_tokens(tokens, shell) == 1)
@@ -104,10 +130,9 @@ int	init_line(t_shell *shell)
 {
 	if (check_quotes(shell) == 1) // QUITAR LO INECESARIO
 		return (1);
-	if (expand_line(shell) == 1) // GESTIONAR SI NO EXISTE ENV, CAMBIAR GETENV POR FT_GETENV, GESTIONAR $?, HEREDOC GESTIONAR EXPANSION DELIMITADOR
+	if (expand_line(shell) == 1) // CAMBIAR GETENV POR FT_GETENV****
 		return (1);
-	if (create_cmd_array(shell) == 1)
+	if (create_cmd_array(shell) == 1) // COMPARAR COMPORTAMIENTO "$noexistente | exe"
 		return (1);
-	free_cmds(shell);
 	return (0);
 }

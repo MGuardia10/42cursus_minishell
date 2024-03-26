@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/25 00:56:34 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/25 13:19:46 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ char	**get_tokens(char *line);
 int		handle_special_char(char *line, char **tokens, int *i, int *j);
 int		store_tokens(char **tokens, t_shell *shell);
 int		init_for_store(char **tokens, t_shell *shell);
+void	free_cmds(t_shell *shell);
 
 /*
 *	UTILS

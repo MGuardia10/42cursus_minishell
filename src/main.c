@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/17 15:36:37 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:50:56 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ int	main(void)
 		shell.line_read = readline(BCYN"Minishell $ "RES);
 		if (!shell.line_read || shell.line_read[0] == '\0')
 			continue ;
-		init_line(&shell);
+		if (init_line(&shell) == 1)
+		{
+			free(shell.line_read);
+			return (1);
+		}
+		free_cmds(&shell);
 		free(shell.line_read);
 		return (0);
 	}

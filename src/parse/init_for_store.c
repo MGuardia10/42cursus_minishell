@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:27:12 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 17:40:12 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:00:36 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,6 @@ int count_cmd(char **tokens, t_shell *shell)
 	}
 	shell->n_cmds = count;
 	return (count);
-}
-
-int	rmquotes(char **tokens)
-{
-	int		i;
-	char 	*aux;
-	
-	i = 0;
-	while (tokens[i])
-	{
-		if (tokens[i][0] == '"')
-		{
-			aux = tokens[i];
-			tokens[i] = ft_strtrim(tokens[i], "\"");
-			if (!tokens[i])
-				return (1);
-			free(aux);
-		}
-		else if (tokens[i][0] == '\'')
-		{
-			aux = tokens[i];
-			tokens[i] = ft_strtrim(tokens[i], "\'");
-			if (!tokens[i])
-				return (1);
-			free(aux);
-		}
-		i++;
-	}
-	return (0);
 }
 
 int	io_files_alloc(char **tokens, t_shell *shell)
@@ -129,8 +100,6 @@ int	init_for_store(char **tokens, t_shell *shell)
 {
 	shell->cmds = (t_command *)malloc(sizeof(t_command) * count_cmd(tokens, shell)); // ACORDARSE LIBERAR COMANDOS + TODO SU CONTENIDO
 	if (!shell->cmds)
-		return (1);
-	if (rmquotes(tokens) == 1)
 		return (1);
 	if (io_files_alloc(tokens, shell) == 1)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:39:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/23 21:41:19 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/25 13:44:13 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int	quotes_token(char *line, char **cmds, int *i, int *j)
 			*i += 1;
 	}
 	if ((*i - last) + 2 == 2)
+	{
+		*i += 1;
 		return (0);
+	}
 	cmds[*j] = ft_substr(line, last - 1, (*i - last) + 2); // lo devuelvo con comillas para diferenciar redirs.
 	if (!cmds[*j])
 		return (1);
