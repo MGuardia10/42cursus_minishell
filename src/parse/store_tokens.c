@@ -6,12 +6,28 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:20:44 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 23:53:25 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:49:26 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+/**
+ * @brief Stores the tokens in the shell structure.
+ * 
+ * This function takes an array of tokens and a shell structure as input.
+ * It iterates through the tokens and determines whether each token is a 
+ * executable, a redirection, or an argument.
+ * If the token is a redirection, it calls the store_redir() function to 
+ * handle it.
+ * If the token is an executable, it calls the store_exe() function to 
+ * handle it.
+ * If the token is an argument, it calls the store_arg() function to handle it.
+ * 
+ * @param tokens An array of tokens.
+ * @param shell The shell structure.
+ * @return Returns 0 on success, 1 on failure.
+ */
 int	store_tokens(char **tokens, t_shell *shell)
 {
 	int	i;

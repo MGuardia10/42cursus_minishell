@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 23:54:07 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:48:34 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,25 @@
 	}
 }*/
 
+/**
+ * @brief Creates an array of commands from the given shell input.
+ * 
+ * This function takes the shell input and tokenizes it using the 
+ * get_tokens() function.
+ * If the tokens are successfully obtained, it checks for any unexpected 
+ * tokens using the unexpected_tokens() function.
+ * If unexpected tokens are found, it frees the memory allocated for tokens 
+ * and returns 1.
+ * Otherwise, it initializes the necessary data structures for storing the 
+ * tokens using the init_for_store() function.
+ * Then, it stores the tokens in the shell data structure using the 
+ * store_tokens() function. 
+ * Finally, it frees the memory allocated for tokens 
+ * and returns 0.
+ * 
+ * @param shell A pointer to the shell data structure.
+ * @return 0 if the command array is successfully created, 1 otherwise.
+ */
 int	create_cmd_array(t_shell *shell)
 {
 	char	**tokens;
@@ -59,6 +78,12 @@ int	create_cmd_array(t_shell *shell)
 	return (0);
 }
 
+/**
+ * Initializes the shell line by performing various operations.
+ * 
+ * @param shell The shell structure.
+ * @return 0 if the initialization is successful, 1 otherwise.
+ */
 int	init_line(t_shell *shell)
 {
 	if (check_quotes(shell->line_read) == 1)

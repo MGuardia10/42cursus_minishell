@@ -6,12 +6,18 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:36:58 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 23:53:19 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:08:35 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+/**
+ * Checks if the given line has balanced quotes.
+ * 
+ * @param line The line to check for balanced quotes.
+ * @return 0 if the line has balanced quotes, 1 otherwise.
+ */
 int	check_quotes(char *line)
 {
 	int	i;

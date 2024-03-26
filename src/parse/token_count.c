@@ -6,12 +6,19 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 20:54:17 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 23:53:32 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:50:19 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+/**
+ * Counts the number of quotes in a given line.
+ *
+ * @param line The input line to count quotes from.
+ * @param i    The current index in the line.
+ * @return     The number of quotes found in the line.
+ */
 int	quotes_count(char *line, int *i)
 {
 	int	count;
@@ -36,6 +43,13 @@ int	quotes_count(char *line, int *i)
 	return (count);
 }
 
+/**
+ * Counts the number of redirection symbols in a given line.
+ *
+ * @param line The line to count the redirection symbols in.
+ * @param i    A pointer to the current index in the line.
+ * @return     The number of redirection symbols found.
+ */
 int	redir_count(char *line, int *i)
 {
 	int	count;
@@ -63,6 +77,12 @@ int	redir_count(char *line, int *i)
 	return (count);
 }
 
+/**
+ * Counts the number of tokens in a given line.
+ *
+ * @param line The input line to count tokens from.
+ * @return The number of tokens found in the line.
+ */
 int	num_of_tokens(char *line)
 {
 	int	i;
