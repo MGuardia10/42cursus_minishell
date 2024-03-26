@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/25 13:19:46 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:13:16 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,14 @@ int		handle_special_char(char *line, char **tokens, int *i, int *j);
 int		store_tokens(char **tokens, t_shell *shell);
 int		init_for_store(char **tokens, t_shell *shell);
 void	free_cmds(t_shell *shell);
+int		clean_line(t_shell *shell, char **exp, int i, int j);
+int		check_inside_quotes(t_shell *shell, int i, int f);
+int		add_expanded_env(t_shell *shell, char **exp, int *i, int *j, int f);
+int		join_line(t_shell *shell, char **exp, int i, int j);
+int		join_expenv(char **exp, char *env);
+char	*expenv(t_shell *shell, int i, int f);
+int		extract_from_line(t_shell *shell, char **exp, int i, int j);
+char	*non_existent_env(int f);
 
 /*
 *	UTILS

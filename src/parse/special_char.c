@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:39:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/25 13:44:13 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:40:24 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	quotes_token(char *line, char **cmds, int *i, int *j)
 {
-	int last = 0;
+	int	last;
 
+	last = 0;
 	if (line[*i] == '"')
 	{
 		*i += 1;
@@ -30,12 +31,7 @@ int	quotes_token(char *line, char **cmds, int *i, int *j)
 		while (line[*i] && line[*i] != '\'')
 			*i += 1;
 	}
-	if ((*i - last) + 2 == 2)
-	{
-		*i += 1;
-		return (0);
-	}
-	cmds[*j] = ft_substr(line, last - 1, (*i - last) + 2); // lo devuelvo con comillas para diferenciar redirs.
+	cmds[*j] = ft_substr(line, last - 1, (*i - last) + 2);
 	if (!cmds[*j])
 		return (1);
 	*i += 1;
@@ -105,16 +101,16 @@ int	pipe_token(char *line, char **tokens, int *i, int *j)
 }
 
 int	handle_special_char(char *line, char **tokens, int *i, int *j)
-{	
+{
 	if (line[*i] == '"' || line[*i] == '\'')
 	{
 		if (quotes_token(line, tokens, i, j) == 1)
 			return (1);
-	}		
+	}
 	else if (line[*i] == '|')
 	{
 		if (pipe_token(line, tokens, i, j) == 1)
-			return(1);
+			return (1);
 	}
 	else if (line[*i] == '>')
 	{
@@ -131,3 +127,5 @@ int	handle_special_char(char *line, char **tokens, int *i, int *j)
 			*i += 1;
 	return (0);
 }
+
+//

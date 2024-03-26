@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 20:54:17 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/25 01:27:36 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:35:52 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,24 @@
 
 int	quotes_count(char *line, int *i)
 {
-	int	aux;
 	int	count;
 
 	count = 0;
 	if (line[*i] == '"')
 	{
 		*i += 1;
-		aux = *i;
 		count++;
 		while (line[*i] && line[*i] != '"')
 			*i += 1;
 		*i += 1;
-		if (*i - aux == 1)
-			count--;
 	}
 	else if (line[*i] == '\'')
 	{
 		*i += 1;
-		aux = *i;
 		count++;
 		while (line[*i] && line[*i] != '\'')
 			*i += 1;
 		*i += 1;
-		if (*i - aux == 1)
-			count--;
 	}
 	return (count);
 }
@@ -50,7 +43,6 @@ int	redir_count(char *line, int *i)
 	count = 0;
 	if (line[*i] == '|')
 	{
-		//  unexpected token error
 		count++;
 		*i += 1;
 	}
@@ -96,3 +88,5 @@ int	num_of_tokens(char *line)
 	}
 	return (count);
 }
+
+//

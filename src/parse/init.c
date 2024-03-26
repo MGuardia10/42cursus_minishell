@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 11:52:05 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:15:42 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	unexpected_tokens(char **tokens)
 		{
 			if ((isredir(tokens[i + 1]) != NONE || ft_strcmp(tokens[i + 1], "|") == 0) || (ft_strcmp(tokens[i], "|") == 0 && i == 0))
 			{
-				ft_printf("minishell: syntax error near unexpected token `%s'\n", tokens[i]);
+				ft_fprintf(STDERR_FILENO, "minishell: syntax error near unexpected token `%s'\n", tokens[i]);
 				return (1);
 			}
 		}

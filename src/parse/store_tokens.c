@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:20:44 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 10:53:10 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:40:31 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	store_exe(char **tokens, t_shell *shell, int *i, int *j)
 		*j += 1;
 		*i += 1;
 	}
-	shell->cmds[*j].exe = ft_strtrim(tokens[*i], "\"");
+	if (tokens[*i][0] == '"')
+		shell->cmds[*j].exe = ft_strtrim(tokens[*i], "\"");
+	else
+		shell->cmds[*j].exe = ft_strtrim(tokens[*i], "'");
 	if (!shell->cmds[*j].exe)
 		return (1);
 	return (0);
@@ -33,7 +36,10 @@ int	store_redir(char **tokens, t_shell *shell, int *i, int j)
 		*i += 1;
 		if (shell->cmds[j].infile[shell->cmds[j].infile_count].redir == HEREDOC && (tokens[*i][0] != '"' && tokens[*i][0] != '\''))
 			shell->cmds[j].infile[shell->cmds[j].infile_count].expheredoc = true;
-		shell->cmds[j].infile[shell->cmds[j].infile_count].filename = ft_strtrim(tokens[*i], "\"");
+		if (tokens[*i][0] == '"')
+			shell->cmds[j].infile[shell->cmds[j].infile_count].filename = ft_strtrim(tokens[*i], "\"");
+		else
+			shell->cmds[j].infile[shell->cmds[j].infile_count].filename = ft_strtrim(tokens[*i], "'");
 		if (!shell->cmds[j].infile[shell->cmds[j].infile_count].filename)
 			return (1);
 		shell->cmds[j].infile_count++;
@@ -42,7 +48,10 @@ int	store_redir(char **tokens, t_shell *shell, int *i, int j)
 	{
 		shell->cmds[j].outfile[shell->cmds[j].outfile_count].redir = isredir(tokens[*i]);
 		*i += 1;
-		shell->cmds[j].outfile[shell->cmds[j].outfile_count].filename = ft_strtrim(tokens[*i], "\"");
+		if (tokens[*i][0] == '"')
+			shell->cmds[j].outfile[shell->cmds[j].outfile_count].filename = ft_strtrim(tokens[*i], "\"");
+		else
+			shell->cmds[j].outfile[shell->cmds[j].outfile_count].filename = ft_strtrim(tokens[*i], "'");
 		if (!shell->cmds[j].outfile[shell->cmds[j].outfile_count].filename)
 			return (1);
 		shell->cmds[j].outfile_count++;
@@ -52,7 +61,10 @@ int	store_redir(char **tokens, t_shell *shell, int *i, int j)
 
 int	store_arg(char **tokens, t_shell *shell, int i, int j)
 {
-	shell->cmds[j].args[shell->cmds[j].args_count] = ft_strtrim(tokens[i], "\"");
+	if (tokens[i][0] == '"')
+		shell->cmds[j].args[shell->cmds[j].args_count] = ft_strtrim(tokens[i], "\"");
+	else
+		shell->cmds[j].args[shell->cmds[j].args_count] = ft_strtrim(tokens[i], "'");
 	if (!shell->cmds[j].args[shell->cmds[j].args_count])
 		return (1);
 	shell->cmds[j].args_count++;

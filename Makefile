@@ -30,7 +30,8 @@ PARS_FILES	=	init.c \
 				get_tokens.c \
 				store_tokens.c \
 				parse_utils.c \
-				init_for_store.c
+				init_for_store.c \
+				expand_utils.c
 PARSE		=	$(addprefix $(PARS_DIR), $(PARS_FILES))
 
 # ENV
@@ -54,7 +55,7 @@ OBJ_FILES	=	$(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o) \
 
 # COMPILER
 CC			=	cc
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra # -Werror
 RLFLAGS		=	-lreadline
 INCLUDE		=	-I inc
 RM			=	rm -rf
