@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 17:39:35 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:24:13 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_env	*set_env_content(char *env_str)
 
 	content = ft_calloc(1, sizeof(t_env));
 	if (!content)
-		return (NULL);
+		(NULL);
 	len_to_equal = 0;
 	while (env_str[len_to_equal] && env_str[len_to_equal] != '=')
 		len_to_equal++;
@@ -134,17 +134,17 @@ int	create_env_list(t_shell *shell, char **env)
 	{
 		node_content = set_env_content(env[i]);
 		if (!node_content)
-			return (perror("minishell"), 1);
+			return (perror("malloc"), 1);
 		if (create_new_env(&shell->envi, node_content))
 		{
 			free_env(node_content);
-			return (perror("minishell"), 1);
+			return (perror("malloc"), 1);
 		}
 	}
 	if (set_home(shell))
 		return (perror("minishell"), 1);
 	if (initialize_oldpwd(shell->envi))
-		return (perror("minishell"), 1);
+		return (perror("malloc"), 1);
 	if (set_shlvl(shell->envi))
 		return (perror("minishell"), 1);
 	return (0);
