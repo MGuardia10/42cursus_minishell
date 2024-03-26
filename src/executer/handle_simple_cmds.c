@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:12:07 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 15:47:51 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:56:51 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	child_task(t_shell *shell, int fd_in, int fd_out)
 	int		status;
 
 	status = 0;
-	path = find_path(shell->cmds->exe, shell->envi, &status);
+	path = find_path(shell, shell->cmds->exe, shell->envi, &status);
 	if (!path)
 		exit(status);
 	argv = create_argv(shell->cmds[0]);
 	if (!argv)
-		exit(1);
+		exit(EXIT_FAILURE);
 	envi = envi_to_arr(shell->envi);
 	if (!envi)
-		exit(1);
+		exit(EXIT_FAILURE);
 	if (fd_in != STDIN_FILENO)
 		dup2(fd_in, STDIN_FILENO);
 	if (fd_out != STDOUT_FILENO && fd_out != STDERR_FILENO)
@@ -59,16 +59,26 @@ void	child_task(t_shell *shell, int fd_in, int fd_out)
  * @return the exit status of the child process. On success it returns 0. On
  * failure it returns a number > 0 && < 256.
  */
-int	handle_simple_commmands(t_shell *shell, int fd_in, int fd_out)
+int	handle_simple_commmands(t_shell *shell, t_command *cmd)
 {
 	pid_t	pid;
+	int		fd_in;
+	int		fd_out;
 	int		wstatus;
 
 	pid = fork();
 	if (pid < 0)
-		return (perror("minishell"), 1);
+		(perror("fork"), clean_exit(shell, EXIT_FAILURE));
 	if (pid == 0)
+	{
+		fd_in = manage_infiles(cmd->infiles, cmd->infile_count, -1);
+		if (fd_in < 0)
+			exit(EXIT_FAILURE);
+		fd_out = manage_outfiles(cmd->outfiles, cmd->outfile_count, -1);
+		if (fd_out < 0)
+			exit(EXIT_FAILURE);
 		child_task(shell, fd_in, fd_out);
+	}
 	if (pid > 0)
 		wait(&wstatus);
 	if (WIFEXITED(wstatus))

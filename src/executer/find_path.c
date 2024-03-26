@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:50:24 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 15:24:22 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:46:56 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
  * @return true if is a accesible file, and false if it´s a directory or the
  * file is not accessible.
  */
-bool	is_accessible(char *cmd, int *status)
+static bool	is_accessible(char *cmd, int *status)
 {
 	if (is_directory(cmd) == true)
 		return (*status = 2, false);
@@ -45,7 +45,7 @@ bool	is_accessible(char *cmd, int *status)
  * @return If it successfully finds an accessible path for `cmd`, it will return
  * that full path. If it cannot find an accessible path, it will return `NULL`.
  */
-char	*create_path(char *cmd, t_env_list *envi, int *status)
+static char	*create_path(t_shell *sh, char *cmd, t_env_list *envi, int *status)
 {
 	char	**paths;
 	char	*path_slash;
@@ -62,14 +62,15 @@ char	*create_path(char *cmd, t_env_list *envi, int *status)
 	{
 		path_slash = ft_strjoin(paths[i], "/");
 		if (!path_slash)
-			return (ft_putstr_fd("MALLOC error\n", 2), NULL);
+			(perror("malloc"), clean_exit(sh, EXIT_FAILURE));
 		path = ft_strjoin(path_slash, cmd);
 		if (!path)
-			return (perror("minishell"), free(path_slash), NULL);
+			(perror("malloc"), clean_exit(sh, EXIT_FAILURE));
 		if (is_accessible(path, status) == true)
 			return (ft_free_matrix((void **)paths), free(path_slash), path);
 		(free(path_slash), free(path));
 	}
+	ft_free_matrix((void **)paths);
 	return (NULL);
 }
 
@@ -119,7 +120,7 @@ void	manage_path_errors(char *cmd, t_env_list *envi, int *status)
  * result of calling `create_path` function, or NULL If `create_path` fails to 
  * create a valid path.
  */
-char	*find_path(char *cmd, t_env_list *envi, int *status)
+char	*find_path(t_shell *shell, char *cmd, t_env_list *envi, int *status)
 {
 	char	*path;
 
@@ -136,7 +137,7 @@ char	*find_path(char *cmd, t_env_list *envi, int *status)
 		}
 		return (cmd);
 	}
-	path = create_path(cmd, envi, status);
+	path = create_path(shell, cmd, envi, status);
 	if (!path)
 		return (manage_path_errors(cmd, envi, status), NULL);
 	return (path);

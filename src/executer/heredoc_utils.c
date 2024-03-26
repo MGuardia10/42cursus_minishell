@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:52:13 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 16:28:20 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:02:12 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_access_tmp_folder(char *tmp_path)
  * 
  * @return a string that represents the path to a unique temporary file.
  */
-char	*create_temp_file(void)
+char	*create_temp_file(t_shell *shell)
 {
 	int		nbr;
 	char	*nbr_str;
@@ -57,10 +57,10 @@ char	*create_temp_file(void)
 	{
 		nbr_str = ft_itoa(nbr);
 		if (!nbr_str)
-			return (NULL);
+			(perror("malloc"), clean_exit(shell, EXIT_FAILURE));
 		path = ft_strjoin(TEMP_PATH, nbr_str);
 		if (!path)
-			return (free(nbr_str), NULL);
+			(perror("malloc"), clean_exit(shell, EXIT_FAILURE));
 		if (access(path, X_OK) != 0)
 		{
 			free(nbr_str);

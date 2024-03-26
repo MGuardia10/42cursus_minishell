@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:03:34 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 16:21:21 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:56:44 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
  */
 static void	manage_io_files_helper(t_shell *sh, int *fd, int *fd1, int i)
 {
-	fd[0] = manage_infiles(sh, sh->cmds[i].infiles, sh->cmds[i].infile_count, \
+	fd[0] = manage_infiles(sh->cmds[i].infiles, sh->cmds[i].infile_count, \
 												fd1[0]);
 	fd[1] = manage_outfiles(sh->cmds[i].outfiles, sh->cmds[i].outfile_count, \
 												-1);
@@ -53,11 +53,11 @@ static int	*manage_io_files(t_shell *sh, int *fd1, int *fd2, int i)
 
 	fd = ft_calloc(2, sizeof(int));
 	if (!fd)
-		exit(1); // malloc exit !!!
+		exit(EXIT_FAILURE);
 	if (i == 0)
 	{
 		close(fd1[0]);
-		fd[0] = manage_infiles(sh, sh->cmds[i].infiles, \
+		fd[0] = manage_infiles(sh->cmds[i].infiles, \
 										sh->cmds[i].infile_count, -1);
 		fd[1] = manage_outfiles(sh->cmds[i].outfiles, \
 										sh->cmds[i].outfile_count, fd1[1]);
@@ -65,7 +65,7 @@ static int	*manage_io_files(t_shell *sh, int *fd1, int *fd2, int i)
 	else if (i < sh->n_cmds - 1)
 	{
 		close(fd2[0]);
-		fd[0] = manage_infiles(sh, sh->cmds[i].infiles, \
+		fd[0] = manage_infiles(sh->cmds[i].infiles, \
 										sh->cmds[i].infile_count, fd1[0]);
 		fd[1] = manage_outfiles(sh->cmds[i].outfiles, \
 										sh->cmds[i].outfile_count, fd2[1]);
@@ -103,13 +103,13 @@ static void	exec_child(t_shell *shell, t_command *cmd, int fd_in, int fd_out)
 		close(fd_out);
 	if (is_builtin(cmd->exe) == true)
 		exit(exec_builtin(shell, cmd->exe, cmd->args));
-	path = find_path(cmd->exe, shell->envi, &status);
+	path = find_path(shell, cmd->exe, shell->envi, &status);
 	if (!path)
 		exit(status);
 	argv = create_argv(*cmd);
 	envi = envi_to_arr(shell->envi);
 	if (!argv || !envi)
-		exit(1);
+		exit(EXIT_FAILURE);
 	execve(path, argv, envi);
 	(perror("minishell"), exit(127));
 }
@@ -132,13 +132,12 @@ void	create_child(t_shell *shell, int *fd1, int *fd2, int i)
 
 	shell->last_pid = fork();
 	if (shell->last_pid < 0)
-		(perror("fork"), exit(1));
+		(perror("fork"), clean_exit(shell, EXIT_FAILURE));
 	if (shell->last_pid == 0)
 	{
-		// signal_setter
 		io_files = manage_io_files(shell, fd1, fd2, i);
 		if (io_files[0] < 0 || io_files[1] < 0)
-			exit(1);
+			exit(EXIT_FAILURE);
 		cmd = &shell->cmds[i];
 		exec_child(shell, cmd, io_files[0], io_files[1]);
 	}

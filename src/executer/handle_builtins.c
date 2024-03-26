@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:50:28 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 15:32:34 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:42:59 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	exec_builtin(t_shell *shell, char *cmd, char **args)
 	if (ft_strcmp(cmd, "echo") == 0)
 		return (ft_echo(args));
 	if (ft_strcmp(cmd, "cd") == 0)
-		return (ft_cd(shell->envi, shell->home, args[0]));
+		return (ft_cd(shell, shell->envi, args[0]));
 	else if (ft_strcmp(cmd, "pwd") == 0)
-		return (ft_pwd());
+		return (ft_pwd(shell));
 	else if (ft_strcmp(cmd, "export") == 0)
-		return (ft_export(&shell->envi, args));
+		return (ft_export(shell, &shell->envi, args));
 	else if (ft_strcmp(cmd, "unset") == 0)
 		return (ft_unset(&shell->envi, args));
 	else if (ft_strcmp(cmd, "env") == 0)
@@ -57,15 +57,23 @@ int	exec_builtin(t_shell *shell, char *cmd, char **args)
  * @return an integer that represents the result of executing the built-in
  * command.
  */
-int	handle_builtins(t_shell *shell, t_command cmd, int fd_in, int fd_out)
+int	handle_builtins(t_shell *shell, t_command *cmd)
 {
+	int	fd_in;
+	int	fd_out;
 	int	exit_code;
 
+	fd_in = manage_infiles(cmd->infiles, cmd->infile_count, -1);
+	if (fd_in < 0)
+		return (1);
+	fd_out = manage_outfiles(cmd->outfiles, cmd->outfile_count, -1);
+	if (fd_out < 0)
+		return (1);
 	shell->infile_dup = dup2(fd_in, STDIN_FILENO);
 	shell->outfile_dup = dup2(fd_out, STDOUT_FILENO);
 	if (shell->outfile_dup < 0 || shell->infile_dup < 0)
 		return (close(fd_in), close(fd_out), perror("dup2"), 1);
-	exit_code = exec_builtin(shell, cmd.exe, cmd.args);
+	exit_code = exec_builtin(shell, cmd->exe, cmd->args);
 	close(fd_in);
 	close(fd_out);
 	dup2(shell->stdin_dup, shell->infile_dup);

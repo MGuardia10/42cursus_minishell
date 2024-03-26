@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:12:47 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 15:57:05 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 17:19:20 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,6 @@ static int	open_infiles(t_io_files *infiles, int i, bool *error)
 }
 
 /**
- * removes temporary files that were created by the heredoc.
- * 
- * @param infiles pointer to a structure `t_io_files` which contains info 
- * about input files for the command.
- * @param in_count an integer that represents the number of elements in
- * the `infiles` array.
- */
-void	remove_temp_files(t_io_files *infiles, int in_count)
-{
-	int	i;
-
-	i = 0;
-	while (i < in_count)
-	{
-		if (infiles[i].redir == HEREDOC && infiles[i].path)
-			unlink(infiles[i].path);
-		i++;
-	}
-}
-
-/**
  * handles input file redirection and returns the file descriptor for the last
  * input file or a pipe file descriptor if needed.
  * 
@@ -80,7 +59,7 @@ void	remove_temp_files(t_io_files *infiles, int in_count)
  * 
  * @return an integer that represents the file descriptor of the input.
  */
-int	manage_infiles(t_shell *shell, t_io_files *infiles, int in_count, int pipe)
+int	manage_infiles(t_io_files *infiles, int in_count, int pipe)
 {
 	int		i;
 	int		fd;
@@ -89,13 +68,11 @@ int	manage_infiles(t_shell *shell, t_io_files *infiles, int in_count, int pipe)
 	i = 0;
 	error = false;
 	fd = STDIN_FILENO;
-	if (resolve_heredoc(shell, infiles, i, in_count))
-		return (-1);
 	while (i < in_count)
 	{
 		fd = open_infiles(infiles, i, &error);
 		if (error == true)
-			return (remove_temp_files(infiles, in_count), -1);
+			return (-1);
 		if (i != in_count - 1)
 			close(fd);
 		i++;

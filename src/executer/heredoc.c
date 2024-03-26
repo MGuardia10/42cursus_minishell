@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:34:39 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 16:36:55 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/26 18:03:24 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
  * @return a string that represents the expansion of the word obtained from the
  * input line. NULL if returned if there is no match.
  */
-char	*expand_word(t_env_list *envi, char *line, int j, int *i)
+static char	*expand_word(t_shell *shell, char *line, int j, int *i)
 {
 	char	*word_to_expand;
 	char	*expansion;
@@ -36,8 +36,8 @@ char	*expand_word(t_env_list *envi, char *line, int j, int *i)
 		(*i)++;
 	word_to_expand = ft_substr(line, j, *i - j);
 	if (!word_to_expand)
-		return (NULL);
-	expansion = ft_getenv(envi, word_to_expand, &flag);
+		(perror("malloc"), clean_exit(shell, EXIT_FAILURE));
+	expansion = ft_getenv(shell->envi, word_to_expand, &flag);
 	free(word_to_expand);
 	return (expansion);
 }
@@ -55,7 +55,7 @@ char	*expand_word(t_env_list *envi, char *line, int j, int *i)
  * @return an integer value. 0 if line is finished or recursion if there is more
  * string to be parsed.
  */
-int	heredoc_exp(t_shell *shell, int fd, char *line, int *i)
+static int	heredoc_exp(t_shell *shell, int fd, char *line, int *i)
 {
 	char	*exp_word;
 	int		j;
@@ -76,7 +76,7 @@ int	heredoc_exp(t_shell *shell, int fd, char *line, int *i)
 			return (ft_putchar_fd('$', fd), heredoc_exp(shell, fd, line, i));
 		if (!ft_isalpha(line[j]))
 			return ((*i)++, heredoc_exp(shell, fd, line, i));
-		exp_word = expand_word(shell->envi, line, j, i);
+		exp_word = expand_word(shell, line, j, i);
 		if (exp_word)
 			ft_putstr_fd(exp_word, fd);
 	}
@@ -97,30 +97,30 @@ int	heredoc_exp(t_shell *shell, int fd, char *line, int *i)
  * @return an integer value. If the function successfully reads the input until
  * the `key_word` is encountered, it returns 0. Otherwise, it returns 1.
  */
-int	read_stdin(t_shell *shell, int fd, char *key_word, bool expand)
+static int	read_stdin(t_shell *shell, int fd, char *key_word, bool expand)
 {
 	char	*line;
 	int		i;
 
-	line = readline("> ");
-	if (!line)
-		return (1);
-	while (ft_strcmp(line, key_word) != 0)
+	while (1)
 	{
+		line = readline("> ");
+		if (g_signal_status == SIGINT_HD)
+			return (free(line), 1);
+		if (!line || ft_strcmp(line, key_word) == 0)
+			break ;
 		if (expand == false)
 			ft_putstr_fd(line, fd);
 		else
 		{
 			i = 0;
-			if (heredoc_exp(shell, fd, line, &i))
-				return (free(line), 1);
+			heredoc_exp(shell, fd, line, &i);
 		}
 		ft_putchar_fd('\n', fd);
 		free(line);
-		line = readline("> ");
-		if (!line)
-			return (1);
 	}
+	if (line)
+		free(line);
 	return (0);
 }
 
@@ -133,11 +133,11 @@ int	read_stdin(t_shell *shell, int fd, char *key_word, bool expand)
  * @param error a pointer to a boolean variable that is used to indicate whether
  * an error occurred during the `heredoc` function execution.
  */
-void	heredoc(t_shell *shell, t_io_files *infile, bool *error)
+static void	heredoc(t_shell *shell, t_io_files *infile, bool *error)
 {
 	int		fd;
 
-	infile->path = create_temp_file();
+	infile->path = create_temp_file(shell);
 	if (!infile->path)
 	{
 		*error = true;
@@ -147,11 +147,13 @@ void	heredoc(t_shell *shell, t_io_files *infile, bool *error)
 	if (fd < 0)
 	{
 		*error = true;
+		perror("open");
 		return ;
 	}
 	if (read_stdin(shell, fd, infile->filename, infile->expheredoc))
 	{
 		*error = true;
+		close(fd);
 		return ;
 	}
 }
@@ -168,17 +170,29 @@ void	heredoc(t_shell *shell, t_io_files *infile, bool *error)
  * @return an integer value. If there is an error during the execution of the
  * function (error == true), it will return 1. Otherwise, it will return 0.
  */
-int	resolve_heredoc(t_shell *shell, t_io_files *infiles, int i, int in_count)
+int	resolve_heredocs(t_shell *shell, t_command *cmds, int n_cmds)
 {
 	bool	error;
+	int		i;
+	int		j;
 
 	error = false;
-	while (i < in_count)
+	i = 0;
+	while (i < n_cmds)
 	{
-		if (infiles[i].redir == HEREDOC)
-			heredoc(shell, &infiles[i], &error);
-		if (error == true)
-			return (1);
+		j = 0;
+		while (j < cmds[i].infile_count)
+		{
+			if (cmds[i].infiles[j].redir == HEREDOC)
+			{
+				signal_handler(ft_sigint_heredoc, SIG_IGN);
+				heredoc(shell, &cmds[i].infiles[j], &error);
+				signal_handler(ft_sigint, SIG_IGN);
+			}
+			if (error == true)
+				return (1);
+			j++;
+		}
 		i++;
 	}
 	return (0);
