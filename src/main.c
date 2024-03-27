@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 10:50:56 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:35:20 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(void)
 		}
 		free_cmds(&shell);
 		free(shell.line_read);
-		return (0);
+		// return (0);
 	}
 	return (0);
 }

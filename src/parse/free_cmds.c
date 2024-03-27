@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 23:24:47 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 00:45:01 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:56:42 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_infiles_content(t_shell *shell, int i)
 	j = 0;
 	while (j < shell->cmds[i].infile_count)
 	{
-		free(shell->cmds[i].infile[j].filename);
+		free(shell->cmds[i].infiles[j].filename);
 		j++;
 	}
 }
@@ -43,7 +43,7 @@ void	free_outfiles_content(t_shell *shell, int i)
 	j = 0;
 	while (j < shell->cmds[i].outfile_count)
 	{
-		free(shell->cmds[i].outfile[j].filename);
+		free(shell->cmds[i].outfiles[j].filename);
 		j++;
 	}
 }
@@ -70,8 +70,8 @@ void	free_cmds(t_shell *shell)
 			j++;
 		}
 		j = 0;
-		free(shell->cmds[i].infile);
-		free(shell->cmds[i].outfile);
+		free(shell->cmds[i].infiles);
+		free(shell->cmds[i].outfiles);
 		free(shell->cmds[i].args);
 		free(shell->cmds[i].exe);
 		i++;

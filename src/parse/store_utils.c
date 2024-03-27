@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 22:37:12 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 00:49:41 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:58:21 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ int	store_exe(char **tokens, t_shell *shell, int *i, int *j)
  */
 int	store_infile(t_command *cmd, char **tokens, int *i)
 {
-	cmd->infile[cmd->infile_count].redir = isredir(
+	cmd->infiles[cmd->infile_count].redir = isredir(
 			tokens[*i]);
 	*i += 1;
-	if ((cmd->infile[cmd->infile_count].redir == HEREDOC)
+	if ((cmd->infiles[cmd->infile_count].redir == HEREDOC)
 		&& (tokens[*i][0] != '"' && tokens[*i][0] != '\''))
-		cmd->infile[cmd->infile_count].expheredoc = true;
+		cmd->infiles[cmd->infile_count].expheredoc = true;
 	if (tokens[*i][0] == '"')
-		cmd->infile[cmd->infile_count].filename = ft_strtrim(
+		cmd->infiles[cmd->infile_count].filename = ft_strtrim(
 				tokens[*i], "\"");
 	else
-		cmd->infile[cmd->infile_count].filename = ft_strtrim(
+		cmd->infiles[cmd->infile_count].filename = ft_strtrim(
 				tokens[*i], "'");
-	if (!cmd->infile[cmd->infile_count].filename)
+	if (!cmd->infiles[cmd->infile_count].filename)
 		return (1);
 	cmd->infile_count++;
 	return (0);
@@ -78,15 +78,15 @@ int	store_infile(t_command *cmd, char **tokens, int *i)
  */
 int	store_outfile(t_command *cmd, char **tokens, int *i)
 {
-	cmd->outfile[cmd->outfile_count].redir = isredir(tokens[*i]);
+	cmd->outfiles[cmd->outfile_count].redir = isredir(tokens[*i]);
 	*i += 1;
 	if (tokens[*i][0] == '"')
-		cmd->outfile[cmd->outfile_count].filename = ft_strtrim(
+		cmd->outfiles[cmd->outfile_count].filename = ft_strtrim(
 				tokens[*i], "\"");
 	else
-		cmd->outfile[cmd->outfile_count].filename = ft_strtrim(
+		cmd->outfiles[cmd->outfile_count].filename = ft_strtrim(
 				tokens[*i], "'");
-	if (!cmd->outfile[cmd->outfile_count].filename)
+	if (!cmd->outfiles[cmd->outfile_count].filename)
 		return (1);
 	cmd->outfile_count++;
 	return (0);

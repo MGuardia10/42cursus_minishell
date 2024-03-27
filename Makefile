@@ -8,8 +8,8 @@ LIBFT		=	libft/libft.a
 VPATH		=	src:src/builtins:src/env:src/executer:src/parse:src/signals:src/utils
 
 # SOURCE
-# SRC_FILES	=	main.c
-SRC			=	main2.c
+SRC				=	main.c
+# SRC			=	main2.c
 
 # BUILTINS
 BUILTINS	=	env.c \
@@ -28,16 +28,13 @@ PARSE		=	init.c \
 				special_char.c \
 				get_tokens.c \
 				store_tokens.c \
-				parse_utils.c \
-<<<<<<< HEAD
-				init_for_store.c
-=======
 				init_for_store.c \
 				expand_utils.c \
 				store_utils.c \
-				free_cmds.c
-PARSE		=	$(addprefix $(PARS_DIR), $(PARS_FILES))
->>>>>>> origin/parse
+				parse_utils.c \
+				free_cmds.c \
+
+
 
 # ENV
 ENV			=	env_list.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_for_store.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:27:12 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 00:47:42 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:57:04 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
  */
 int	alloc_io_files_mem(t_shell *shell, int j)
 {
-	shell->cmds[j].infile = (t_io_files *)malloc(
+	shell->cmds[j].infiles = (t_io_files *)malloc(
 			sizeof(t_io_files) * shell->cmds[j].infile_count);
-	if (!shell->cmds[j].infile)
+	if (!shell->cmds[j].infiles)
 		return (1);
 	shell->cmds[j].infile_count = 0;
-	shell->cmds[j].outfile = (t_io_files *)malloc(
+	shell->cmds[j].outfiles = (t_io_files *)malloc(
 			sizeof(t_io_files) * shell->cmds[j].outfile_count);
-	if (!shell->cmds[j].outfile)
+	if (!shell->cmds[j].outfiles)
 		return (1);
 	shell->cmds[j].outfile_count = 0;
 	return (0);
