@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 11:29:13 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:18:35 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	create_cmd_array(t_shell *shell)
 		return (1);
 	if (store_tokens(tokens, shell) == 1)
 		return (1);
-	printall(shell);
+	// printall(shell);
 	ft_free_matrix((void *)tokens);
 	return (0);
 }

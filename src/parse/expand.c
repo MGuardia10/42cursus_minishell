@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 11:25:19 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/27 12:44:00 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ char	*expenv(t_shell *shell, int i, int f)
 		free(env);
 		return (ft_itoa(shell->exit_status));
 	}
-	// exp_env = ft_getenv(shell->envi, env, &j);
-	exp_env = getenv(env);
+	exp_env = ft_getenv(shell->envi, env, &j);
 	free(env);
 	if (!exp_env)
 		return (non_existent_env(f));
