@@ -1,7 +1,6 @@
 objs
 *.o
 *.a
-todo.md
 minishell
 .DS_Store
 .vscode

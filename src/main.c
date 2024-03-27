@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 12:44:10 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/27 13:15:52 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		signal_handler(ft_sigint, SIG_IGN);
-		shell.line_read = readline(BCYN"Minishell $ "RES);
+		shell.line_read = readline("Minishell $ "RES);
 		if (!shell.line_read)
 		{
 			// rl_replace_line("", 0);
