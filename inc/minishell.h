@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 10:01:02 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:54:17 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,13 +170,6 @@ int		ft_echo(char **args);
 int		ft_exit(t_shell *shell, char **args);
 
 /*
-*	PARSE
-*/
-int		init_line(t_shell *shell);
-int		check_quotes(t_shell *shell);
-int		expand_line(t_shell *shell);
-
-/*
 *	EXECUTER
 */
 int		executer(t_shell *shell);
@@ -205,13 +198,29 @@ void	ft_sigquit(int signal);
 *	PARSE
 */
 int		init_line(t_shell *shell);
-int		check_quotes(t_shell *shell);
 int		expand_line(t_shell *shell);
 int		num_of_tokens(char *line);
 char	**get_tokens(char *line);
 int		handle_special_char(char *line, char **tokens, int *i, int *j);
 int		store_tokens(char **tokens, t_shell *shell);
 int		init_for_store(char **tokens, t_shell *shell);
+void	free_cmds(t_shell *shell);
+int		clean_line(t_shell *shell, char **exp, int i, int j);
+int		check_inside_quotes(t_shell *shell, int i, int f);
+int		add_expanded_env(t_shell *shell, char **exp, int *i, int *j, int f);
+int		join_line(t_shell *shell, char **exp, int i, int j);
+int		join_expenv(char **exp, char *env);
+char	*expenv(t_shell *shell, int i, int f);
+int		extract_from_line(t_shell *shell, char **exp, int i, int j);
+char	*non_existent_env(int f);
+int		count_cmd(char **tokens, t_shell *shell);
+int		store_exe(char **tokens, t_shell *shell, int *i, int *j);
+int		store_infile(t_command *cmd, char **tokens, int *i);
+int		store_outfile(t_command *cmd, char **tokens, int *i);
+int		store_redir(char **tokens, t_shell *shell, int *i, int j);
+int		store_arg(char **tokens, t_shell *shell, int i, int j);
+int		unexpected_tokens(char **tokens);
+int		check_quotes(char *line);
 
 /*
 *	UTILS
@@ -228,6 +237,5 @@ void	remove_temp_files(t_command *cmds, int n_cmds);
 void	clean_exit(t_shell *shell, int exit_code);
 bool	is_special_char(char c);
 t_redir	isredir(char *token);
-
 
 #endif

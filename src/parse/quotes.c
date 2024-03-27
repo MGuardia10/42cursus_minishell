@@ -6,16 +6,22 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:36:58 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 21:01:09 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:08:35 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	closed_quotes(char *line)
+/**
+ * Checks if the given line has balanced quotes.
+ * 
+ * @param line The line to check for balanced quotes.
+ * @return 0 if the line has balanced quotes, 1 otherwise.
+ */
+int	check_quotes(char *line)
 {
 	int	i;
-	int	count_d; // contador para cada quote
+	int	count_d;
 	int	count_s;
 
 	i = 0;
@@ -23,8 +29,6 @@ int	closed_quotes(char *line)
 	count_s = 0;
 	while (line[i])
 	{
-		// solo cuenta quotes que no esten dentro del otro tipo de quotes,
-		// para ello se mira que el otro tipo sea par, significando que se ha cerrado.
 		if (line[i] == '"' && count_s % 2 == 0)
 			count_d++;
 		else if (line[i] == '\'' && count_d % 2 == 0)
@@ -33,28 +37,8 @@ int	closed_quotes(char *line)
 	}
 	if (count_d % 2 == 0 && count_s % 2 == 0)
 		return (0);
+	ft_fprintf(
+		STDERR_FILENO,
+		"minishell: syntax error: unable to locate closing quotation.\n");
 	return (1);
-}
-
-int	check_quotes(t_shell *shell)
-{
-	char	*new_line;
-	char	*input;
-
-	while(closed_quotes(shell->line_read) == 1) // comprobar si ya estan cerradas
-	{
-		new_line = ft_strjoin(shell->line_read, "\n");
-		if (!new_line)
-			return (1);
-		free(shell->line_read);
-		shell->line_read = new_line;
-		input = readline(BCYN"> "RES);
-		new_line = ft_strjoin(shell->line_read, input);
-		if (!new_line)
-			return (1);
-		free(input);
-		free(shell->line_read);
-		shell->line_read = new_line;
-	}
-	return (0);
 }

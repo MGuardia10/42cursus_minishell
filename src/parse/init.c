@@ -6,27 +6,13 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 21:07:56 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:48:34 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// Antes de inicializar comprobar que si hay comillas (simples o dobles) en el input, esten cerradas.
-// Si no, seguir pidiendo input hasta que se cierren, como en bash. Si si :
-// 		1º Hacer la expansion de todas las variables de entorno en el input, si hay.
-// 		2º Hacer el parseo del input :
-//			- Separar el input en tokens.
-//			- Hacer agrupaciones de tokens llamados comandos. (exe, array de args, tipo de redir)
-//			- Guardar los comandos en en el array de t_command.
-//		3º Comprobar que todos los exe existan, si no, dar error.
-// Despues se pasa a la ejecución :
-// En la ejecucción cada comando ejecutado es un proceso hijo.
-// El proceso de la minishell debe esperar a sus procesos hijos hasta que terminen,
-// pero gestionando el envio de señales (Ctrl C, etc) enviandolas a sus procesos hijos en ejecución.
-// 		1º Separar entre si es builtin o no.
-
-void printall(t_shell *shell)
+/*void	printall(t_shell *shell)
 {
 	for (int i = 0; i < shell->n_cmds; i++)
 	{
@@ -39,7 +25,8 @@ void printall(t_shell *shell)
 		for (int j = 0; j < shell->cmds[i].infile_count; j++)
 		{
 			printf("Tipo redir -> %u\n", shell->cmds[i].infile[j].redir);
-			printf("Filename -> %s\n\n", shell->cmds[i].infile[j].filename);
+			printf("Filename -> %s\n", shell->cmds[i].infile[j].filename);
+			printf("Expheredoc -> %d\n\n", shell->cmds[i].infile[j].expheredoc);
 		}
 		printf("OUTFILES(%d): \n", shell->cmds[i].outfile_count);
 		for (int j = 0; j < shell->cmds[i].outfile_count; j++)
@@ -49,8 +36,27 @@ void printall(t_shell *shell)
 		}
 		printf("-------------------------\n");
 	}
-}
+}*/
 
+/**
+ * @brief Creates an array of commands from the given shell input.
+ * 
+ * This function takes the shell input and tokenizes it using the 
+ * get_tokens() function.
+ * If the tokens are successfully obtained, it checks for any unexpected 
+ * tokens using the unexpected_tokens() function.
+ * If unexpected tokens are found, it frees the memory allocated for tokens 
+ * and returns 1.
+ * Otherwise, it initializes the necessary data structures for storing the 
+ * tokens using the init_for_store() function.
+ * Then, it stores the tokens in the shell data structure using the 
+ * store_tokens() function. 
+ * Finally, it frees the memory allocated for tokens 
+ * and returns 0.
+ * 
+ * @param shell A pointer to the shell data structure.
+ * @return 0 if the command array is successfully created, 1 otherwise.
+ */
 int	create_cmd_array(t_shell *shell)
 {
 	char	**tokens;
@@ -58,20 +64,31 @@ int	create_cmd_array(t_shell *shell)
 	tokens = get_tokens(shell->line_read);
 	if (!tokens)
 		return (1);
+	if (unexpected_tokens(tokens) == 1)
+	{
+		ft_free_matrix((void *)tokens);
+		return (1);
+	}
 	if (init_for_store(tokens, shell) == 1)
 		return (1);
 	if (store_tokens(tokens, shell) == 1)
 		return (1);
-	printall(shell);
+	//printall(shell);
 	ft_free_matrix((void *)tokens);
 	return (0);
 }
 
+/**
+ * Initializes the shell line by performing various operations.
+ * 
+ * @param shell The shell structure.
+ * @return 0 if the initialization is successful, 1 otherwise.
+ */
 int	init_line(t_shell *shell)
 {
-	if (check_quotes(shell) == 1) // QUITAR LO INECESARIO
+	if (check_quotes(shell->line_read) == 1)
 		return (1);
-	if (expand_line(shell) == 1) // GESTIONAR SI NO EXISTE ENV, CAMBIAR GETENV POR FT_GETENV, GESTIONAR $?, HEREDOC GESTIONAR EXPANSION DELIMITADOR
+	if (expand_line(shell) == 1)
 		return (1);
 	if (create_cmd_array(shell) == 1)
 		return (1);

@@ -3,22 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:23:48 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 17:24:24 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:50:58 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+/**
+ * Checks if a character is a delimiter.
+ *
+ * @param c The character to check.
+ * @return 0 if the character is a delimiter, 1 otherwise.
+ */
 int	isdelimiter(char c)
 {
-	if (c == '\0' || c == ' ' || c == '"' || c == '\'' || c == '\n')
+	if (c == '\0' || c == ' ' || c == '"' || c == '\'' || c == '\n' || \
+																c == '$')
 		return (0);
 	return (1);
 }
 
+/**
+ * Checks if a character is a special character.
+ *
+ * @param c The character to check.
+ * @return true if the character is a special character, false otherwise.
+ */
 bool	is_special_char(char c)
 {
 	if (c == ' ' || c == '|' || c == '>' || c == '<' || c == '"' || c == '\'')
@@ -26,15 +39,79 @@ bool	is_special_char(char c)
 	return (false);
 }
 
-t_redir isredir(char *token)
+/**
+ * Determines the type of redirection based on the given token.
+ *
+ * @param token The token to check for redirection.
+ * @return The type of redirection (OUT, IN, APPOUT, HEREDOC, or NONE).
+ */
+t_redir	isredir(char *token)
 {
-	if (ft_strchr(token, '>') && ft_strlen(token) == 1)
+	if (ft_strcmp(token, ">") == 0)
 		return (OUT);
-	else if (ft_strchr(token, '<') && ft_strlen(token) == 1)
+	else if (ft_strcmp(token, "<") == 0)
 		return (IN);
-	else if (token[0] == '>' && token[1] == '>' && ft_strlen(token) == 2)
+	else if (ft_strcmp(token, ">>") == 0)
 		return (APPOUT);
-	else if (token[0] == '<' && token[1] == '<' && ft_strlen(token) == 2)
+	else if (ft_strcmp(token, "<<") == 0)
 		return (HEREDOC);
 	return (NONE);
+}
+
+/**
+ * Checks for unexpected tokens in the given array of tokens.
+ * An unexpected token is defined as a redirection symbol or a pipe symbol
+ * that is not in the expected position.
+ *
+ * @param tokens The array of tokens to check.
+ * @return 1 if there are unexpected tokens, 0 otherwise.
+ */
+int	unexpected_tokens(char **tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens[i])
+	{
+		if (isredir(tokens[i]) != NONE || ft_strcmp(tokens[i], "|") == 0)
+		{
+			if ((isredir(tokens[i + 1]) != NONE
+					|| ft_strcmp(tokens[i + 1], "|") == 0)
+				|| (ft_strcmp(tokens[i], "|") == 0 && i == 0))
+			{
+				ft_fprintf(
+					STDERR_FILENO,
+					"minishell: syntax error near unexpected token `%s'\n",
+					tokens[i]);
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+/**
+ * Counts the number of commands in an array of tokens.
+ * A command is determined by the presence of the '|' character.
+ *
+ * @param tokens The array of tokens.
+ * @param shell The shell structure.
+ * @return The number of commands found.
+ */
+int	count_cmd(char **tokens, t_shell *shell)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 1;
+	while (tokens[i])
+	{
+		if (ft_strchr(tokens[i], '|') && ft_strlen(tokens[i]) == 1)
+			count++;
+		i++;
+	}
+	shell->n_cmds = count;
+	return (count);
 }
