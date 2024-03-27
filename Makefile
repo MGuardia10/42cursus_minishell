@@ -5,7 +5,7 @@ NAME		=	minishell
 LIBFT		=	libft/libft.a
 
 # VPATH
-VPATH		=	src:src/builtins:src/env:src/executer:src/signals:src/utils
+VPATH		=	src:src/builtins:src/env:src/executer:src/parse:src/signals:src/utils
 
 # SOURCE
 # SRC_FILES	=	main.c
@@ -19,6 +19,17 @@ BUILTINS	=	env.c \
         		echo.c \
         		pwd.c \
 				exit.c
+
+# PARSE
+PARSE		=	init.c \
+				quotes.c \
+				expand.c \
+				token_count.c \
+				special_char.c \
+				get_tokens.c \
+				store_tokens.c \
+				parse_utils.c \
+				init_for_store.c
 
 # ENV
 ENV			=	env_list.c \
@@ -50,6 +61,7 @@ OBJ_FILES	=	$(SRC:%.c=$(OBJ_DIR)%.o) \
 				$(BUILTINS:%.c=$(OBJ_DIR)%.o) \
 				$(ENV:%.c=$(OBJ_DIR)%.o) \
 				$(EXECUTER:%.c=$(OBJ_DIR)%.o) \
+				$(PARSE:%.c=$(OBJ_DIR)%.o) \
 				$(SIGNALS:%.c=$(OBJ_DIR)%.o) \
 				$(UTILS:%.c=$(OBJ_DIR)%.o)
 

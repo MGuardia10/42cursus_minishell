@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/26 18:45:25 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:01:02 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef enum e_sig_mode			t_sig_mode;
 enum	e_redir
 {
 	NONE,
+	PIPE,
 	IN,
 	OUT,
 	APPOUT,
@@ -96,15 +97,16 @@ struct	s_io_files
 	bool	expheredoc;
 };
 
-struct s_command
+struct s_command 
 {
 	// comando principal
-	char		*exe;
-
+	char	*exe;
+	
 	// flags y argumentos del comando
-	char		**args;
-
-	// infiles del comando
+	char	**args;
+	int		args_count;
+	
+	// infiles del comando 
 	t_io_files	*infiles;
 	int			infile_count;
 
@@ -200,6 +202,18 @@ void	ft_sigint_child(int signal);
 void	ft_sigquit(int signal);
 
 /*
+*	PARSE
+*/
+int		init_line(t_shell *shell);
+int		check_quotes(t_shell *shell);
+int		expand_line(t_shell *shell);
+int		num_of_tokens(char *line);
+char	**get_tokens(char *line);
+int		handle_special_char(char *line, char **tokens, int *i, int *j);
+int		store_tokens(char **tokens, t_shell *shell);
+int		init_for_store(char **tokens, t_shell *shell);
+
+/*
 *	UTILS
 */
 void	free_env(void *content);
@@ -212,5 +226,8 @@ char	*ft_getenv(t_env_list *envi, char *key, int *flag);
 bool	is_directory(const char *path);
 void	remove_temp_files(t_command *cmds, int n_cmds);
 void	clean_exit(t_shell *shell, int exit_code);
+bool	is_special_char(char c);
+t_redir	isredir(char *token);
+
 
 #endif
