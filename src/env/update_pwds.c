@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:01:30 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 17:44:16 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:15:57 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,11 @@ int	update_oldpwd(char *old_pwd, t_env_list *envi)
 	while (aux)
 	{
 		if (ft_strcmp(aux->content->key, "OLDPWD") == 0)
-			return (overwrite_env(&envi, aux->content->key, new_old_pwd));
+		{
+			if (overwrite_env(&envi, aux->content->key, new_old_pwd))
+				return (free(new_old_pwd), 1);
+			return (free(new_old_pwd), 0);
+		}
 		aux = aux->next;
 	}
 	return (0);

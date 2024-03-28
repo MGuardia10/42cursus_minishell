@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:50:33 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 17:43:03 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:11:57 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ int	set_shlvl(t_env_list *envi)
 		return (1);
 	shlvl_new_value_with_equal = ft_strjoin("=", shlvl_new_value);
 	free(shlvl_new_value);
-	return (overwrite_env(&envi, "SHLVL", shlvl_new_value_with_equal));
+	if (overwrite_env(&envi, "SHLVL", shlvl_new_value_with_equal))
+		return (free(shlvl_new_value_with_equal), 1);
+	return (free(shlvl_new_value_with_equal), 0);
 }

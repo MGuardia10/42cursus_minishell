@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/26 18:38:50 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:48:10 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	print_env_var(char *key, char *value)
  * 
  * @return an integer value.
  */
-int	print_export(t_env_list **envi)
+static int	print_export(t_shell *shell, t_env_list **envi)
 {
 	t_env_list	*first_node;
 	char		**key_list;
@@ -77,7 +77,7 @@ int	print_export(t_env_list **envi)
 	first_node = *envi;
 	key_list = create_sort_key_list(*envi);
 	if (!key_list)
-		return (perror("Minishell"), 1);
+		(perror("malloc"), clean_exit(shell, EXIT_FAILURE));
 	i = 0;
 	while (key_list[i])
 	{
@@ -108,7 +108,7 @@ static int	check_export_errors(char *arg)
 	int		i;
 
 	i = 0;
-	if (ft_isdigit(arg[i]))
+	if (!ft_isalpha(arg[i]) && arg[i] != '_')
 		return (1);
 	while (arg[i] && arg[i] != '=')
 	{
@@ -134,16 +134,19 @@ static int	check_export_errors(char *arg)
  */
 int	ft_export(t_shell *shell, t_env_list **envi, char **args)
 {
-	t_env	*node_content;
 	int		i;
+	int		exit_code;
+	t_env	*node_content;
 
 	if (!args || !args[0])
-		return (print_export(envi));
+		return (print_export(shell, envi));
 	i = -1;
+	exit_code = 0;
 	while (args[++i])
 	{
 		if (check_export_errors(args[i]))
 		{
+			exit_code = 1;
 			ft_fprintf(2, "Minishell: export: `%s': not a valid identifier\n", \
 				args[i]);
 			continue ;
@@ -154,5 +157,5 @@ int	ft_export(t_shell *shell, t_env_list **envi, char **args)
 		if (create_new_env(envi, node_content))
 			(perror("malloc"), clean_exit(shell, EXIT_FAILURE));
 	}
-	return (0);
+	return (exit_code);
 }

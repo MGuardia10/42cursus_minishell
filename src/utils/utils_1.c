@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:52:47 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 09:39:18 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:05:15 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	free_env(void *content)
 {
 	t_env	*env_content;
 
+	if (!content)
+		return ;
 	env_content = content;
-	free(env_content->key);
+	if (env_content->key)
+		free(env_content->key);
 	if (env_content->value)
 		free(env_content->value);
 	free(env_content);
