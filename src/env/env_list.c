@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 19:21:04 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:28:47 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_env	*set_env_content(char *env_str)
 
 	content = ft_calloc(1, sizeof(t_env));
 	if (!content)
-		(NULL);
+		return (NULL);
 	len_to_equal = 0;
 	while (env_str[len_to_equal] && env_str[len_to_equal] != '=')
 		len_to_equal++;
