@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 12:56:17 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:22:23 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ struct	s_io_files
 	bool		expheredoc;
 };
 
-struct s_command 
+struct s_command
 {
 	char		*exe;
 	char		**args;

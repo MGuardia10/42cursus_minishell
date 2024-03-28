@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 19:13:32 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:21:04 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,11 @@ int	overwrite_env(t_env_list **envi, char *key, char *value)
 			aux->content->value = ft_strdup(value);
 			if (!aux->content->value)
 				return (1);
-			// free(value);
 			return (0);
 		}
 		aux = aux->next;
 	}
-	return (1); // free(value), 
+	return (1);
 }
 
 /**

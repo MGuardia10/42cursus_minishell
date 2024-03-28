@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:40 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 16:51:48 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 19:21:36 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ void	manage_input(t_shell *shell)
 		shell->line_read = readline(BHCYN"😄 Minishell $ "RES);
 	else
 		shell->line_read = readline(BHRED"🤬 Minishell $ "RES);
-	// shell->line_read = readline("Minishell $ ");
 	if (!shell->line_read)
 	{
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		printf("exit\n");
 		if (g_signal_status == SIGINT_FATHER)
 			exit(EXIT_FAILURE);
