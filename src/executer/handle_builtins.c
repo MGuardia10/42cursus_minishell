@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:50:28 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/26 18:42:59 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 09:39:01 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@
  */
 int	exec_builtin(t_shell *shell, char *cmd, char **args)
 {
-	if (ft_strcmp(cmd, "echo") == 0)
+	if (!cmd)
+		return (0);
+	else if (ft_strcmp(cmd, "echo") == 0)
 		return (ft_echo(args));
-	if (ft_strcmp(cmd, "cd") == 0)
+	else if (ft_strcmp(cmd, "cd") == 0)
 		return (ft_cd(shell, shell->envi, args[0]));
 	else if (ft_strcmp(cmd, "pwd") == 0)
 		return (ft_pwd(shell));

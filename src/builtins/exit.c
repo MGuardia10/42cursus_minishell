@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:56:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/24 17:58:44 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:10:24 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_exit(t_shell *shell, char **args)
 	if (shell->n_cmds == 1)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (!args || !args[0])
-		exit(EXIT_SUCCESS);
+		clean_exit(shell, EXIT_SUCCESS);
 	if (ft_arrsize((void **)args) > 1)
 	{
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
@@ -78,7 +78,7 @@ int	ft_exit(t_shell *shell, char **args)
 	else
 	{
 		shell->exit_status = ft_exit_atoi(args[0]);
-		exit(shell->exit_status);
+		clean_exit(shell, shell->exit_status);
 	}
 	return (EXIT_FAILURE);
 }

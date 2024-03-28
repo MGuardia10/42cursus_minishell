@@ -6,11 +6,21 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 12:44:00 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 10:38:52 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+char	*expand_exit_status(int exit_status)
+{
+	if (g_signal_status == SIGINT_FATHER)
+	{
+		g_signal_status = INTERACTIVE;
+		return (ft_strdup("1"));
+	}
+	return (ft_itoa(exit_status));
+}
 
 /**
  * Expands environment variables in the given shell command.
@@ -40,7 +50,7 @@ char	*expenv(t_shell *shell, int i, int f)
 	if (ft_strcmp(env, "?") == 0)
 	{
 		free(env);
-		return (ft_itoa(shell->exit_status));
+		return (expand_exit_status(shell->exit_status));
 	}
 	exp_env = ft_getenv(shell->envi, env, &j);
 	free(env);

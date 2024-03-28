@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 08:52:43 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/26 17:52:53 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 09:48:23 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static int	compound_cmds(t_shell *shell, int n_cmds)
  */
 int	executer(t_shell *shell)
 {
-	g_signal_status = NON_INTERACTIVE;
 	if (resolve_heredocs(shell, shell->cmds, shell->n_cmds))
 		return (1);
 	if (shell->n_cmds == 1)

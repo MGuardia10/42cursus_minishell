@@ -4,4 +4,5 @@ objs
 minishell
 .DS_Store
 .vscode
+minishell_tester
 main2.c

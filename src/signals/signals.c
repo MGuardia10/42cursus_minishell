@@ -6,13 +6,11 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:06:05 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/26 16:20:23 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 09:59:25 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-volatile sig_atomic_t	g_signal_status = 0;
 
 /**
  * The function `ft_sigint_heredoc` handles the SIGINT signal in a
@@ -25,13 +23,10 @@ volatile sig_atomic_t	g_signal_status = 0;
 void	ft_sigint_heredoc(int signal)
 {
 	(void)signal;
-	if (g_signal_status == NON_INTERACTIVE)
-	{
-		g_signal_status = SIGINT_HD;
-		ioctl(0, TIOCSTI, "\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-	}
+	g_signal_status = SIGINT_HD;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
 }
 
 /**
@@ -57,13 +52,11 @@ void	ft_sigint_child(int signal)
 void	ft_sigint(int signal)
 {
 	(void)signal;
-	if (g_signal_status == INTERACTIVE || g_signal_status == SIGINT_FATHER)
-	{
-		ft_putchar_fd('\n', STDERR_FILENO);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	g_signal_status = SIGINT_FATHER;
+	ft_putchar_fd('\n', STDERR_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 /**

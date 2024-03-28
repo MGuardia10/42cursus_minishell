@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 10:54:17 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 12:56:17 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 # define MINISHELL_H
 
 # include "../libft/inc/libft.h"
-# include "../libft/inc/colors.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
-// # include <sys/types.h>	// opendir, readdir, closedir
-// # include <dirent.h>		// opendir, readdir, closedir
 # include <sys/ioctl.h>
 # include <termios.h>		// tcsetattr, tcgetattr
-// # include <curses.h>		// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-// # include <term.h>		// tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 # include <signal.h>
 # include <errno.h>
 
@@ -61,8 +56,7 @@ enum	e_sig_mode
 {
 	INTERACTIVE = 0,
 	SIGINT_HD = 1,
-	NON_INTERACTIVE = 2,
-	SIGINT_FATHER = 3,
+	SIGINT_FATHER = 2,
 	SIGINT_CHILD = 130,
 	SIGQUIT_CHILD = 131
 };
@@ -72,8 +66,8 @@ enum	e_sig_mode
 */
 struct s_env
 {
-	char	*key;
-	char	*value;
+	char		*key;
+	char		*value;
 };
 
 struct	s_env_list
@@ -84,66 +78,50 @@ struct	s_env_list
 
 struct	s_io_files
 {
-	// tipo de redireccion
-	t_redir	redir;
-
-	// nombre del archivo o en heredoc delimitador
-	char	*filename;
-
-	// path al archivo temporal si es HEREDOC
-	char	*path;
-
-	// si expande o no el heredoc, en cado que redir == HEREDOC
-	bool	expheredoc;
+	t_redir		redir;
+	char		*filename;
+	char		*path;
+	bool		expheredoc;
 };
 
 struct s_command 
 {
-	// comando principal
-	char	*exe;
-	
-	// flags y argumentos del comando
-	char	**args;
-	int		args_count;
-	
-	// infiles del comando 
+	char		*exe;
+	char		**args;
+	int			args_count;
 	t_io_files	*infiles;
 	int			infile_count;
-
-	// outfiles del comando
 	t_io_files	*outfiles;
 	int			outfile_count;
 };
 
 struct	s_shell
 {
-	// linea leída de STDIN
 	char		*line_read;
-
-	// environment linked list
 	t_env_list	*envi;
-
-	// Array de comandos y total de comandos
 	t_command	*cmds;
 	int			n_cmds;
-
-	// home para cd ~
 	char		*home;
-
-	// stdin, stdout
 	int			stdin_dup;
 	int			stdout_dup;
-
-	// last infile, outfile
 	int			infile_dup;
 	int			outfile_dup;
-
-	// last pid
 	pid_t		last_pid;
-
-	// codigo de error del ultimo comando
 	int			exit_status;
 };
+
+/*
+*	SHELL
+*/
+int		init_shell(t_shell *shell, int argc, char **argv, char **env);
+void	manage_input(t_shell *shell);
+int		manage_exit_status(int status);
+void	reset_shell(t_shell *shell);
+void	free_infiles(t_command *cmd);
+void	free_outfiles(t_command *cmd);
+void	free_args(t_command *cmd);
+void	free_cmds(t_shell *shell);
+void	free_shell(t_shell *shell);
 
 /*
 *	ENV
@@ -204,10 +182,8 @@ char	**get_tokens(char *line);
 int		handle_special_char(char *line, char **tokens, int *i, int *j);
 int		store_tokens(char **tokens, t_shell *shell);
 int		init_for_store(char **tokens, t_shell *shell);
-void	free_cmds(t_shell *shell);
 int		clean_line(t_shell *shell, char **exp, int i, int j);
 int		check_inside_quotes(t_shell *shell, int i, int f);
-int		add_expanded_env(t_shell *shell, char **exp, int *i, int *j, int f);
 int		join_line(t_shell *shell, char **exp, int i, int j);
 int		join_expenv(char **exp, char *env);
 char	*expenv(t_shell *shell, int i, int f);
@@ -233,7 +209,6 @@ char	**envi_to_arr(t_env_list *env);
 char	**create_argv(t_command cmd);
 char	*ft_getenv(t_env_list *envi, char *key, int *flag);
 bool	is_directory(const char *path);
-void	remove_temp_files(t_command *cmds, int n_cmds);
 void	clean_exit(t_shell *shell, int exit_code);
 bool	is_special_char(char c);
 t_redir	isredir(char *token);

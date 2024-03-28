@@ -5,11 +5,10 @@ NAME		=	minishell
 LIBFT		=	libft/libft.a
 
 # VPATH
-VPATH		=	src:src/builtins:src/env:src/executer:src/parse:src/signals:src/utils
+VPATH		=	src:src/builtins:src/env:src/executer:src/parse:src/shell:src/signals:src/utils
 
 # SOURCE
 SRC				=	main.c
-# SRC			=	main2.c
 
 # BUILTINS
 BUILTINS	=	env.c \
@@ -19,6 +18,21 @@ BUILTINS	=	env.c \
         		echo.c \
         		pwd.c \
 				exit.c
+# ENV
+ENV			=	env_list.c \
+				set_home.c \
+				update_pwds.c \
+				set_shlvl.c
+# EXECUTER
+EXECUTER	=	executer.c \
+				handle_builtins.c \
+				handle_simple_cmds.c \
+				handle_compound_cmds.c \
+				find_path.c \
+				infiles.c \
+				outfiles.c \
+				heredoc.c \
+				heredoc_utils.c
 
 # PARSE
 PARSE		=	init.c \
@@ -32,26 +46,10 @@ PARSE		=	init.c \
 				expand_utils.c \
 				store_utils.c \
 				parse_utils.c \
-				free_cmds.c \
 
-
-
-# ENV
-ENV			=	env_list.c \
-				set_home.c \
-				update_pwds.c \
-				set_shlvl.c
-
-# EXECUTER
-EXECUTER	=	executer.c \
-				handle_builtins.c \
-				handle_simple_cmds.c \
-				handle_compound_cmds.c \
-				find_path.c \
-				infiles.c \
-				outfiles.c \
-				heredoc.c \
-				heredoc_utils.c
+# SHELL
+SH			=	shell.c \
+				free.c
 
 # SIGNALS
 SIGNALS		=	signals.c
@@ -67,6 +65,7 @@ OBJ_FILES	=	$(SRC:%.c=$(OBJ_DIR)%.o) \
 				$(ENV:%.c=$(OBJ_DIR)%.o) \
 				$(EXECUTER:%.c=$(OBJ_DIR)%.o) \
 				$(PARSE:%.c=$(OBJ_DIR)%.o) \
+				$(SH:%.c=$(OBJ_DIR)%.o) \
 				$(SIGNALS:%.c=$(OBJ_DIR)%.o) \
 				$(UTILS:%.c=$(OBJ_DIR)%.o)
 
