@@ -8,7 +8,6 @@
 --> segfault con CTRL + D OK
 --> codigo de error 1 cuando se pulsa CTRL + C OK
 
-
 ## parse
 --> $$ y $noalpha
 --> proteger malloc con exit

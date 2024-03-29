@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 19:22:23 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 22:40:40 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ int		clean_line(t_shell *shell, char **exp, int i, int j);
 int		check_inside_quotes(t_shell *shell, int i, int f);
 int		join_line(t_shell *shell, char **exp, int i, int j);
 int		join_expenv(char **exp, char *env);
-char	*expenv(t_shell *shell, int i, int f);
+char	*expenv(t_shell *shell, int *i, int f);
 int		extract_from_line(t_shell *shell, char **exp, int i, int j);
 char	*non_existent_env(int f);
 int		count_cmd(char **tokens, t_shell *shell);

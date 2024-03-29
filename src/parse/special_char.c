@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:39:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 00:53:37 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:49:28 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,24 @@ int	quotes_token(char *line, char **tokens, int *i, int *j)
 			*i += 1;
 	}
 	tokens[*j] = ft_substr(line, last - 1, (*i - last) + 2);
+	if (line[*i + 1] == '"')
+	{
+		// quitar la comilla del final del primer token.
+		// seguir uniendo hasta que sea un special char (distinto de " o ')
+		*i += 2;
+		last = *i;
+		while (line[*i] && line[*i] != '"')
+			*i += 1;
+		ft_strlcat(tokens[*j], ft_substr(line, last, *i - last), ft_strlen(tokens[*j]) + (*i - last) + 1);
+	}
+	else if (line[*i + 1] == '\'')
+	{
+		*i += 2;
+		last = *i;
+		while (line[*i] && line[*i] != '\'')
+			*i += 1;
+		ft_strlcat(tokens[*j], ft_substr(line, last, *i - last), ft_strlen(tokens[*j]) + (*i - last) + 1);
+	}
 	if (!tokens[*j])
 		return (1);
 	*i += 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 10:38:52 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 23:30:40 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*expand_exit_status(int exit_status)
 	if (g_signal_status == SIGINT_FATHER)
 	{
 		g_signal_status = INTERACTIVE;
-		return (ft_strdup("1"));
+		return ("1");
 	}
 	return (ft_itoa(exit_status));
 }
@@ -33,18 +33,20 @@ char	*expand_exit_status(int exit_status)
  * @return The expanded environment variable or a default value if it doesn't 
  * exist.
  */
-char	*expenv(t_shell *shell, int i, int f)
+char	*expenv(t_shell *shell, int *i, int f)
 {
 	char	*env;
 	char	*exp_env;
 	int		j;
 
-	j = i;
-	while (isdelimiter(shell->line_read[i]) == 1)
-		i++;
-	if (j - i == 0)
+	j = *i;
+	if (shell->line_read[*i] == '$')
+		return (*i += 1, non_existent_env(f));
+	while (isdelimiter(shell->line_read[*i]) == 1)
+		*i += 1;
+	if (j - *i == 0)
 		return ("$");
-	env = ft_substr(shell->line_read, j, i - j);
+	env = ft_substr(shell->line_read, j, *i - j);
 	if (!env)
 		return (NULL);
 	if (ft_strcmp(env, "?") == 0)
@@ -111,10 +113,8 @@ int	expander(t_shell *shell, char **exp, int *i, int *j)
 			if (join_line(shell, exp, *i, *j) == 1)
 				return (1);
 			*i += 1;
-			if (join_expenv(exp, expenv(shell, *i, f)) == 1)
+			if (join_expenv(exp, expenv(shell, i, f)) == 1)
 				return (1);
-			while (isdelimiter(shell->line_read[*i]) == 1)
-				*i += 1;
 			*j = *i;
 			continue ;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:23:48 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 10:50:58 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:22:54 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	unexpected_tokens(char **tokens)
 			{
 				ft_fprintf(
 					STDERR_FILENO,
-					"minishell: syntax error near unexpected token `%s'\n",
+					"minishell: syntax error near unexpected token `%s'.\n",
 					tokens[i]);
 				return (1);
 			}

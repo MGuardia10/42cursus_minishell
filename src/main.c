@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 12:57:05 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/28 23:19:52 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 volatile sig_atomic_t	g_signal_status = 0;
 
-// void	leaks(void)
-// {
-// 	system("leaks -q minishell");
-// }
+void	leaks(void)
+{
+	system("leaks -q minishell");
+}
 
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
 
-	// atexit(leaks);
+	//atexit(leaks);
 	if (init_shell(&shell, argc, argv, env))
 		return (EXIT_FAILURE);
 	while (1)

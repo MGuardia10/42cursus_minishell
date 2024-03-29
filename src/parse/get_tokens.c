@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:25:34 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 00:47:18 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/29 00:44:27 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,22 @@ int	get_word(char **tokens, char *line, int *i, int *j)
 	while (line[*i] && !is_special_char(line[*i]))
 		*i += 1;
 	tokens[*j] = ft_substr(line, last, *i - last);
+	if (line[*i] == '"')
+	{
+		*i += 1;
+		last = *i;
+		while (line[*i] && line[*i] != '"')
+			*i += 1;
+		ft_strlcat(tokens[*j], ft_substr(line, last, *i - last), ft_strlen(tokens[*j]) + (*i - last) + 1);
+	}
+	else if (line[*i] == '\'')
+	{
+		*i += 1;
+		last = *i;
+		while (line[*i] && line[*i] != '\'')
+			*i += 1;
+		ft_strlcat(tokens[*j], ft_substr(line, last, *i - last), ft_strlen(tokens[*j]) + (*i - last) + 1);
+	}
 	if (!tokens)
 		return (1);
 	*j += 1;
