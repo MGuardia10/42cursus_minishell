@@ -10,7 +10,7 @@
 
 ## parse
 --> $$ y $noalpha
---> proteger malloc con exit
+--> proteger malloc con exit OK
 --> historial de comandos gestionar espacios, nulos, etc
 
 ## Executer
