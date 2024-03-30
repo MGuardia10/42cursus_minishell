@@ -50,3 +50,6 @@ $EMPTY --> igual que antes, deberia de pasar al executer sin comandos y se pasa 
 ## export
 
 export HELLO="123 A-" --> el problema es que llega HELLO como arg1 y "123 A-" como arg2. Parseo
+
+# expander
+expenv --> memoria completamente perdida en el caso del ft_itoa en expansion de $?
