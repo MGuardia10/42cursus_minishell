@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 19:06:12 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/30 21:18:39 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ int		join_expenv(char **exp, char *env);
 char	*expenv(t_shell *shell, int *i, int f);
 int		extract_from_line(t_shell *shell, char **exp, int i, int j);
 char	*non_existent_env(int f);
-int		count_cmd(char **tokens, t_shell *shell);
+int		count_cmd(char **tokens);
 int		store_exe(char **tokens, t_shell *shell, int *i, int *j);
 int		store_infile(t_command *cmd, char **tokens, int *i);
 int		store_outfile(t_command *cmd, char **tokens, int *i);

@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:23:48 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 17:38:48 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/30 21:17:58 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	unexpected_tokens(char **tokens)
  * @param shell The shell structure.
  * @return The number of commands found.
  */
-int	count_cmd(char **tokens, t_shell *shell)
+int	count_cmd(char **tokens)
 {
 	int	i;
 	int	count;
@@ -119,6 +119,5 @@ int	count_cmd(char **tokens, t_shell *shell)
 			count++;
 		i++;
 	}
-	shell->n_cmds = count;
 	return (count);
 }
