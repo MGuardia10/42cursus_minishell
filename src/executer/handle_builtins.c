@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:50:28 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 09:39:01 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/30 10:29:14 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * @return The function is returning an integer value. On success, the return
  * value is 0, otherwise the return value will be a number > 0 and < 256.
  */
-int	exec_builtin(t_shell *shell, char *cmd, char **args)
+int	exec_builtin(t_shell *shell, char *cmd, char **args, int args_count)
 {
 	if (!cmd)
 		return (0);
@@ -37,9 +37,9 @@ int	exec_builtin(t_shell *shell, char *cmd, char **args)
 	else if (ft_strcmp(cmd, "unset") == 0)
 		return (ft_unset(&shell->envi, args));
 	else if (ft_strcmp(cmd, "env") == 0)
-		return (ft_env(&shell->envi, args));
+		return (ft_env(&shell->envi, args[0]));
 	else if (ft_strcmp(cmd, "exit") == 0)
-		return (ft_exit(shell, args));
+		return (ft_exit(shell, args, args_count));
 	return (1);
 }
 
@@ -75,7 +75,7 @@ int	handle_builtins(t_shell *shell, t_command *cmd)
 	shell->outfile_dup = dup2(fd_out, STDOUT_FILENO);
 	if (shell->outfile_dup < 0 || shell->infile_dup < 0)
 		return (close(fd_in), close(fd_out), perror("dup2"), 1);
-	exit_code = exec_builtin(shell, cmd->exe, cmd->args);
+	exit_code = exec_builtin(shell, cmd->exe, cmd->args, cmd->args_count);
 	close(fd_in);
 	close(fd_out);
 	dup2(shell->stdin_dup, shell->infile_dup);
