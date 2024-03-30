@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 16:55:01 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/30 21:04:41 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	create_cmd_array(t_shell *shell)
  */
 int	init_line(t_shell *shell)
 {
+	add_history(shell->line_read);
 	if (check_quotes(shell->line_read) == 1)
 		return (1);
 	if (expand_line(shell) == 1)
