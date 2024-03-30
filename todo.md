@@ -2,11 +2,11 @@
 
 ## main
 --> inicializar a 0 exit status OK
---> Revisar las señales
 --> las caritas del main 🤬 😇 🖕 OK
 --> mirar salto de linea cuando solo se pulsa enter OK
 --> segfault con CTRL + D OK
 --> codigo de error 1 cuando se pulsa CTRL + C OK
+--> Revisar las señales en MACs 42
 
 
 ## parse
@@ -17,8 +17,22 @@
 ## Executer
 --> en exit builint lalmar a clean_exit OK
 --> si es string vacia salir status 0 OK
---> verificar que en pipes todos los fds quedan cerrados
+--> verificar que en pipes todos los fds quedan cerrados OK
 --> borrar archivos temporales en cada exit o en cada iteracion del bucle OK
+--> revisar builtins OK
+--> Arreglar que el padre espere a todos los hijos no solo al ultimo OK
+
+# Makefile
+--> Arreglar makefile librerias paths flags etc OK
+
+# libft
+--> Arreglar makefile y hacerlo como el de minishell
+--> Revisar ft_itoa no compila en linux
+-->
+
+
+
+
 
 ## CASOS A SOLUCIONAR
 ### cd

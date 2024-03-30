@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 16:26:04 by mguardia          #+#    #+#             */
-/*   Updated: 2024/02/01 15:24:01 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/30 09:08:20 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ char	*ft_itoa(int n)
 	while (n != 0)
 	{
 		digit = n % 10;
-		if (digit < 0)
-			digit = -digit;
 		dst[--count] = digit + '0';
 		n /= 10;
 	}

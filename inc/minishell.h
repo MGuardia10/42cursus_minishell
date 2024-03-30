@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 19:22:23 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/30 10:29:34 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,20 +139,20 @@ int		set_shlvl(t_env_list *envi);
 /*
 *	BUILTINS
 */
-int		ft_env(t_env_list **envi, char **args);
+int		ft_env(t_env_list **envi, char *arg);
 int		ft_export(t_shell *shell, t_env_list **envi, char **args);
 int		ft_unset(t_env_list **envi, char **args);
 int		ft_pwd(t_shell *shell);
 int		ft_cd(t_shell *shell, t_env_list *envi, char *arg);
 int		ft_echo(char **args);
-int		ft_exit(t_shell *shell, char **args);
+int		ft_exit(t_shell *shell, char **args, int args_count);
 
 /*
 *	EXECUTER
 */
 int		executer(t_shell *shell);
 int		handle_builtins(t_shell *shell, t_command *cmd);
-int		exec_builtin(t_shell *shell, char *cmd, char **args);
+int		exec_builtin(t_shell *shell, char *cmd, char **args, int args_count);
 int		handle_simple_commmands(t_shell *shell, t_command *cmd);
 char	*find_path(t_shell *shell, char *cmd, t_env_list *envi, int *status);
 int		manage_infiles(t_io_files *infiles, int in_count, int pipe);
