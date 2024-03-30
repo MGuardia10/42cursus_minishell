@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 20:54:17 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 00:50:19 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/30 20:57:16 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,31 @@ int	quotes_count(char *line, int *i)
 	int	count;
 
 	count = 0;
-	if (line[*i] == '"')
+	if (line[*i] && !is_special_char_two(line[*i]))
 	{
-		*i += 1;
 		count++;
-		while (line[*i] && line[*i] != '"')
-			*i += 1;
-		*i += 1;
-	}
-	else if (line[*i] == '\'')
-	{
-		*i += 1;
-		count++;
-		while (line[*i] && line[*i] != '\'')
-			*i += 1;
-		*i += 1;
+		while (line[*i] && !is_special_char_two(line[*i]))
+		{
+			while (line[*i] && line[*i] == '"')
+			{
+				*i += 1;
+				while (line[*i] && line[*i] != '"')
+					*i += 1;
+				*i += 1;
+			}
+			while (line[*i] && line[*i] == '\'')
+			{
+				*i += 1;
+				while (line[*i] && line[*i] != '\'')
+					*i += 1;
+				*i += 1;
+			}
+			if (line[*i] && !is_special_char(line[*i]))
+			{
+				while (line[*i] && !is_special_char(line[*i]))
+					*i += 1;
+			}
+		}
 	}
 	return (count);
 }
@@ -92,12 +102,6 @@ int	num_of_tokens(char *line)
 	count = 0;
 	while (line[i])
 	{
-		if (!is_special_char(line[i]))
-		{
-			count++;
-			while (line[i] && !is_special_char(line[i]))
-				i++;
-		}
 		if (line[i] == ' ')
 		{
 			while (line[i] && line[i] == ' ')

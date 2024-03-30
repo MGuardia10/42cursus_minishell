@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:23:48 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/29 00:22:54 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/30 17:38:48 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ int	isdelimiter(char c)
 bool	is_special_char(char c)
 {
 	if (c == ' ' || c == '|' || c == '>' || c == '<' || c == '"' || c == '\'')
+		return (true);
+	return (false);
+}
+
+bool	is_special_char_two(char c)
+{
+	if (c == ' ' || c == '|' || c == '>' || c == '<')
 		return (true);
 	return (false);
 }

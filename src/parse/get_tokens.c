@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:25:34 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/29 00:44:27 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/30 20:57:31 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,29 @@
  */
 int	get_word(char **tokens, char *line, int *i, int *j)
 {
-	int	last;
+	int		last;
+	char	*aux;
 
 	last = *i;
 	while (line[*i] && !is_special_char(line[*i]))
 		*i += 1;
-	tokens[*j] = ft_substr(line, last, *i - last);
-	if (line[*i] == '"')
-	{
-		*i += 1;
-		last = *i;
-		while (line[*i] && line[*i] != '"')
-			*i += 1;
-		ft_strlcat(tokens[*j], ft_substr(line, last, *i - last), ft_strlen(tokens[*j]) + (*i - last) + 1);
-	}
-	else if (line[*i] == '\'')
-	{
-		*i += 1;
-		last = *i;
-		while (line[*i] && line[*i] != '\'')
-			*i += 1;
-		ft_strlcat(tokens[*j], ft_substr(line, last, *i - last), ft_strlen(tokens[*j]) + (*i - last) + 1);
-	}
+	aux = ft_substr(line, last, *i - last);
+	if (!aux)
+		return (1);
+	tokens[*j] = ft_strjoin("\"", aux);
+	if (!tokens[*j])
+		return (1);
+	free(aux);
+	aux = ft_strjoin(tokens[*j], "\"");
+	if (!aux)
+		return (1);
+	free(tokens[*j]);
+	tokens[*j] = aux;
 	if (!tokens)
+		return (1);
+	*i -= 1;
+	tokens[*j] = check_next_quotes(line, tokens, i, *j);
+	if (!tokens[*j])
 		return (1);
 	*j += 1;
 	return (0);

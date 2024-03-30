@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 22:40:40 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/30 19:06:12 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ int		store_redir(char **tokens, t_shell *shell, int *i, int j);
 int		store_arg(char **tokens, t_shell *shell, int i, int j);
 int		unexpected_tokens(char **tokens);
 int		check_quotes(char *line);
+char	*check_next_quotes(char *line, char **tokens, int *i, int j);
 
 /*
 *	UTILS
@@ -212,5 +213,6 @@ bool	is_directory(const char *path);
 void	clean_exit(t_shell *shell, int exit_code);
 bool	is_special_char(char c);
 t_redir	isredir(char *token);
+bool	is_special_char_two(char c);
 
 #endif

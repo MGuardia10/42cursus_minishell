@@ -6,11 +6,130 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:39:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/29 00:49:28 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/03/30 20:46:36 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+char	*match_quotes(char *token)
+{
+	char	*aux;
+
+	if (token[0] == '"')
+	{
+		if (token[ft_strlen(token) - 1] == '"' || token[ft_strlen(token) - 1] == '\'')
+		{
+			aux = ft_substr(token, 0, ft_strlen(token) - 1);
+			free (token);
+			token = ft_strjoin(aux, "\"");
+			free(aux);
+		}
+		else
+		{
+			aux = ft_strjoin(token, "\"");
+			free (token);
+			token = aux;
+		}
+	}
+	else if (token[0] == '\'')
+	{
+		if (token[ft_strlen(token) - 1] == '"' || token[ft_strlen(token) - 1] == '\'')
+		{
+			aux = ft_substr(token, 0, ft_strlen(token) - 1);
+			free (token);
+			token = ft_strjoin(aux, "'");
+			free(aux);
+		}
+		else
+		{
+			aux = ft_strjoin(token, "'");
+			free (token);
+			token = aux;
+		}
+	}
+	return (token);
+}
+
+char	*check_next_quotes(char *line, char **tokens, int *i, int j)
+{
+	char	*new_part;
+	char	*aux;
+	int		last;
+
+	*i += 1;
+	while (line[*i] && !is_special_char_two(line[*i]))
+	{
+		while (line[*i] && line[*i] == '"')
+		{
+			last = *i + 1;
+			aux = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
+			if (!aux)
+				return (NULL);
+			free(tokens[j]);
+			tokens[j] = aux;
+			*i += 1;
+			while (line[*i] && line[*i] != '"')
+				*i += 1;
+			new_part = ft_substr(line, last, (*i - last) + 1);
+			if (!new_part)
+				return (NULL);
+			aux = ft_strjoin(tokens[j], new_part);
+			if (!aux)
+				return (NULL);
+			free(tokens[j]);
+			free(new_part);
+			tokens[j] = aux;
+			*i += 1;
+		}
+		while (line[*i] && line[*i] == '\'')
+		{
+			last = *i + 1;
+			aux = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
+			if (!aux)
+				return (NULL);
+			free(tokens[j]);
+			tokens[j] = aux;
+			*i += 1;
+			while (line[*i] && line[*i] != '\'')
+				*i += 1;
+			new_part = ft_substr(line, last, (*i - last) + 1);
+			if (!new_part)
+				return (NULL);
+			aux = ft_strjoin(tokens[j], new_part);
+			if (!aux)
+				return (NULL);
+			free(tokens[j]);
+			free(new_part);
+			tokens[j] = aux;
+			*i += 1;
+		}
+		if (line[*i] && !is_special_char(line[*i]))
+		{
+			last = *i;
+			aux = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
+			if (!aux)
+				return (NULL);
+			free(tokens[j]);
+			tokens[j] = aux;
+			while (line[*i] && !is_special_char(line[*i]))
+				*i += 1;
+			new_part = ft_substr(line, last, (*i - last) + 1);
+			if (!new_part)
+				return (NULL);
+			aux = ft_strjoin(tokens[j], new_part);
+			if (!aux)
+				return (NULL);
+			free(tokens[j]);
+			free(new_part);
+			tokens[j] = aux;
+		}
+	}
+	tokens[j] = match_quotes(tokens[j]);
+	if (!tokens[j])
+		return (NULL);
+	return (tokens[j]);
+}
 
 /**
  * @brief Handles parsing of quotes in the input line and stores the extracted
@@ -50,27 +169,11 @@ int	quotes_token(char *line, char **tokens, int *i, int *j)
 			*i += 1;
 	}
 	tokens[*j] = ft_substr(line, last - 1, (*i - last) + 2);
-	if (line[*i + 1] == '"')
-	{
-		// quitar la comilla del final del primer token.
-		// seguir uniendo hasta que sea un special char (distinto de " o ')
-		*i += 2;
-		last = *i;
-		while (line[*i] && line[*i] != '"')
-			*i += 1;
-		ft_strlcat(tokens[*j], ft_substr(line, last, *i - last), ft_strlen(tokens[*j]) + (*i - last) + 1);
-	}
-	else if (line[*i + 1] == '\'')
-	{
-		*i += 2;
-		last = *i;
-		while (line[*i] && line[*i] != '\'')
-			*i += 1;
-		ft_strlcat(tokens[*j], ft_substr(line, last, *i - last), ft_strlen(tokens[*j]) + (*i - last) + 1);
-	}
 	if (!tokens[*j])
 		return (1);
-	*i += 1;
+	tokens[*j] = check_next_quotes(line, tokens, i, *j);
+	if (tokens[*j] == NULL)
+		return (1);
 	*j += 1;
 	return (0);
 }
