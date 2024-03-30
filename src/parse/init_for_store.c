@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:27:12 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 10:57:04 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/30 12:11:08 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	io_files_alloc(char **tokens, t_shell *shell)
  */
 int	alloc_arg_mem(t_shell *shell, int *arg_count, int *i, int *j)
 {
-	shell->cmds[*j].args = (char **)malloc(sizeof(char *) * *arg_count + 1);
+	shell->cmds[*j].args = (char **)malloc(sizeof(char *) * (*arg_count + 1));
 	if (!shell->cmds[*j].args)
 		return (1);
 	shell->cmds[*j].args[*arg_count] = NULL;
@@ -139,8 +139,8 @@ int	arg_alloc(char **tokens, t_shell *shell)
  */
 int	init_for_store(char **tokens, t_shell *shell)
 {
-	shell->cmds = (t_command *)malloc(
-			sizeof(t_command) * count_cmd(tokens, shell));
+	shell->n_cmds = count_cmd(tokens);
+	shell->cmds = ft_calloc(shell->n_cmds, sizeof(t_command));
 	if (!shell->cmds)
 		return (1);
 	if (io_files_alloc(tokens, shell) == 1)
