@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 08:52:43 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 09:48:23 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/31 12:48:04 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	executer(t_shell *shell)
 {
 	if (resolve_heredocs(shell, shell->cmds, shell->n_cmds))
 		return (1);
+	write_signals(shell, true);
 	if (shell->n_cmds == 1)
 		return (simple_cmds(shell));
 	signal_handler(ft_sigint_child, ft_sigquit);

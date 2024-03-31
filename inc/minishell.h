@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 12:10:36 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/31 12:55:42 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
-# include <termios.h>		// tcsetattr, tcgetattr
+# include <termios.h>
 # include <signal.h>
 # include <errno.h>
 
@@ -27,9 +27,9 @@
 
 extern volatile sig_atomic_t	g_signal_status;
 
-/*
+/******************************************************************************
 *	Typedefs
-*/
+******************************************************************************/
 typedef struct s_shell			t_shell;
 typedef struct s_env			t_env;
 typedef struct s_env_list		t_env_list;
@@ -39,9 +39,9 @@ typedef struct s_io_files		t_io_files;
 typedef enum e_redir			t_redir;
 typedef enum e_sig_mode			t_sig_mode;
 
-/*
+/******************************************************************************
 *	Enums
-*/
+******************************************************************************/
 enum	e_redir
 {
 	NONE,
@@ -61,9 +61,9 @@ enum	e_sig_mode
 	SIGQUIT_CHILD = 131
 };
 
-/*
+/******************************************************************************
 *	Structs
-*/
+******************************************************************************/
 struct s_env
 {
 	char		*key;
@@ -110,9 +110,10 @@ struct	s_shell
 	int			exit_status;
 };
 
-/*
-*	SHELL
-*/
+/******************************************************************************
+*	FUNCTION PROTOTYPES
+******************************************************************************/
+/* SHELL */
 int		init_shell(t_shell *shell, int argc, char **argv, char **env);
 void	manage_input(t_shell *shell);
 int		manage_exit_status(int status);
@@ -123,9 +124,7 @@ void	free_args(t_command *cmd);
 void	free_cmds(t_shell *shell);
 void	free_shell(t_shell *shell);
 
-/*
-*	ENV
-*/
+/* ENV */
 int		create_env_list(t_shell *shell, char **env);
 t_env	*set_env_content(char *env_str);
 int		create_new_env(t_env_list **envi, t_env *node_content);
@@ -136,9 +135,7 @@ int		update_oldpwd(char *old_pwd, t_env_list *envi);
 int		update_pwd(t_env_list *envi);
 int		set_shlvl(t_env_list *envi);
 
-/*
-*	BUILTINS
-*/
+/* BUILTINS */
 int		ft_env(t_env_list **envi, char *arg);
 int		ft_export(t_shell *shell, t_env_list **envi, char **args);
 int		ft_unset(t_env_list **envi, char **args);
@@ -147,9 +144,7 @@ int		ft_cd(t_shell *shell, t_env_list *envi, char *arg);
 int		ft_echo(char **args);
 int		ft_exit(t_shell *shell, char **args, int args_count);
 
-/*
-*	EXECUTER
-*/
+/* EXECUTER */
 int		executer(t_shell *shell);
 int		handle_builtins(t_shell *shell, t_command *cmd);
 int		exec_builtin(t_shell *shell, char *cmd, char **args, int args_count);
@@ -163,18 +158,15 @@ int		check_access_tmp_folder(char *tmp_path);
 void	create_child(t_shell *shell, int *fd1, int *fd2, int i);
 int		wait_all_childs(int last_pid);
 
-/*
-*	SIGNALS
-*/
+/* SIGNALS */
 void	signal_handler(sig_t sigint_func, sig_t sigquit_func);
 void	ft_sigint(int signal);
 void	ft_sigint_heredoc(int signal);
 void	ft_sigint_child(int signal);
 void	ft_sigquit(int signal);
+void	write_signals(t_shell *shell, bool write_signal);
 
-/*
-*	PARSE
-*/
+/* PARSE */
 int		init_line(t_shell *shell);
 int		expand_line(t_shell *shell);
 int		num_of_tokens(char *line);
@@ -198,9 +190,7 @@ int		store_arg(char **tokens, t_shell *shell, int i, int j);
 int		unexpected_tokens(char **tokens);
 int		check_quotes(char *line);
 
-/*
-*	UTILS
-*/
+/* UTILS */
 void	free_env(void *content);
 bool	already_exists(t_env_list **envi, char *key);
 int		isdelimiter(char c);

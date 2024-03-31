@@ -76,7 +76,8 @@ SH			=	shell.c \
 				free.c
 
 # SIGNALS
-SIGNALS		=	signals.c
+SIGNALS		=	signals.c \
+				write_signals.c
 
 # UTILS
 UTILS		=	utils_1.c \
