@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 13:32:32 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/30 12:11:53 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // 		printf("EXE COMANDO: \n%s\n\n", shell->cmds[i].exe);
 // 		printf("ARGUMENTOS(%d): \n", shell->cmds[i].args_count);
 // 		for (int j = 0; shell->cmds[i].args[j]; j++)
-// 			printf("%s\n", shell->cmds[i].args[j]);
+// 			printf("arg -> %s\n", shell->cmds[i].args[j]);
 // 		printf("\nINFILES(%d): \n", shell->cmds[i].infile_count);
 // 		for (int j = 0; j < shell->cmds[i].infile_count; j++)
 // 		{
