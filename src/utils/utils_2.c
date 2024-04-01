@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 18:30:43 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 12:28:46 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:17:29 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ bool	is_directory(const char *path)
  */
 void	clean_exit(t_shell *shell, int exit_code)
 {
+	close(shell->stdin_dup);
+	close(shell->stdout_dup);
 	free_shell(shell);
 	exit(exit_code);
 }
