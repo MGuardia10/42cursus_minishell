@@ -7,7 +7,7 @@
 3. mirar salto de linea cuando solo se pulsa enter - ✅
 4. segfault con CTRL + D - ✅
 5. codigo de error 1 cuando se pulsa CTRL + C - ✅
-6. Añadir historial eliminando los inputs de solo espacios - PENDING
+6. Añadir historial - PENDING
 7. Revisar leaks que da valgrind si son del readline (creo que si) - PENDING
 
 ## señales
@@ -28,9 +28,9 @@
 5. revisar builtins - ✅ (ok en principio pero probar mas casos cuando expander este ok)
 6. Arreglar que el padre espere a todos los hijos no solo al ultimo - ✅
 7. Revisar el heredoc (cunado expander ok) - PENDING
-8. Revisar delimitador cuando es una variable expandida. - PENDING
-9. Revisar expander heredoc. - PENDING
-10. Revisar en caso de señal en heredoc que se elimine el archivo temporal - PENDING
+8. Revisar delimitador cuando es una variable expandida. - ✅
+9. Revisar expander heredoc. - ✅
+10. Revisar en caso de señal en heredoc que se elimine el archivo temporal - ✅
 
 ## Makefile
 
