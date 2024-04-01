@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 23:34:39 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/26 18:03:24 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:12:24 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ static void	heredoc(t_shell *shell, t_io_files *infile, bool *error)
 		close(fd);
 		return ;
 	}
+	close(fd);
 }
 
 /**
