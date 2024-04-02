@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 21:18:39 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:47:11 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ char	*check_next_quotes(char *line, char **tokens, int *i, int j);
 */
 void	free_env(void *content);
 bool	already_exists(t_env_list **envi, char *key);
-int		isdelimiter(char c);
+bool	isvalidchar(char c);
 bool	is_builtin(char *cmd);
 char	**envi_to_arr(t_env_list *env);
 char	**create_argv(t_command cmd);

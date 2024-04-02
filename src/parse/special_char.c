@@ -6,13 +6,13 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 21:39:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 20:46:36 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:29:48 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*match_quotes(char *token)
+char	*match_quotes(char *token, int f)
 {
 	char	*aux;
 
@@ -21,13 +21,19 @@ char	*match_quotes(char *token)
 		if (token[ft_strlen(token) - 1] == '"' || token[ft_strlen(token) - 1] == '\'')
 		{
 			aux = ft_substr(token, 0, ft_strlen(token) - 1);
+			if (!aux)
+				return (NULL);
 			free (token);
 			token = ft_strjoin(aux, "\"");
+			if (!aux)
+				return (NULL);
 			free(aux);
 		}
 		else
 		{
 			aux = ft_strjoin(token, "\"");
+			if (!aux)
+				return (NULL);
 			free (token);
 			token = aux;
 		}
@@ -37,16 +43,30 @@ char	*match_quotes(char *token)
 		if (token[ft_strlen(token) - 1] == '"' || token[ft_strlen(token) - 1] == '\'')
 		{
 			aux = ft_substr(token, 0, ft_strlen(token) - 1);
-			free (token);
+			if (!aux)
+				return (NULL);
+			free(token);
 			token = ft_strjoin(aux, "'");
+			if (!token)
+				return (NULL);
 			free(aux);
 		}
 		else
 		{
 			aux = ft_strjoin(token, "'");
+			if (!aux)
+				return (NULL);
 			free (token);
 			token = aux;
 		}
+	}
+	if (f == 0)
+	{
+		aux = ft_strtrim(token, "\"'");
+		if (!aux)
+			return (NULL);
+		free(token);
+		token = aux;
 	}
 	return (token);
 }
@@ -56,12 +76,15 @@ char	*check_next_quotes(char *line, char **tokens, int *i, int j)
 	char	*new_part;
 	char	*aux;
 	int		last;
+	int		f;
 
+	f = 0;
 	*i += 1;
 	while (line[*i] && !is_special_char_two(line[*i]))
 	{
 		while (line[*i] && line[*i] == '"')
 		{
+			f = 1;
 			last = *i + 1;
 			aux = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
 			if (!aux)
@@ -84,6 +107,7 @@ char	*check_next_quotes(char *line, char **tokens, int *i, int j)
 		}
 		while (line[*i] && line[*i] == '\'')
 		{
+			f = 1;
 			last = *i + 1;
 			aux = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
 			if (!aux)
@@ -125,7 +149,7 @@ char	*check_next_quotes(char *line, char **tokens, int *i, int j)
 			tokens[j] = aux;
 		}
 	}
-	tokens[j] = match_quotes(tokens[j]);
+	tokens[j] = match_quotes(tokens[j], f);
 	if (!tokens[j])
 		return (NULL);
 	return (tokens[j]);

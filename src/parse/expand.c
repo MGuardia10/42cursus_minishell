@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 23:30:40 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:45:37 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ char	*expenv(t_shell *shell, int *i, int f)
 	int		j;
 
 	j = *i;
-	if (shell->line_read[*i] == '$')
+	if (shell->line_read[*i] == '$' || !ft_isalpha(shell->line_read[*i]))
 		return (*i += 1, non_existent_env(f));
-	while (isdelimiter(shell->line_read[*i]) == 1)
+	while (isvalidchar(shell->line_read[*i]))
 		*i += 1;
 	if (j - *i == 0)
 		return ("$");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 22:37:12 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 10:58:21 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:02:31 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  */
 int	store_exe(char **tokens, t_shell *shell, int *i, int *j)
 {
-	if (*i != 0)
+	if (ft_strcmp(tokens[*i], "|") == 0)
 	{
 		*j += 1;
 		*i += 1;

@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 17:02:13 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:09:00 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	create_cmd_array(t_shell *shell)
 		exit(1);
 	if (store_tokens(tokens, shell) == 1)
 		exit(1);
-	printall(shell);
+	//printall(shell);
 	ft_free_matrix((void *)tokens);
 	return (0);
 }

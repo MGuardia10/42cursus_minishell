@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:20:44 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 00:49:26 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:06:04 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	store_tokens(char **tokens, t_shell *shell)
 			if (store_redir(tokens, shell, &i, j) == 1)
 				return (1);
 		}
-		else if ((ft_strcmp(tokens[i], "|") == 0) || (i == 0))
+		else if ((ft_strcmp(tokens[i], "|") == 0 || !shell->cmds[j].exe) && tokens[i][0])
 		{
 			if (store_exe(tokens, shell, &i, &j) == 1)
 				return (1);
 		}
-		else
+		else if (tokens[i][0])
 		{
 			if (store_arg(tokens, shell, i, j) == 1)
 				return (1);

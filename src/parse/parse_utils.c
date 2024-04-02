@@ -6,24 +6,17 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:23:48 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 21:17:58 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:46:45 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/**
- * Checks if a character is a delimiter.
- *
- * @param c The character to check.
- * @return 0 if the character is a delimiter, 1 otherwise.
- */
-int	isdelimiter(char c)
+bool	isvalidchar(char c)
 {
-	if (c == '\0' || c == ' ' || c == '"' || c == '\'' || c == '\n' || \
-																c == '$')
-		return (0);
-	return (1);
+	if (ft_isalnum(c) || c == '_')
+		return (true);
+	return (false);
 }
 
 /**
