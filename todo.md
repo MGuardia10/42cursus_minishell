@@ -11,7 +11,7 @@
 ## parse
 --> $$ y $noalpha
 --> proteger malloc con exit OK
---> historial de comandos gestionar espacios, nulos, etc
+--> historial de comandos gestionar espacios, nulos, etc OK
 
 ## Executer
 --> en exit builint lalmar a clean_exit OK

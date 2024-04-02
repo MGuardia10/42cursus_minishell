@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:40 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 20:26:43 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:57:36 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	manage_input(t_shell *shell)
 			exit(EXIT_FAILURE);
 		exit(shell->exit_status);
 	}
+	add_history(shell->line_read);
 }
 
 /**

@@ -6,13 +6,13 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 21:26:05 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:02:13 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/*void	printall(t_shell *shell)
+void	printall(t_shell *shell)
 {
 	for (int i = 0; i < shell->n_cmds; i++)
 	{
@@ -36,7 +36,7 @@
 		}
 		printf("-------------------------\n");
 	}
-}*/
+}
 
 /**
  * @brief Creates an array of commands from the given shell input.
@@ -73,7 +73,7 @@ int	create_cmd_array(t_shell *shell)
 		exit(1);
 	if (store_tokens(tokens, shell) == 1)
 		exit(1);
-//	printall(shell);
+	printall(shell);
 	ft_free_matrix((void *)tokens);
 	return (0);
 }
@@ -86,7 +86,6 @@ int	create_cmd_array(t_shell *shell)
  */
 int	init_line(t_shell *shell)
 {
-	add_history(shell->line_read);
 	if (check_quotes(shell->line_read) == 1)
 		return (1);
 	if (expand_line(shell) == 1)
