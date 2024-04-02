@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 22:37:12 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 18:02:31 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:18:58 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * @param j A pointer to the current index in the shell's cmds array.
  * @return Returns 0 if the command is successfully stored, 1 otherwise.
  */
-int	store_exe(char **tokens, t_shell *shell, int *i, int *j)
+void	store_exe(char **tokens, t_shell *shell, int *i, int *j)
 {
 	if (ft_strcmp(tokens[*i], "|") == 0)
 	{
@@ -34,8 +34,7 @@ int	store_exe(char **tokens, t_shell *shell, int *i, int *j)
 	else
 		shell->cmds[*j].exe = ft_strtrim(tokens[*i], "'");
 	if (!shell->cmds[*j].exe)
-		return (1);
-	return (0);
+		exit(1);
 }
 
 /**
@@ -105,19 +104,18 @@ int	store_outfile(t_command *cmd, char **tokens, int *i)
  * @param j The index of the current command in the cmds array.
  * @return 1 if an error occurred, 0 otherwise.
  */
-int	store_redir(char **tokens, t_shell *shell, int *i, int j)
+void	store_redir(char **tokens, t_shell *shell, int *i, int j)
 {
 	if (isredir(tokens[*i]) == IN || isredir(tokens[*i]) == HEREDOC)
 	{
 		if (store_infile(&shell->cmds[j], tokens, i) == 1)
-			return (1);
+			exit(1);
 	}
 	else if (isredir(tokens[*i]) == OUT || isredir(tokens[*i]) == APPOUT)
 	{
 		if (store_outfile(&shell->cmds[j], tokens, i) == 1)
-			return (1);
+			exit(1);
 	}
-	return (0);
 }
 
 /**
@@ -129,7 +127,7 @@ int	store_redir(char **tokens, t_shell *shell, int *i, int j)
  * @param j The index of the command in the shell structure.
  * @return Returns 0 on success, 1 if the argument couldn't be stored.
  */
-int	store_arg(char **tokens, t_shell *shell, int i, int j)
+void	store_arg(char **tokens, t_shell *shell, int i, int j)
 {
 	if (tokens[i][0] == '"')
 		shell->cmds[j].args[shell->cmds[j].args_count] = ft_strtrim(
@@ -138,7 +136,6 @@ int	store_arg(char **tokens, t_shell *shell, int i, int j)
 		shell->cmds[j].args[shell->cmds[j].args_count] = ft_strtrim(
 				tokens[i], "'");
 	if (!shell->cmds[j].args[shell->cmds[j].args_count])
-		return (1);
+		exit(1);
 	shell->cmds[j].args_count++;
-	return (0);
 }

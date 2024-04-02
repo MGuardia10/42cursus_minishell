@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 17:47:11 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:18:38 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int		expand_line(t_shell *shell);
 int		num_of_tokens(char *line);
 char	**get_tokens(char *line);
 int		handle_special_char(char *line, char **tokens, int *i, int *j);
-int		store_tokens(char **tokens, t_shell *shell);
+void	store_tokens(char **tokens, t_shell *shell);
 int		init_for_store(char **tokens, t_shell *shell);
 int		clean_line(t_shell *shell, char **exp, int i, int j);
 int		check_inside_quotes(t_shell *shell, int i, int f);
@@ -190,11 +190,11 @@ char	*expenv(t_shell *shell, int *i, int f);
 int		extract_from_line(t_shell *shell, char **exp, int i, int j);
 char	*non_existent_env(int f);
 int		count_cmd(char **tokens);
-int		store_exe(char **tokens, t_shell *shell, int *i, int *j);
+void	store_exe(char **tokens, t_shell *shell, int *i, int *j);
 int		store_infile(t_command *cmd, char **tokens, int *i);
 int		store_outfile(t_command *cmd, char **tokens, int *i);
-int		store_redir(char **tokens, t_shell *shell, int *i, int j);
-int		store_arg(char **tokens, t_shell *shell, int i, int j);
+void	store_redir(char **tokens, t_shell *shell, int *i, int j);
+void	store_arg(char **tokens, t_shell *shell, int i, int j);
 int		unexpected_tokens(char **tokens);
 int		check_quotes(char *line);
 char	*check_next_quotes(char *line, char **tokens, int *i, int j);

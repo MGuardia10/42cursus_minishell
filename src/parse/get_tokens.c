@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:25:34 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 17:27:30 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:47:38 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ char	**get_tokens(char *line)
 		}
 	}
 	tokens[j] = NULL;
+	for (int l = 0; tokens[l] != NULL; l++)
+		printf("\n%s\n", tokens[l]);
 	return (tokens);
 }

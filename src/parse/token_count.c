@@ -6,20 +6,20 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 20:54:17 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 20:57:16 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:34:04 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /**
- * Counts the number of quotes in a given line.
+ * Counts the number of words in a given line starting from a specific index.
  *
- * @param line The input line to count quotes from.
- * @param i    The current index in the line.
- * @return     The number of quotes found in the line.
+ * @param line The input line to count words from.
+ * @param i The starting index to count words from.
+ * @return The number of words found in the line.
  */
-int	quotes_count(char *line, int *i)
+int	words_count(char *line, int *i)
 {
 	int	count;
 
@@ -28,27 +28,7 @@ int	quotes_count(char *line, int *i)
 	{
 		count++;
 		while (line[*i] && !is_special_char_two(line[*i]))
-		{
-			while (line[*i] && line[*i] == '"')
-			{
-				*i += 1;
-				while (line[*i] && line[*i] != '"')
-					*i += 1;
-				*i += 1;
-			}
-			while (line[*i] && line[*i] == '\'')
-			{
-				*i += 1;
-				while (line[*i] && line[*i] != '\'')
-					*i += 1;
-				*i += 1;
-			}
-			if (line[*i] && !is_special_char(line[*i]))
-			{
-				while (line[*i] && !is_special_char(line[*i]))
-					*i += 1;
-			}
-		}
+			*i += 1;
 	}
 	return (count);
 }
@@ -107,7 +87,7 @@ int	num_of_tokens(char *line)
 			while (line[i] && line[i] == ' ')
 				i++;
 		}
-		count += quotes_count(line, &i);
+		count += words_count(line, &i);
 		count += redir_count(line, &i);
 	}
 	return (count);

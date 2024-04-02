@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:02:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 23:19:52 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:37:59 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 volatile sig_atomic_t	g_signal_status = 0;
 
-void	leaks(void)
+void	leaks()
 {
-	system("leaks -q minishell");
+	system("leaks minishell");
 }
 
 int	main(int argc, char **argv, char **env)
 {
+	atexit(leaks);
 	t_shell	shell;
 
-	//atexit(leaks);
 	if (init_shell(&shell, argc, argv, env))
 		return (EXIT_FAILURE);
 	while (1)

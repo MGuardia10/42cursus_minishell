@@ -12,6 +12,7 @@
 --> $$ y $noalpha OK
 --> proteger malloc con exit OK
 --> historial de comandos gestionar espacios, nulos, etc OK
+--> echo "|"
 
 ## Executer
 --> en exit builint lalmar a clean_exit OK

@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:20:44 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 18:06:04 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:17:58 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
  * @param shell The shell structure.
  * @return Returns 0 on success, 1 on failure.
  */
-int	store_tokens(char **tokens, t_shell *shell)
+void	store_tokens(char **tokens, t_shell *shell)
 {
 	int	i;
 	int	j;
@@ -38,21 +38,12 @@ int	store_tokens(char **tokens, t_shell *shell)
 	while (tokens[i])
 	{
 		if (isredir(tokens[i]) != NONE)
-		{
-			if (store_redir(tokens, shell, &i, j) == 1)
-				return (1);
-		}
-		else if ((ft_strcmp(tokens[i], "|") == 0 || !shell->cmds[j].exe) && tokens[i][0])
-		{
-			if (store_exe(tokens, shell, &i, &j) == 1)
-				return (1);
-		}
+			store_redir(tokens, shell, &i, j);
+		else if ((ft_strcmp(tokens[i], "|") == 0
+				|| !shell->cmds[j].exe) && tokens[i][0])
+			store_exe(tokens, shell, &i, &j);
 		else if (tokens[i][0])
-		{
-			if (store_arg(tokens, shell, i, j) == 1)
-				return (1);
-		}
+			store_arg(tokens, shell, i, j);
 		i++;
 	}
-	return (0);
 }

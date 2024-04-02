@@ -6,37 +6,11 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 18:09:00 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:19:35 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-void	printall(t_shell *shell)
-{
-	for (int i = 0; i < shell->n_cmds; i++)
-	{
-		printf("-------------------------\n\n");
-		printf("EXE COMANDO: \n%s\n\n", shell->cmds[i].exe);
-		printf("ARGUMENTOS(%d): \n", shell->cmds[i].args_count);
-		for (int j = 0; shell->cmds[i].args[j]; j++)
-			printf("%s\n", shell->cmds[i].args[j]);
-		printf("\nINFILES(%d): \n", shell->cmds[i].infile_count);
-		for (int j = 0; j < shell->cmds[i].infile_count; j++)
-		{
-			printf("Tipo redir -> %u\n", shell->cmds[i].infiles[j].redir);
-			printf("Filename -> %s\n", shell->cmds[i].infiles[j].filename);
-			printf("Expheredoc -> %d\n\n", shell->cmds[i].infiles[j].expheredoc);
-		}
-		printf("OUTFILES(%d): \n", shell->cmds[i].outfile_count);
-		for (int j = 0; j < shell->cmds[i].outfile_count; j++)
-		{
-			printf("Tipo redir -> %u\n", shell->cmds[i].outfiles[j].redir);
-			printf("Filename -> %s\n\n", shell->cmds[i].outfiles[j].filename);
-		}
-		printf("-------------------------\n");
-	}
-}
 
 /**
  * @brief Creates an array of commands from the given shell input.
@@ -71,9 +45,7 @@ int	create_cmd_array(t_shell *shell)
 	}
 	if (init_for_store(tokens, shell) == 1)
 		exit(1);
-	if (store_tokens(tokens, shell) == 1)
-		exit(1);
-	//printall(shell);
+	store_tokens(tokens, shell);
 	ft_free_matrix((void *)tokens);
 	return (0);
 }

@@ -46,6 +46,8 @@ PARSE		=	init.c \
 				expand_utils.c \
 				store_utils.c \
 				parse_utils.c \
+				parse_utils2.c \
+				join_token.c
 
 # SHELL
 SH			=	shell.c \
