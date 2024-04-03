@@ -9,11 +9,11 @@
 5. codigo de error 1 cuando se pulsa CTRL + C - ✅
 6. Añadir historial - ✅
 7. Revisar leaks que da valgrind si son del readline (creo que si) - PENDING
-8. Acabar el README.md - PENDING
+8. Acabar el README.md - ✅
 
 ## señales
 1. Eliminar que salga el capuchon ese + C, D , Q etc - ✅
-2. Revisar las señales en MACs 42 (funcion rl_on_new_line) - PENDING
+2. Revisar las señales en MACs 42 (funcion rl_on_new_line) - ✅
 
 ## parse
 
@@ -36,7 +36,7 @@
 ## Makefile
 
 1. Ordenar makefile - ✅
-2. En MACs de 42 asegurarnos que readline esta instalado y las variables correctamentes expandidas - PENDING
+2. En MACs de 42 que compile: NO hay que exportar las variables - ✅
 
 ## libft
 
