@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:38:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 21:13:49 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:49:19 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int	extract_from_line(t_shell *shell, char **exp, int i, int j)
 char	*non_existent_env(int f)
 {
 	if (f == 1)
-		return ("");
+		return (ft_strdup(""));
 	else
-		return ("\"\"");
+		return (ft_strdup("\"\""));
 }
 
 /**
@@ -115,5 +115,6 @@ int	join_expenv(char **exp, char *env)
 		return (1);
 	free(*exp);
 	*exp = aux;
+	// free(env);
 	return (0);
 }

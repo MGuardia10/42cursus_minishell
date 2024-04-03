@@ -1,5 +1,34 @@
-# NAME
+################################################################################
+# COMPILER OPTIONS
+################################################################################
+
 NAME		=	minishell
+CC			=	gcc
+CFLAGS		=	-Wall -Wextra -Werror -g3
+INCLUDES	=	-I libft/inc -I inc
+RLFLAG		=	-lreadline
+RM			=	rm -rf
+
+# MAC 42
+CPPFLAGS	=	-I$(HOME)/.brew/opt/readline/include
+LDFLAGS		=	-L$(HOME)/.brew/opt/readline/lib
+
+# PERSONAL MAC
+# CPPFLAGS	=	-I/usr/local/Cellar/readline/8.2.10/include
+# LDFLAGS     =	-L/usr/local/Cellar/readline/8.2.10/lib
+
+
+# COLORS
+RED		=		\033[91;1m
+GREEN	=		\033[92;1m
+YELLOW	=		\033[93;1m
+BLUE	=		\033[94;1m
+PINK	=		\033[95;1m
+CLEAR	=		\033[0m
+
+################################################################################
+# SOURCE FILES
+################################################################################
 
 # LIBFT
 LIBFT		=	libft/libft.a
@@ -8,7 +37,7 @@ LIBFT		=	libft/libft.a
 VPATH		=	src:src/builtins:src/env:src/executer:src/parse:src/shell:src/signals:src/utils
 
 # SOURCE
-SRC				=	main.c
+SRC			=	main.c
 
 # BUILTINS
 BUILTINS	=	env.c \
@@ -54,7 +83,8 @@ SH			=	shell.c \
 				free.c
 
 # SIGNALS
-SIGNALS		=	signals.c
+SIGNALS		=	signals.c \
+				write_signals.c
 
 # UTILS
 UTILS		=	utils_1.c \
@@ -71,26 +101,10 @@ OBJ_FILES	=	$(SRC:%.c=$(OBJ_DIR)%.o) \
 				$(SIGNALS:%.c=$(OBJ_DIR)%.o) \
 				$(UTILS:%.c=$(OBJ_DIR)%.o)
 
-# COMPILER
-CC			=	gcc -g3
-CFLAGS		=	-Wall -Wextra -Werror
-LDFLAGS		=	-L/opt/homebrew/opt/readline/lib
-CPPFLAGS	=	-I/opt/homebrew/opt/readline/include
-# CPPFLAGS	=	-I/usr/local/Cellar/readline/8.2.10/include
-# LDFLAGS     =	-L/usr/local/Cellar/readline/8.2.10/lib
-RLFLAG		=	-lreadline
-INCLUDES	=	-I libft/inc -I inc
-RM			=	rm -rf
+################################################################################
+# MAKEFILE RULES
+################################################################################
 
-# COLORS
-RED		=		\033[91;1m
-GREEN	=		\033[92;1m
-YELLOW	=		\033[93;1m
-BLUE	=		\033[94;1m
-PINK	=		\033[95;1m
-CLEAR	=		\033[0m
-
-# RULES
 all:	$(NAME)
 
 $(NAME): $(OBJ_FILES)
@@ -98,12 +112,12 @@ $(NAME): $(OBJ_FILES)
 	@make -sC libft
 	@echo "$(GREEN)[libft --> OK]$(CLEAR)"
 	@echo "$(BLUE)Compiling minishell program.$(CLEAR)"
-	$(CC) $(CFLAGS) $(INCLUDES) $(CFLAGS) $(RLFLAG) $(CPPFLAGS) $(LDFLAGS) $(OBJ_FILES) $(LIBFT) -o $(NAME)
+	$(CC) $(OBJ_FILES) $(LIBFT) -o $(NAME) $(LDFLAGS) $(RLFLAG)
 	@echo "$(GREEN)[minishell --> OK]\n$(CLEAR)$(GREEN)Success!$(CLEAR)"
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDES) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< $(INCLUDES) $(CPPFLAGS) -o $@
 
 clean:
 	@echo "$(BLUE)Removing compiled files.$(CLEAR)"

@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:46:54 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/28 18:53:01 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/30 10:20:48 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,9 @@ int	ft_cd(t_shell *shell, t_env_list *envi, char *arg)
 	if (!getcwd(curr_dir, PATH_MAX))
 		(perror("getcwd"), clean_exit(shell, EXIT_FAILURE));
 	flag = 0;
-	if (!arg || arg[0] == '\0')
+	if (!arg)
 		return (ft_cd_home(shell, envi, curr_dir, &flag));
-	else if (ft_strcmp(arg, "\"\"") == 0)
+	else if (arg[0] == '\0')
 		return (0);
 	else if (ft_strcmp(arg, "~") == 0)
 		return (ft_cd_initial_dir(shell, envi, curr_dir, &flag));

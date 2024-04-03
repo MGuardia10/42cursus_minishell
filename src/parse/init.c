@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/03 19:31:50 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:49:05 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+// void	printall(t_shell *shell)
+// {
+// 	for (int i = 0; i < shell->n_cmds; i++)
+// 	{
+// 		printf("n_cmds --> %d\n", shell->n_cmds);
+// 		printf("-------------------------\n\n");
+// 		printf("EXE COMANDO: \n%s\n\n", shell->cmds[i].exe);
+// 		printf("ARGUMENTOS(%d): \n", shell->cmds[i].args_count);
+// 		for (int j = 0; shell->cmds[i].args[j]; j++)
+// 			printf("arg -> %s\n", shell->cmds[i].args[j]);
+// 		printf("\nINFILES(%d): \n", shell->cmds[i].infile_count);
+// 		for (int j = 0; j < shell->cmds[i].infile_count; j++)
+// 		{
+// 			printf("Tipo redir -> %u\n", shell->cmds[i].infiles[j].redir);
+// 			printf("Filename -> %s\n", shell->cmds[i].infiles[j].filename);
+// 			printf("Expheredoc -> %d\n\n", shell->cmds[i].infiles[j].expheredoc);
+// 		}
+// 		printf("OUTFILES(%d): \n", shell->cmds[i].outfile_count);
+// 		for (int j = 0; j < shell->cmds[i].outfile_count; j++)
+// 		{
+// 			printf("Tipo redir -> %u\n", shell->cmds[i].outfiles[j].redir);
+// 			printf("Filename -> %s\n\n", shell->cmds[i].outfiles[j].filename);
+// 		}
+// 		printf("-------------------------\n");
+// 	}
+// }
 
 /**
  * @brief Creates an array of commands from the given shell input.

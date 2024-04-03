@@ -6,7 +6,11 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:40 by mguardia          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/04/03 19:32:46 by raalonso         ###   ########.fr       */
+=======
+/*   Updated: 2024/04/02 16:40:28 by mguardia         ###   ########.fr       */
+>>>>>>> fix_mguardia
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +67,12 @@ void	manage_input(t_shell *shell)
 			exit(EXIT_FAILURE);
 		exit(shell->exit_status);
 	}
+<<<<<<< HEAD
 	add_history(shell->line_read);
+=======
+	if (ft_strlen(shell->line_read) > 0)
+		add_history(shell->line_read);
+>>>>>>> fix_mguardia
 }
 
 /**

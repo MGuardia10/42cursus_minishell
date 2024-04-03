@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 19:03:34 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/26 17:56:44 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/30 09:47:11 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	exec_child(t_shell *shell, t_command *cmd, int fd_in, int fd_out)
 	if (fd_out != STDOUT_FILENO && fd_out != STDERR_FILENO)
 		close(fd_out);
 	if (is_builtin(cmd->exe) == true)
-		exit(exec_builtin(shell, cmd->exe, cmd->args));
+		exit(exec_builtin(shell, cmd->exe, cmd->args, cmd->args_count));
 	path = find_path(shell, cmd->exe, shell->envi, &status);
 	if (!path)
 		exit(status);
@@ -155,14 +155,18 @@ int	wait_all_childs(int last_pid)
 {
 	pid_t	curr_child;
 	int		status_child;
+	int		exit_code;
 
+	curr_child = 0;
+	status_child = 0;
+	exit_code = 0;
 	while (1)
 	{
 		curr_child = waitpid(-1, &status_child, 0);
 		if (curr_child <= 0)
 			break ;
 		if (curr_child == last_pid && WIFEXITED(status_child))
-			return (WEXITSTATUS(status_child));
+			exit_code = WEXITSTATUS(status_child);
 	}
-	return (1);
+	return (exit_code);
 }

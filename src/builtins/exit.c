@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:56:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 15:10:24 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/03/30 10:15:17 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	ft_exit_atoi(char *str)
 	}
 	while (ft_isdigit(str[i]))
 		result = result * 10 + (str[i++] - '0');
-	if (str[i])
+	if (str[i] || i == 0)
 	{
 		ft_fprintf(STDERR_FILENO, "minishell: exit: %s: ", str);
 		ft_fprintf(STDERR_FILENO, "numeric argument required\n");
@@ -64,17 +64,14 @@ static int	ft_exit_atoi(char *str)
  * status code of (number % 256). If the argument sent is not a number an error
  * is typed and the programs exits with a 255 status code.
  */
-int	ft_exit(t_shell *shell, char **args)
+int	ft_exit(t_shell *shell, char **args, int args_count)
 {
 	if (shell->n_cmds == 1)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-	if (!args || !args[0])
+	if (args_count == 0)
 		clean_exit(shell, EXIT_SUCCESS);
-	if (ft_arrsize((void **)args) > 1)
-	{
+	else if (args_count > 1)
 		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
-		return (EXIT_FAILURE);
-	}
 	else
 	{
 		shell->exit_status = ft_exit_atoi(args[0]);
