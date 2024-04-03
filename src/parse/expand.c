@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/03 19:09:44 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/03 22:14:37 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char	*expenv(t_shell *shell, int *i, int f)
 	int		j;
 
 	j = *i;
+	if (shell->line_read[*i] == '?')
+		return (*i += 1, expand_exit_status(shell->exit_status));
 	if (shell->line_read[*i] == '$' || !ft_isalpha(shell->line_read[*i]))
 		return (*i += 1, non_existent_env(f));
 	while (isvalidchar(shell->line_read[*i]))
@@ -58,11 +60,6 @@ char	*expenv(t_shell *shell, int *i, int f)
 	env = ft_substr(shell->line_read, j, *i - j);
 	if (!env)
 		return (NULL);
-	if (ft_strcmp(env, "?") == 0)
-	{
-		free(env);
-		return (expand_exit_status(shell->exit_status));
-	}
 	exp_env = ft_getenv(shell->envi, env, &j);
 	free(env);
 	if (!exp_env)

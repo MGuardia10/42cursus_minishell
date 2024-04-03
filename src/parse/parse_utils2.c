@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:34:54 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/03 19:15:01 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/03 22:17:03 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@
  */
 bool	isvalidchar(char c)
 {
-	if (ft_isalnum(c) || c == '_')
-		return (true);
-	return (false);
+	return (ft_isalnum(c) || c == '_');
 }
 
 /**
@@ -34,9 +32,8 @@ bool	isvalidchar(char c)
  */
 bool	is_special_char(char c)
 {
-	if (c == ' ' || c == '|' || c == '>' || c == '<' || c == '"' || c == '\'')
-		return (true);
-	return (false);
+	return (c == ' ' || c == '|' || c == '>' || c == '<' \
+						|| c == '"' || c == '\'');
 }
 
 /**
@@ -47,9 +44,7 @@ bool	is_special_char(char c)
  */
 bool	is_special_char_two(char c)
 {
-	if (c == ' ' || c == '|' || c == '>' || c == '<')
-		return (true);
-	return (false);
+	return (c == ' ' || c == '|' || c == '>' || c == '<');
 }
 
 /**
