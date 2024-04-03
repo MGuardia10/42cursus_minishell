@@ -67,12 +67,8 @@ void	manage_input(t_shell *shell)
 			exit(EXIT_FAILURE);
 		exit(shell->exit_status);
 	}
-<<<<<<< HEAD
-	add_history(shell->line_read);
-=======
 	if (ft_strlen(shell->line_read) > 0)
 		add_history(shell->line_read);
->>>>>>> fix_mguardia
 }
 
 /**
