@@ -7,8 +7,9 @@
 3. mirar salto de linea cuando solo se pulsa enter - ✅
 4. segfault con CTRL + D - ✅
 5. codigo de error 1 cuando se pulsa CTRL + C - ✅
-6. Añadir historial - PENDING
+6. Añadir historial - ✅
 7. Revisar leaks que da valgrind si son del readline (creo que si) - PENDING
+8. Acabar el README.md - PENDING
 
 ## señales
 1. Eliminar que salga el capuchon ese + C, D , Q etc - ✅
@@ -41,7 +42,7 @@
 
 1. Arreglar makefile y hacerlo como el de minishell - ✅
 2. Revisar ft_itoa no compila en linux - ✅
-3. Actualizar libft personal en su repo - PENDING
+3. Actualizar libft personal en su repo - ✅
 
 
 
