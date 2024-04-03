@@ -3,11 +3,13 @@ As beautiful as a shell. This project aims to create a minimal shell that can in
 
 This recreation of Bash supports redirections (<, >, <<, >>), pipes ( | ), single and double quotes, environment variables expansion and signals such as CTRL-D, CTRL-C and CTRL-\\. Also, we had to recreate as Builtin this list of commands: echo (with -n option), cd, pwd, export, unset, env, exit.
 
-
 ![C](https://img.shields.io/badge/C-a?style=for-the-badge&logo=C&color=grey)
 ![LINUX](https://img.shields.io/badge/Linux-a?style=for-the-badge&logo=linux&color=grey)
 
 You can see the subject [**HERE.**](https://github.com/MGuardia10/42cursus/blob/main/subjects/en/minishell_subject_en.pdf)
+
+## Preview
+![minishell_gif](https://github.com/MGuardia10/42cursus_minishell/assets/105164870/a515c21e-38a1-4d64-b68e-79ed9c36ca7b)
 
 ## Installing and running the project:
 1- Clone this repository
