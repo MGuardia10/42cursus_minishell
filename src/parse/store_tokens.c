@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:20:44 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 18:17:58 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:00:11 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ void	store_tokens(char **tokens, t_shell *shell)
 		if (isredir(tokens[i]) != NONE)
 			store_redir(tokens, shell, &i, j);
 		else if ((ft_strcmp(tokens[i], "|") == 0
-				|| !shell->cmds[j].exe) && tokens[i][0])
+				|| !shell->cmds[j].exe) && tokens[i][0]
+				&& ft_strcmp(tokens[i], "\"\"") != 0)
 			store_exe(tokens, shell, &i, &j);
-		else if (tokens[i][0])
+		else if (tokens[i][0] && ft_strcmp(tokens[i], "\"\"") != 0)
 			store_arg(tokens, shell, i, j);
 		i++;
 	}

@@ -6,12 +6,21 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 17:45:37 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:09:44 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+/**
+ * Expands the exit status into a string representation.
+ * If the global variable g_signal_status is set to SIGINT_FATHER,
+ * it returns "1". Otherwise, it converts the exit status to a string
+ * using the ft_itoa function and returns the result.
+ *
+ * @param exit_status The exit status to expand.
+ * @return The expanded exit status as a string.
+ */
 char	*expand_exit_status(int exit_status)
 {
 	if (g_signal_status == SIGINT_FATHER)

@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:06:05 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/02 18:25:47 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:32:53 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_sigint_heredoc(int signal)
 	(void)signal;
 	g_signal_status = SIGINT_HD;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	//rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_on_new_line();
 }
 
@@ -54,7 +54,7 @@ void	ft_sigint(int signal)
 	(void)signal;
 	g_signal_status = SIGINT_FATHER;
 	ft_putchar_fd('\n', STDERR_FILENO);
-	//rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }

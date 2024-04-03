@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 18:18:38 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/03 18:56:03 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,6 @@ void	clean_exit(t_shell *shell, int exit_code);
 bool	is_special_char(char c);
 t_redir	isredir(char *token);
 bool	is_special_char_two(char c);
+void	put_quotes(char **token);
 
 #endif

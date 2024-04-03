@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:25:34 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 19:47:38 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/03 19:32:02 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,12 @@
 int	get_word(char **tokens, char *line, int *i, int *j)
 {
 	int		last;
-	char	*aux;
 
 	last = *i;
 	while (line[*i] && !is_special_char(line[*i]))
 		*i += 1;
-	aux = ft_substr(line, last, *i - last);
-	if (!aux)
-		return (1);
-	tokens[*j] = ft_strjoin("\"", aux);
+	tokens[*j] = ft_substr(line, last, *i - last);
 	if (!tokens[*j])
-		return (1);
-	free(aux);
-	aux = ft_strjoin(tokens[*j], "\"");
-	if (!aux)
-		return (1);
-	free(tokens[*j]);
-	tokens[*j] = aux;
-	if (!tokens)
 		return (1);
 	*i -= 1;
 	tokens[*j] = check_next_quotes(line, tokens, i, *j);
@@ -90,7 +78,5 @@ char	**get_tokens(char *line)
 		}
 	}
 	tokens[j] = NULL;
-	for (int l = 0; tokens[l] != NULL; l++)
-		printf("\n%s\n", tokens[l]);
 	return (tokens);
 }
