@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:40 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 19:21:36 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:40:28 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	manage_input(t_shell *shell)
 			exit(EXIT_FAILURE);
 		exit(shell->exit_status);
 	}
+	if (ft_strlen(shell->line_read) > 0)
+		add_history(shell->line_read);
 }
 
 /**

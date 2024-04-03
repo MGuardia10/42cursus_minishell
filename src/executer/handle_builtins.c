@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 12:50:28 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/01 12:32:18 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:15:55 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	handle_builtins(t_shell *shell, t_command *cmd)
 	shell->outfile_dup = dup2(fd_out, STDOUT_FILENO);
 	if (shell->outfile_dup < 0 || shell->infile_dup < 0)
 	{
-		close(fd_in); 
+		close(fd_in);
 		close(fd_out);
 		perror("dup2");
 		clean_exit(shell, EXIT_FAILURE);
