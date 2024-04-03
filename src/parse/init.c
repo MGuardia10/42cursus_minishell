@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/03 21:49:05 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/03 22:18:49 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // 		{
 // 			printf("Tipo redir -> %u\n", shell->cmds[i].infiles[j].redir);
 // 			printf("Filename -> %s\n", shell->cmds[i].infiles[j].filename);
-// 			printf("Expheredoc -> %d\n\n", shell->cmds[i].infiles[j].expheredoc);
+// 			printf("Exphd -> %d\n\n", shell->cmds[i].infiles[j].expheredoc);
 // 		}
 // 		printf("OUTFILES(%d): \n", shell->cmds[i].outfile_count);
 // 		for (int j = 0; j < shell->cmds[i].outfile_count; j++)
