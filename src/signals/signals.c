@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 15:06:05 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/03 13:03:31 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:17:38 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ void	ft_sigint_heredoc(int signal)
 {
 	(void)signal;
 	g_signal_status = SIGINT_HD;
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
+	ioctl(STDIN_FILENO, TIOCSTI, "\r");
 }
 
 /**
