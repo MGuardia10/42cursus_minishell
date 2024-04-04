@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/03 22:50:07 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:31:32 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*expand_exit_status(int exit_status)
 	if (g_signal_status == SIGINT_FATHER)
 	{
 		g_signal_status = INTERACTIVE;
-		return ("1");
+		return (ft_strdup("1"));
 	}
 	return (ft_itoa(exit_status));
 }
@@ -47,26 +47,27 @@ char	*expenv(t_shell *shell, int *i, int f)
 	char	*env;
 	char	*exp_env;
 	int		j;
+	int		flag;
 
 	j = *i;
 	if (shell->line_read[*i] == '?')
 		return (*i += 1, expand_exit_status(shell->exit_status));
-	if (shell->line_read[*i] \
-		&& shell->line_read[*i] != '"' && !ft_isspace(shell->line_read[*i]) \
-		&& (shell->line_read[*i] == '$' || !ft_isalpha(shell->line_read[*i])))
+	if (isinvalidchar(shell->line_read, *i))
 		return (*i += 1, non_existent_env(f));
-	while (isvalidchar(shell->line_read[*i]))
-		*i += 1;
-	if (j - *i == 0)
+	flag = move_iters(shell->line_read, i, &j);
+	if (j - *i == 0 && shell->line_read[*i] != '?')
+	{
+		if (flag == 1)
+			return (ft_strdup(""));
 		return (ft_strdup("$"));
+	}
 	env = ft_substr(shell->line_read, j, *i - j);
 	if (!env)
 		return (NULL);
 	exp_env = ft_getenv(shell->envi, env, &j);
-	free(env);
 	if (!exp_env)
-		return (non_existent_env(f));
-	return (exp_env);
+		return (free(env), non_existent_env(f));
+	return (free(env), exp_env);
 }
 
 /**

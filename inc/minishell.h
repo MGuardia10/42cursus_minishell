@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/03 21:50:00 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:28:56 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,8 @@ void	store_arg(char **tokens, t_shell *shell, int i, int j);
 int		unexpected_tokens(char **tokens);
 int		check_quotes(char *line);
 char	*check_next_quotes(char *line, char **tokens, int *i, int j);
+int		move_iters(char *str, int *i, int *j);
+int		isinvalidchar(char *str, int i);
 
 /* UTILS */
 void	free_env(void *content);

@@ -10,12 +10,12 @@ RLFLAG		=	-lreadline
 RM			=	rm -rf
 
 # MAC 42
-CPPFLAGS	=	-I$(HOME)/.brew/opt/readline/include
-LDFLAGS		=	-L$(HOME)/.brew/opt/readline/lib
+# CPPFLAGS	=	-I$(HOME)/.brew/opt/readline/include
+# LDFLAGS		=	-L$(HOME)/.brew/opt/readline/lib
 
 # PERSONAL MAC
-# CPPFLAGS	=	-I/usr/local/Cellar/readline/8.2.10/include
-# LDFLAGS     =	-L/usr/local/Cellar/readline/8.2.10/lib
+CPPFLAGS	=	-I/usr/local/Cellar/readline/8.2.10/include
+LDFLAGS     =	-L/usr/local/Cellar/readline/8.2.10/lib
 
 
 # COLORS
@@ -73,6 +73,7 @@ PARSE		=	init.c \
 				store_tokens.c \
 				init_for_store.c \
 				expand_utils.c \
+				expand_utils_2.c \
 				store_utils.c \
 				parse_utils.c \
 				parse_utils2.c \

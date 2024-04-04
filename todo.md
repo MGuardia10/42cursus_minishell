@@ -48,4 +48,30 @@
 
 
 ## CASOS A SOLUCIONAR
+# PARSEO
+Quitar funcion comentada en init.c - PENDING
+
+# EXPANDER RAUL
+
+										lo que hace					lo que deberia
+
+/bin/echo $"42$"						-> 42						-> 42$ ✅		
+/bin/echo "$ "							->							-> $ ✅
+/bin/echo "$?"							->							-> 0 ✅
+/bin/echo "'$?'"						-> ''						-> '0' ✅
+/bin/echo $USER$TESTNOTFOUND$HOME$		-> te saca de la shell xd	-> mguardia/Users/mguardia$ ✅
+/bin/echo '"'$USER'"' 					-> "mguardia 				-> "mguardia"
+/bin/echo "'"'$USER'"'"					-> '$USER					-> '$USER'
+/bin/echo '"'"$USER"'"'					-> "mguardia				-> "mguardia"
+/bin/echo text"'$USER'" ' $USER '		-> textmguardia  $USER		-> text'mguardia'  $USER
+/bin/echo ""'""""""$USER""""""'""		-> $USER					-> """"""$USER""""""
+/bin/echo """""""'"$USER"'"""""""		-> mguardia					-> 'mguardia'
+/bin/echo """"""'""$USER""'""""""		-> $USER					-> ""$USER""
+/bin/echo ""'""'""""$USER""""'""'""		-> mguardia					-> ""mguardia""
+/bin/echo '""'""'""""$USER""""'""'""'	-> ""$USER					-> """"""$USER""""""
+
+export a=a b="b          c=c"			-> crea b y c indepens		-> a y b solo
+
+
+
 # Valgrind
