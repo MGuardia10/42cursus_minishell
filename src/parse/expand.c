@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/04 15:31:32 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/05 00:00:36 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ char	*expenv(t_shell *shell, int *i, int f)
 	if (isinvalidchar(shell->line_read, *i))
 		return (*i += 1, non_existent_env(f));
 	flag = move_iters(shell->line_read, i, &j);
-	if (j - *i == 0 && shell->line_read[*i] != '?')
+	if (j - *i == 0)
 	{
 		if (flag == 1)
-			return (ft_strdup(""));
+			return (*i -= 1, ft_strdup(""));
 		return (ft_strdup("$"));
 	}
 	env = ft_substr(shell->line_read, j, *i - j);

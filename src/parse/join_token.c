@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:39:14 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/03 19:31:05 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/04 23:58:43 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,46 @@
  * 
  * @param token The token to change the quote of.
  */
+
+void	inv_quotes(char *token)
+{
+	char	*aux;
+
+	aux = NULL;
+	if (token[0] == '"')
+	{
+		aux = ft_substr(token, 1, ft_strlen(token) - 2);
+		free(token);
+		token = ft_strjoin("'", aux);
+		free(aux);
+		aux = ft_strjoin(token, "'");
+	}
+	else if (token[0] == '\'')
+	{
+		aux = ft_substr(token, 1, ft_strlen(token) - 2);
+		free(token);
+		token = ft_strjoin("\"", aux);
+		free(aux);
+		aux = ft_strjoin(token, "\"");
+	}
+	token = aux;
+}
+
 void	change_quote(char *token)
 {
 	char	*aux;
 
 	aux = NULL;
-	aux = ft_substr(token, 0, ft_strlen(token) - 1);
+	//if (token[0] == token[ft_strlen(token)])
+	//	aux = ft_strdup(token);
+	//else
+	if (token[0] && token[0] == token[ft_strlen(token) - 1] && token[1] && !(token[1] != token[0] && (token[1] == '"' || token[1] == '\'')) && token[ft_strlen(token) - 2] && !(token[ft_strlen(token) - 2] != token[0] && (token[ft_strlen(token) - 2] == '"' || token[ft_strlen(token) - 2] == '\'')))
+	{
+		inv_quotes(token);
+		return ;
+	}
+	else
+		aux = ft_substr(token, 0, ft_strlen(token) - 1);
 	if (!aux)
 		exit(1);
 	if (token[0] == '"')
@@ -120,6 +154,7 @@ void	join_word(char *line, char **tokens, int *i, int j)
 	int		last;
 
 	last = *i;
+	
 	aux = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
 	if (!aux)
 		exit(1);
@@ -127,6 +162,46 @@ void	join_word(char *line, char **tokens, int *i, int j)
 	tokens[j] = aux;
 	while (line[*i] && !is_special_char(line[*i]))
 		*i += 1;
+	new_part = ft_substr(line, last, (*i - last));
+	if (!new_part)
+		exit(1);
+	aux = ft_strjoin(tokens[j], new_part);
+	if (!aux)
+		exit(1);
+	free(tokens[j]);
+	free(new_part);
+	tokens[j] = aux;
+}
+
+void	join_quotes(char *line, char **tokens, int *i, int j)
+{
+	char	*aux;
+	char	*new_part;
+	int		last;
+
+	last = *i;
+	if (tokens[j][ft_strlen(tokens[j]) - 1] == '"' || tokens[j][ft_strlen(tokens[j]) - 1] == '\'')
+	{
+		aux = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
+		if (!aux)
+			exit(1);
+		free(tokens[j]);
+		tokens[j] = aux;
+	}
+	if (line[*i] && line[*i] == '"')
+	{
+		*i += 1;
+		last++;
+		while (line[*i] && line[*i] != '"')
+			*i += 1;
+	}
+	else if (line[*i] && line[*i] == '\'')
+	{
+		*i += 1;
+		last++;
+		while (line[*i] && line[*i] != '\'')
+			*i += 1;
+	}
 	new_part = ft_substr(line, last, (*i - last) + 1);
 	if (!new_part)
 		exit(1);
@@ -136,6 +211,7 @@ void	join_word(char *line, char **tokens, int *i, int j)
 	free(tokens[j]);
 	free(new_part);
 	tokens[j] = aux;
+	*i += 1;
 }
 
 /**
@@ -155,7 +231,7 @@ char	*check_next_quotes(char *line, char **tokens, int *i, int j)
 
 	f = 1;
 	*i += 1;
-	if (!ft_strchr(tokens[j], '"'))
+	if (!ft_strchr(tokens[j], '"') && !ft_strchr(tokens[j], '\''))
 	{
 		put_quotes(&tokens[j]);
 		f = 0;
@@ -163,7 +239,10 @@ char	*check_next_quotes(char *line, char **tokens, int *i, int j)
 	while (line[*i] && !is_special_char_two(line[*i]))
 	{
 		if (line[*i] && (line[*i] == '"' || line[*i] == '\''))
-			*i += 1;
+		{
+			f = 1;
+			join_quotes(line, tokens, i, j);
+		}
 		if (line[*i] && !is_special_char(line[*i]))
 			join_word(line, tokens, i, j);
 	}

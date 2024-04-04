@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:34:54 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/03 22:17:03 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:35:44 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  */
 bool	isvalidchar(char c)
 {
-	return (ft_isalnum(c) || c == '_');
+	return (ft_isalnum(c) || c == '_' || c == '"');
 }
 
 /**
