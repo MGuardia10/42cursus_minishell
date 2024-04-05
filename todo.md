@@ -77,4 +77,5 @@ export a=a b="b          c=c"			-> crea b y c indepens		-> a y b solo
 /bin/echo text"'$USER'" ' $USER '
 
 
+
 # Valgrind

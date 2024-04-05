@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:39:14 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/05 13:30:34 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:40:53 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,20 @@ void	change_quote(char **tokens, int j)
  * 
  * @param token A pointer to the token to modify.
  */
-void	final_quote(char **token)
+void	final_quote(char **token, int j)
 {
 	char	*aux;
 
 	aux = NULL;
-	if (*token[0] == '"')
-		aux = ft_strjoin(*token, "\"");
-	else if (*token[0] == '\'')
-		aux = ft_strjoin(*token, "'");
+	if (token[j][0] == '"')
+		aux = ft_strjoin(token[j], "\"");
+	else if (token[j][0] == '\'')
+		aux = ft_strjoin(token[j], "'");
 	if (!aux)
 		exit(1);
-	free(*token);
-	*token = aux;
+	free(token[j]);
+	token[j] = ft_strdup(aux);
+	free(aux);
 }
 
 /**
@@ -126,7 +127,7 @@ char	*match_quotes(char **token, int j, int f)
 			|| token[j][ft_strlen(token[j]) - 1] == '\'')
 			change_quote(token, j);
 		else
-			final_quote(token);
+			final_quote(token, j);
 	}
 	if (f == 0)
 	{
