@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/04 15:28:56 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/05 10:04:55 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,6 @@ void	clean_exit(t_shell *shell, int exit_code);
 bool	is_special_char(char c);
 t_redir	isredir(char *token);
 bool	is_special_char_two(char c);
-void	put_quotes(char **token);
+void	put_quotes(char **token, int j);
 
 #endif

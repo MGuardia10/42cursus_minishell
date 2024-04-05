@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:34:54 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/04 18:35:44 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/05 10:06:22 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,15 @@ bool	is_special_char_two(char c)
  * 
  * @param token - The token to add quotes to.
  */
-void	put_quotes(char **token)
+void	put_quotes(char **token, int j)
 {
 	char	*aux;
 
-	aux = ft_strjoin("\"", *token);
+	aux = ft_strjoin("\"", token[j]);
 	if (!aux)
 		exit(1);
-	free(*token);
-	*token = ft_strjoin(aux, "\"");
+	free(token[j]);
+	token[j] = ft_strjoin(aux, "\"");
 	if (!token)
 		exit(1);
 	free(aux);

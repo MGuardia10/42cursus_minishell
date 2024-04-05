@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:39:14 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/04 23:58:43 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/05 10:06:33 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ char	*check_next_quotes(char *line, char **tokens, int *i, int j)
 	*i += 1;
 	if (!ft_strchr(tokens[j], '"') && !ft_strchr(tokens[j], '\''))
 	{
-		put_quotes(&tokens[j]);
+		put_quotes(tokens, j);
 		f = 0;
 	}
 	while (line[*i] && !is_special_char_two(line[*i]))
