@@ -12,6 +12,9 @@ You can see the subject [**HERE.**](https://github.com/MGuardia10/42cursus/blob/
 ![minishell_gif](https://github.com/MGuardia10/42cursus_minishell/assets/105164870/a515c21e-38a1-4d64-b68e-79ed9c36ca7b)
 
 ## Installing and running the project:
+
+> ℹ️ Make sure you have *readline* library install on your computer. To install *readline* go see [WIKI](https://github.com/MGuardia10/42cursus_minishell/wiki/How-to-install-Readline).
+
 1- Clone this repository
 	
 	git clone https://github.com/MGuardia10/42cursus_minishell.git
