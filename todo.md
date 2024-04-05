@@ -69,13 +69,3 @@ Quitar funcion comentada en init.c - PENDING
 /bin/echo """"""'""$USER""'""""""		-> $USER					-> ""$USER""
 /bin/echo ""'""'""""$USER""""'""'""		-> mguardia					-> ""mguardia""
 /bin/echo '""'""'""""$USER""""'""'""'	-> ""$USER					-> """"""$USER""""""
-
-export a=a b="b          c=c"			-> crea b y c indepens		-> a y b solo
-
-
-
-/bin/echo text"'$USER'" ' $USER '
-
-
-
-# Valgrind
