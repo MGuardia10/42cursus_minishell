@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 19:27:29 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/05 00:00:36 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:28:17 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,17 @@ char	*expenv(t_shell *shell, int *i, int f)
 	if (isinvalidchar(shell->line_read, *i))
 		return (*i += 1, non_existent_env(f));
 	flag = move_iters(shell->line_read, i, &j);
-	if (j - *i == 0)
-	{
-		if (flag == 1)
-			return (*i -= 1, ft_strdup(""));
+	if ((j - *i == 0) && (flag == 1))
+		return (*i -= 1, ft_strdup(""));
+	else if (j - *i == 0)
 		return (ft_strdup("$"));
-	}
 	env = ft_substr(shell->line_read, j, *i - j);
 	if (!env)
 		return (NULL);
 	exp_env = ft_getenv(shell->envi, env, &j);
 	if (!exp_env)
 		return (free(env), non_existent_env(f));
-	return (free(env), exp_env);
+	return (free(env), ft_strdup(exp_env));
 }
 
 /**

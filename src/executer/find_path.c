@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:50:24 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 09:26:42 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:48:14 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,11 @@ char	*find_path(t_shell *shell, char *cmd, t_env_list *envi, int *status)
 {
 	char	*path;
 
+	if (!cmd || !cmd[0])
+	{
+		ft_fprintf(2, "minishell: : command not found\n");
+		return (*status = 127, NULL);
+	}
 	if (ft_strchr(cmd, '/'))
 	{
 		if (is_accessible(cmd, status) == false)

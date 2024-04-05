@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:38:41 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/05 00:01:31 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:28:50 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ int	join_expenv(char **exp, char *env)
 		return (1);
 	free(*exp);
 	*exp = aux;
-	// free(env);
+	free(env);
 	return (0);
 }

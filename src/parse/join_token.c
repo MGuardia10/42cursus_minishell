@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:39:14 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/05 10:06:33 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:30:34 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,60 +24,60 @@
  * @param token The token to change the quote of.
  */
 
-void	inv_quotes(char *token)
+void	inv_quotes(char **tokens, int j)
 {
-	char	*aux;
+	char	*aux1;
+	char	*aux2;
 
-	aux = NULL;
-	if (token[0] == '"')
+	aux1 = ft_substr(tokens[j], 1, ft_strlen(tokens[j]) - 2);
+	if (!aux1)
+		exit(1);
+	aux2 = NULL;
+	if (tokens[j][0] == '"')
 	{
-		aux = ft_substr(token, 1, ft_strlen(token) - 2);
-		free(token);
-		token = ft_strjoin("'", aux);
-		free(aux);
-		aux = ft_strjoin(token, "'");
+		aux2 = ft_strjoin("'", aux1);
+		free(aux1);
+		aux1 = ft_strjoin(aux2, "'");
 	}
-	else if (token[0] == '\'')
+	else if (tokens[j][0] == '\'')
 	{
-		aux = ft_substr(token, 1, ft_strlen(token) - 2);
-		free(token);
-		token = ft_strjoin("\"", aux);
-		free(aux);
-		aux = ft_strjoin(token, "\"");
+		aux2 = ft_strjoin("\"", aux1);
+		free(aux1);
+		aux1 = ft_strjoin(aux2, "\"");
 	}
-	token = aux;
+	free(aux2);
+	free(tokens[j]);
+	tokens[j] = ft_strdup(aux1);
+	free(aux1);
 }
 
-void	change_quote(char *token)
+void	change_quote(char **tokens, int j)
 {
-	char	*aux;
+	char	*aux1;
+	char	*aux2;
 
-	aux = NULL;
+	aux1 = NULL;
+	aux2 = NULL;
 	//if (token[0] == token[ft_strlen(token)])
 	//	aux = ft_strdup(token);
 	//else
-	if (token[0] && token[0] == token[ft_strlen(token) - 1] && token[1] && !(token[1] != token[0] && (token[1] == '"' || token[1] == '\'')) && token[ft_strlen(token) - 2] && !(token[ft_strlen(token) - 2] != token[0] && (token[ft_strlen(token) - 2] == '"' || token[ft_strlen(token) - 2] == '\'')))
+	if (tokens[j][0] && tokens[j][0] == tokens[j][ft_strlen(tokens[j]) - 1] && tokens[j][1] && !(tokens[j][1] != tokens[j][0] && (tokens[j][1] == '"' || tokens[j][1] == '\'')) && tokens[j][ft_strlen(tokens[j]) - 2] && !(tokens[j][ft_strlen(tokens[j]) - 2] != tokens[j][0] && (tokens[j][ft_strlen(tokens[j]) - 2] == '"' || tokens[j][ft_strlen(tokens[j]) - 2] == '\'')))
 	{
-		inv_quotes(token);
+		inv_quotes(tokens, j);
 		return ;
 	}
 	else
-		aux = ft_substr(token, 0, ft_strlen(token) - 1);
-	if (!aux)
+		aux1 = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
+	if (!aux1)
 		exit(1);
-	if (token[0] == '"')
-	{
-		free(token);
-		token = ft_strjoin(aux, "\"");
-	}
-	else if (token[0] == '\'')
-	{
-		free(token);
-		token = ft_strjoin(aux, "'");
-	}
-	if (!token)
-		exit(1);
-	free(aux);
+	if (tokens[j][0] == '"')
+		aux2 = ft_strjoin(aux1, "\"");
+	else if (tokens[j][0] == '\'')
+		aux2 = ft_strjoin(aux1, "'");
+	free(aux1);
+	free(tokens[j]);
+	tokens[j] = ft_strdup(aux2);
+	free(aux2);
 }
 
 /**
@@ -115,28 +115,31 @@ void	final_quote(char **token)
  *
  * @return The modified token if 'f' is 0, otherwise the original token.
  */
-char	*match_quotes(char *token, int f)
+char	*match_quotes(char **token, int j, int f)
 {
 	char	*aux;
 
 	aux = NULL;
-	if (token[0] == '"' || token[0] == '\'')
+	if (token[j][0] == '"' || token[j][0] == '\'')
 	{
-		if (token[ft_strlen(token) - 1] == '"'
-			|| token[ft_strlen(token) - 1] == '\'')
-			change_quote(token);
+		if (token[j][ft_strlen(token[j]) - 1] == '"'
+			|| token[j][ft_strlen(token[j]) - 1] == '\'')
+			change_quote(token, j);
 		else
-			final_quote(&token);
+			final_quote(token);
 	}
 	if (f == 0)
 	{
-		aux = ft_strtrim(token, "\"'");
+		aux = ft_strtrim(token[j], "\"'");
 		if (!aux)
 			return (NULL);
-		free(token);
-		token = aux;
+		free(token[j]);
+		token[j] = ft_strdup(aux);
+		free(aux);
+		if (!token[j])
+			exit(1);
 	}
-	return (token);
+	return (token[j]);
 }
 
 /**
@@ -246,7 +249,7 @@ char	*check_next_quotes(char *line, char **tokens, int *i, int j)
 		if (line[*i] && !is_special_char(line[*i]))
 			join_word(line, tokens, i, j);
 	}
-	tokens[j] = match_quotes(tokens[j], f);
+	tokens[j] = match_quotes(tokens, j, f);
 	if (!tokens[j])
 		return (NULL);
 	return (tokens[j]);
