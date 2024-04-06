@@ -13,7 +13,7 @@ INCLUDE 		=	-I inc
 ################################################################################
 
 # VPATH
-VPATH		=	src:src/bonus:src/ft_fprintf:src/ft_printf:src/get_next_line
+VPATH		=	src:src/bonus:src/ft_dprintf:src/ft_printf:src/get_next_line
 
 # SRC
 SRC		=	ft_isalpha.c \
