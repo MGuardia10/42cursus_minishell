@@ -8,7 +8,7 @@
 4. segfault con CTRL + D - ✅
 5. codigo de error 1 cuando se pulsa CTRL + C - ✅
 6. Añadir historial - ✅
-7. Revisar leaks que da valgrind si son del readline (creo que si) - PENDING
+7. Revisar leaks que da valgrind si son del readline (creo que si) - ✅
 8. Acabar el README.md - ✅
 
 ## señales
@@ -29,8 +29,7 @@
 4. borrar archivos temporales en cada exit o en cada iteracion del bucle - ✅
 5. revisar builtins - ✅ (ok en principio pero probar mas casos cuando expander este ok)
 6. Arreglar que el padre espere a todos los hijos no solo al ultimo - ✅
-7. Revisar el heredoc (cunado expander ok) - ✅
-8. Revisar delimitador cuando es una variable expandida. - ✅
+7. Revisar el heredoc - ✅
 9. Revisar expander heredoc. - ✅
 10. Revisar en caso de señal en heredoc que se elimine el archivo temporal - ✅
 
@@ -41,15 +40,13 @@
 
 ## libft
 
-1. Arreglar makefile y hacerlo como el de minishell - ✅
+1. Arreglar makefile - ✅
 2. Revisar ft_itoa no compila en linux - ✅
 3. Actualizar libft personal en su repo - ✅
 
-
-
 ## CASOS A SOLUCIONAR
 # PARSEO
-Quitar funcion comentada en init.c - PENDING
+Quitar funcion comentada en init.c - ✅
 
 # EXPANDER RAUL
 
@@ -60,12 +57,12 @@ Quitar funcion comentada en init.c - PENDING
 /bin/echo "$?"							->							-> 0 ✅
 /bin/echo "'$?'"						-> ''						-> '0' ✅
 /bin/echo $USER$TESTNOTFOUND$HOME$		-> te saca de la shell xd	-> mguardia/Users/mguardia$ ✅
-/bin/echo '"'$USER'"' 					-> "mguardia 				-> "mguardia"
-/bin/echo "'"'$USER'"'"					-> '$USER					-> '$USER'
-/bin/echo '"'"$USER"'"'					-> "mguardia				-> "mguardia"
-/bin/echo text"'$USER'" ' $USER '		-> textmguardia  $USER		-> text'mguardia'  $USER
-/bin/echo ""'""""""$USER""""""'""		-> $USER					-> """"""$USER""""""
-/bin/echo """""""'"$USER"'"""""""		-> mguardia					-> 'mguardia'
-/bin/echo """"""'""$USER""'""""""		-> $USER					-> ""$USER""
-/bin/echo ""'""'""""$USER""""'""'""		-> mguardia					-> ""mguardia""
-/bin/echo '""'""'""""$USER""""'""'""'	-> ""$USER					-> """"""$USER""""""
+/bin/echo '"'$USER'"' 					-> "mguardia 				-> "mguardia" ✅
+/bin/echo "'"'$USER'"'"					-> '$USER					-> '$USER' ✅
+/bin/echo '"'"$USER"'"'					-> "mguardia				-> "mguardia" ✅
+/bin/echo text"'$USER'" ' $USER '		-> textmguardia  $USER		-> text'mguardia'  $USER ✅
+/bin/echo ""'""""""$USER""""""'""		-> $USER					-> """"""$USER"""""" ✅
+/bin/echo """""""'"$USER"'"""""""		-> mguardia					-> 'mguardia' ✅
+/bin/echo """"""'""$USER""'""""""		-> $USER					-> ""$USER"" ✅
+/bin/echo ""'""'""""$USER""""'""'""		-> mguardia					-> ""mguardia"" ✅
+/bin/echo '""'""'""""$USER""""'""'""'	-> ""$USER					-> """"""$USER"""""" ✅

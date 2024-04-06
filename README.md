@@ -9,7 +9,7 @@ This recreation of Bash supports redirections (<, >, <<, >>), pipes ( | ), singl
 You can see the subject [**HERE.**](https://github.com/MGuardia10/42cursus/blob/main/subjects/en/minishell_subject_en.pdf)
 
 ## Preview
-![minishell_gif](https://github.com/MGuardia10/42cursus_minishell/assets/105164870/a515c21e-38a1-4d64-b68e-79ed9c36ca7b)
+
 
 ## Installing and running the project:
 
@@ -27,7 +27,7 @@ You can see the subject [**HERE.**](https://github.com/MGuardia10/42cursus/blob/
 	./minishell
 
 ## Compiling the Program
-The philo program comes with a Makefile that includes the following rules:
+The minishell program comes with a Makefile that includes the following rules:
 
 - `all`: compiles the program.
 - `re`: recompiles the program.
