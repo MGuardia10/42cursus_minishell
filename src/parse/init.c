@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 21:43:59 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/06 13:59:41 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:05:09 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
  * Then, it stores the tokens in the shell data structure using the 
  * store_tokens() function. 
  * Finally, it frees the memory allocated for tokens 
- * and returns 0.
+ * and returns 0. 
  * 
  * @param shell A pointer to the shell data structure.
  * @return 0 if the command array is successfully created, 1 otherwise.
