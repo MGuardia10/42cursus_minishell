@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:56:53 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/30 10:15:17 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:37:26 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	ft_exit_atoi(char *str)
 		result = result * 10 + (str[i++] - '0');
 	if (str[i] || i == 0)
 	{
-		ft_fprintf(STDERR_FILENO, "minishell: exit: %s: ", str);
-		ft_fprintf(STDERR_FILENO, "numeric argument required\n");
+		ft_dprintf(STDERR_FILENO, "minishell: exit: %s: ", str);
+		ft_dprintf(STDERR_FILENO, "numeric argument required\n");
 		return (255);
 	}
 	return ((result * sign) % 256);

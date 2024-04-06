@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:12:47 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/26 17:19:20 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:38:03 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static int	open_infiles(t_io_files *infiles, int i, bool *error)
 	{
 		*error = true;
 		if (infiles[i].redir == IN)
-			ft_fprintf(STDERR_FILENO, "minishell: %s: ", infiles[i].filename);
+			ft_dprintf(STDERR_FILENO, "minishell: %s: ", infiles[i].filename);
 		else
-			ft_fprintf(STDERR_FILENO, "minishell: %s: ", infiles[i].path);
+			ft_dprintf(STDERR_FILENO, "minishell: %s: ", infiles[i].path);
 		return (perror(""), -1);
 	}
 	return (fd);

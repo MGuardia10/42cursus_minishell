@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:05 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/30 10:33:08 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:37:20 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	ft_env(t_env_list **envi, char *arg)
 
 	if (arg)
 	{
-		ft_fprintf(STDERR_FILENO, "env: %s: ", arg);
-		ft_fprintf(STDERR_FILENO, "No such file or directory\n");
+		ft_dprintf(STDERR_FILENO, "env: %s: ", arg);
+		ft_dprintf(STDERR_FILENO, "No such file or directory\n");
 		return (127);
 	}
 	aux = *envi;

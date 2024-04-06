@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:02:23 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 16:01:43 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:38:07 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	open_outfiles(t_io_files *outfiles, int i, bool *error)
 	if (fd < 0)
 	{
 		*error = true;
-		ft_fprintf(STDERR_FILENO, "minishell: %s: ", outfiles[i].filename);
+		ft_dprintf(STDERR_FILENO, "minishell: %s: ", outfiles[i].filename);
 		return (perror(""), -1);
 	}
 	return (fd);

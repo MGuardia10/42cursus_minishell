@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:36:58 by raalonso          #+#    #+#             */
-/*   Updated: 2024/03/27 00:08:35 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:38:17 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_quotes(char *line)
 	}
 	if (count_d % 2 == 0 && count_s % 2 == 0)
 		return (0);
-	ft_fprintf(
+	ft_dprintf(
 		STDERR_FILENO,
 		"minishell: syntax error: unable to locate closing quotation.\n");
 	return (1);

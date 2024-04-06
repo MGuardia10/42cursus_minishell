@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:50:24 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/05 13:48:14 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:37:52 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,15 @@ void	manage_path_errors(char *cmd, t_env_list *envi, int *status)
 {
 	if (*status == 2)
 	{
-		ft_fprintf(2, "minishell: %s: is a directory\n", cmd);
+		ft_dprintf(2, "minishell: %s: is a directory\n", cmd);
 		*status = 126;
 	}
 	else if (*status == 3)
 	{
 		if (ft_getenv(envi, "PATH", status))
-			ft_fprintf(2, "minishell: %s: command not found\n", cmd);
+			ft_dprintf(2, "minishell: %s: command not found\n", cmd);
 		else
-			ft_fprintf(2, "minishell: %s: No such file or directory\n", cmd);
+			ft_dprintf(2, "minishell: %s: No such file or directory\n", cmd);
 		*status = 127;
 	}
 	else
@@ -126,7 +126,7 @@ char	*find_path(t_shell *shell, char *cmd, t_env_list *envi, int *status)
 
 	if (!cmd || !cmd[0])
 	{
-		ft_fprintf(2, "minishell: : command not found\n");
+		ft_dprintf(2, "minishell: : command not found\n");
 		return (*status = 127, NULL);
 	}
 	if (ft_strchr(cmd, '/'))
@@ -134,10 +134,10 @@ char	*find_path(t_shell *shell, char *cmd, t_env_list *envi, int *status)
 		if (is_accessible(cmd, status) == false)
 		{
 			if (*status == 2)
-				return (ft_fprintf(2, "minishell: %s: is a directory\n", cmd), \
+				return (ft_dprintf(2, "minishell: %s: is a directory\n", cmd), \
 					*status = 126, NULL);
 			if (*status == 3)
-				return (ft_fprintf(2, "minishell: %s: No such file or directory\
+				return (ft_dprintf(2, "minishell: %s: No such file or directory\
 					\n", cmd), *status = 127, NULL);
 		}
 		return (cmd);

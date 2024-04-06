@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 11:52:13 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/26 18:02:12 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:37:58 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	check_access_tmp_folder(char *tmp_path)
 {
 	if (is_directory(tmp_path) == false)
 	{
-		ft_fprintf(STDERR_FILENO, "minishell: %s: ", tmp_path);
-		ft_fprintf(STDERR_FILENO, "is not a directory\n");
+		ft_dprintf(STDERR_FILENO, "minishell: %s: ", tmp_path);
+		ft_dprintf(STDERR_FILENO, "is not a directory\n");
 		return (1);
 	}
 	else if (access(tmp_path, X_OK) != 0)

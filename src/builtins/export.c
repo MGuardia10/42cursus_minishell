@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 18:48:10 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:37:29 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	ft_export(t_shell *shell, t_env_list **envi, char **args)
 		if (check_export_errors(args[i]))
 		{
 			exit_code = 1;
-			ft_fprintf(2, "Minishell: export: `%s': not a valid identifier\n", \
+			ft_dprintf(2, "Minishell: export: `%s': not a valid identifier\n", \
 				args[i]);
 			continue ;
 		}
