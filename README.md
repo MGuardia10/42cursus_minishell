@@ -9,6 +9,7 @@ This recreation of Bash supports redirections (<, >, <<, >>), pipes ( | ), singl
 You can see the subject [**HERE.**](https://github.com/MGuardia10/42cursus/blob/main/subjects/en/minishell_subject_en.pdf)
 
 ## Preview
+![minishell GIF](https://github.com/MGuardia10/42cursus_minishell/assets/105164870/8438c2fc-c8fd-4971-ab83-6e5ac8b2dc16)
 
 
 ## Installing and running the project:
