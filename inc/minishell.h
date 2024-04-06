@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/05 10:04:55 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 15:17:15 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ int		check_quotes(char *line);
 char	*check_next_quotes(char *line, char **tokens, int *i, int j);
 int		move_iters(char *str, int *i, int *j);
 int		isinvalidchar(char *str, int i);
+void	change_quote(char **tokens, int j);
+void	final_quote(char **token, int j);
 
 /* UTILS */
 void	free_env(void *content);

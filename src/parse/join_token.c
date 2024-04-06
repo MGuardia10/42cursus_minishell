@@ -3,103 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   join_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 18:39:14 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/05 14:40:53 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 15:38:43 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-/**
- * @brief Changes the quote of a token.
- * 
- * This function takes a token as input and changes its quote. 
- * If the token starts with a double quote ("), it replaces the quote with a 
- * double quote at the end of the token.
- * If the token starts with a single quote ('), it replaces the quote with a 
- * single quote at the end of the token. 
- * 
- * @param token The token to change the quote of.
- */
-
-void	inv_quotes(char **tokens, int j)
-{
-	char	*aux1;
-	char	*aux2;
-
-	aux1 = ft_substr(tokens[j], 1, ft_strlen(tokens[j]) - 2);
-	if (!aux1)
-		exit(1);
-	aux2 = NULL;
-	if (tokens[j][0] == '"')
-	{
-		aux2 = ft_strjoin("'", aux1);
-		free(aux1);
-		aux1 = ft_strjoin(aux2, "'");
-	}
-	else if (tokens[j][0] == '\'')
-	{
-		aux2 = ft_strjoin("\"", aux1);
-		free(aux1);
-		aux1 = ft_strjoin(aux2, "\"");
-	}
-	free(aux2);
-	free(tokens[j]);
-	tokens[j] = ft_strdup(aux1);
-	free(aux1);
-}
-
-void	change_quote(char **tokens, int j)
-{
-	char	*aux1;
-	char	*aux2;
-
-	aux1 = NULL;
-	aux2 = NULL;
-	//if (token[0] == token[ft_strlen(token)])
-	//	aux = ft_strdup(token);
-	//else
-	if (tokens[j][0] && tokens[j][0] == tokens[j][ft_strlen(tokens[j]) - 1] && tokens[j][1] && !(tokens[j][1] != tokens[j][0] && (tokens[j][1] == '"' || tokens[j][1] == '\'')) && tokens[j][ft_strlen(tokens[j]) - 2] && !(tokens[j][ft_strlen(tokens[j]) - 2] != tokens[j][0] && (tokens[j][ft_strlen(tokens[j]) - 2] == '"' || tokens[j][ft_strlen(tokens[j]) - 2] == '\'')))
-	{
-		inv_quotes(tokens, j);
-		return ;
-	}
-	else
-		aux1 = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
-	if (!aux1)
-		exit(1);
-	if (tokens[j][0] == '"')
-		aux2 = ft_strjoin(aux1, "\"");
-	else if (tokens[j][0] == '\'')
-		aux2 = ft_strjoin(aux1, "'");
-	free(aux1);
-	free(tokens[j]);
-	tokens[j] = ft_strdup(aux2);
-	free(aux2);
-}
-
-/**
- * Joins a quote character to the end of a token.
- * 
- * @param token A pointer to the token to modify.
- */
-void	final_quote(char **token, int j)
-{
-	char	*aux;
-
-	aux = NULL;
-	if (token[j][0] == '"')
-		aux = ft_strjoin(token[j], "\"");
-	else if (token[j][0] == '\'')
-		aux = ft_strjoin(token[j], "'");
-	if (!aux)
-		exit(1);
-	free(token[j]);
-	token[j] = ft_strdup(aux);
-	free(aux);
-}
 
 /**
  * @brief Matches and handles quotes in a token.
@@ -158,7 +69,6 @@ void	join_word(char *line, char **tokens, int *i, int j)
 	int		last;
 
 	last = *i;
-	
 	aux = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
 	if (!aux)
 		exit(1);
@@ -177,6 +87,42 @@ void	join_word(char *line, char **tokens, int *i, int j)
 	tokens[j] = aux;
 }
 
+/**
+ * @brief Iterates through the given line until it encounters a pair of quotes 
+ * ('"') or single quotes ('\'').
+ * It updates the value of 'i' and 'last' accordingly.
+ * 
+ * @param line The input line to iterate through.
+ * @param i Pointer to the current index in the line.
+ * @param last Pointer to the last index visited in the line.
+ */
+void	iter_until_quotes(char *line, int *i, int *last)
+{
+	if (line[*i] && line[*i] == '"')
+	{
+		*i += 1;
+		*last += 1;
+		while (line[*i] && line[*i] != '"')
+			*i += 1;
+	}
+	else if (line[*i] && line[*i] == '\'')
+	{
+		*i += 1;
+		*last += 1;
+		while (line[*i] && line[*i] != '\'')
+			*i += 1;
+	}
+}
+
+/**
+ * Joins the continuation of a token in the given line with the corresponding
+ * token. Excluding in between quotes.
+ *
+ * @param line The input line.
+ * @param tokens The array of tokens.
+ * @param i The current index.
+ * @param j The index of the token to join.
+ */
 void	join_quotes(char *line, char **tokens, int *i, int j)
 {
 	char	*aux;
@@ -184,7 +130,8 @@ void	join_quotes(char *line, char **tokens, int *i, int j)
 	int		last;
 
 	last = *i;
-	if (tokens[j][ft_strlen(tokens[j]) - 1] == '"' || tokens[j][ft_strlen(tokens[j]) - 1] == '\'')
+	if (tokens[j][ft_strlen(tokens[j]) - 1] == '"'
+		|| tokens[j][ft_strlen(tokens[j]) - 1] == '\'')
 	{
 		aux = ft_substr(tokens[j], 0, ft_strlen(tokens[j]) - 1);
 		if (!aux)
@@ -192,20 +139,7 @@ void	join_quotes(char *line, char **tokens, int *i, int j)
 		free(tokens[j]);
 		tokens[j] = aux;
 	}
-	if (line[*i] && line[*i] == '"')
-	{
-		*i += 1;
-		last++;
-		while (line[*i] && line[*i] != '"')
-			*i += 1;
-	}
-	else if (line[*i] && line[*i] == '\'')
-	{
-		*i += 1;
-		last++;
-		while (line[*i] && line[*i] != '\'')
-			*i += 1;
-	}
+	iter_until_quotes(line, i, &last);
 	new_part = ft_substr(line, last, (*i - last) + 1);
 	if (!new_part)
 		exit(1);

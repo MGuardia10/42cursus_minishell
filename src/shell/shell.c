@@ -6,7 +6,7 @@
 /*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:25:40 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/06 13:31:20 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/06 15:39:15 by raalonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	manage_input(t_shell *shell)
 		shell->line_read = readline(BHRED"🤬 Minishell $ "RES);
 	if (!shell->line_read)
 	{
-	//	rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		printf("exit\n");
 		if (g_signal_status == SIGINT_FATHER)
 			exit(EXIT_FAILURE);
