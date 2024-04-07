@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/06 21:12:18 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/07 19:06:14 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,20 @@ char	**create_sort_key_list(t_env_list *envi)
 	int		i;
 	char	**key_list;
 
-	key_list = ft_calloc(ft_lstsize((t_list *)envi) + 2, sizeof(char *));
+	key_list = ft_calloc(ft_lstsize((t_list *)envi), sizeof(char *));
 	if (!key_list)
 		return (NULL);
 	i = 0;
 	while (envi)
 	{
-		key_list[i] = ft_strdup(envi->content->key);
-		if (!key_list[i])
-			return (ft_free_matrix((void **)key_list), NULL);
+		if (ft_strcmp(envi->content->key, "_") != 0)
+		{
+			key_list[i] = ft_strdup(envi->content->key);
+			if (!key_list[i])
+				return (ft_free_matrix((void **)key_list), NULL);
+			i++;
+		}
 		envi = envi->next;
-		i++;
 	}
 	key_list[i] = NULL;
 	ft_sort_ascii(key_list);
@@ -81,8 +84,6 @@ static int	print_export(t_shell *shell, t_env_list **envi)
 	i = 0;
 	while (key_list[i])
 	{
-		if (ft_strcmp(key_list[i], "_") == 0)
-			i++;
 		if (ft_strcmp(key_list[i], (*envi)->content->key) == 0)
 		{
 			print_env_var((*envi)->content->key, (*envi)->content->value);

@@ -34,7 +34,7 @@
 7. Revisar el heredoc - ✅
 9. Revisar expander heredoc. - ✅
 10. Revisar en caso de señal en heredoc que se elimine el archivo temporal - ✅
-11. Revisar argumentos multiples en el exit - PENDING
+11. Revisar argumentos multiples en el exit - ✅
 
 ## Makefile
 
