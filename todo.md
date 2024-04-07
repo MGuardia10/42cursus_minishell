@@ -11,7 +11,7 @@
 7. Revisar leaks que da valgrind si son del readline (creo que si) - ✅
 8. Acabar el README.md - ✅
 9. Variables de entorno caso en el que se llame con env -i - ✅
-10. Revisar print export variable duplicada la ultima - PENDING
+10. Revisar print export variable duplicada la ultima - ✅
 
 ## señales
 1. Eliminar que salga el capuchon ese + C, D , Q etc - ✅
