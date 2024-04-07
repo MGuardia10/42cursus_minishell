@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 17:38:05 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/07 17:56:09 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/07 17:58:33 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static int	create_underscore(t_shell *shell, char *pwd)
 	if (!underscore_str2)
 		return (1);
 	underscore_node = set_env_content(underscore_str2);
+	free(underscore_str2);
 	if (!underscore_node)
 		return (1);
 	if (create_new_env(&shell->envi, underscore_node))
