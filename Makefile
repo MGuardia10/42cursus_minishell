@@ -51,7 +51,8 @@ BUILTINS	=	env.c \
 ENV			=	env_list.c \
 				set_home.c \
 				update_pwds.c \
-				set_shlvl.c
+				set_shlvl.c \
+				no_env_case.c
 # EXECUTER
 EXECUTER	=	executer.c \
 				handle_builtins.c \

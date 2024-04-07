@@ -10,6 +10,8 @@
 6. Añadir historial - ✅
 7. Revisar leaks que da valgrind si son del readline (creo que si) - ✅
 8. Acabar el README.md - ✅
+9. Variables de entorno caso en el que se llame con env -i - ✅
+10. Revisar print export variable duplicada la ultima - PENDING
 
 ## señales
 1. Eliminar que salga el capuchon ese + C, D , Q etc - ✅
@@ -32,6 +34,7 @@
 7. Revisar el heredoc - ✅
 9. Revisar expander heredoc. - ✅
 10. Revisar en caso de señal en heredoc que se elimine el archivo temporal - ✅
+11. Revisar argumentos multiples en el exit - PENDING
 
 ## Makefile
 

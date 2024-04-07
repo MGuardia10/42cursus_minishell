@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/06 20:37:29 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/06 21:12:18 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**create_sort_key_list(t_env_list *envi)
 	int		i;
 	char	**key_list;
 
-	key_list = ft_calloc(ft_lstsize((t_list *)envi) + 1, sizeof(char *));
+	key_list = ft_calloc(ft_lstsize((t_list *)envi) + 2, sizeof(char *));
 	if (!key_list)
 		return (NULL);
 	i = 0;

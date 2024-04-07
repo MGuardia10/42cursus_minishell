@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 10:34:58 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 19:28:47 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/07 17:38:21 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,22 +130,24 @@ int	create_env_list(t_shell *shell, char **env)
 	t_env		*node_content;
 
 	i = -1;
-	while (env[++i])
+	if (!env || !env[0])
 	{
-		node_content = set_env_content(env[i]);
-		if (!node_content)
-			return (perror("malloc"), 1);
-		if (create_new_env(&shell->envi, node_content))
+		if (no_env_case(shell))
+			return (1);
+	}
+	else
+	{
+		while (env[++i])
 		{
-			free_env(node_content);
-			return (perror("malloc"), 1);
+			node_content = set_env_content(env[i]);
+			if (!node_content)
+				return (perror("malloc"), 1);
+			if (create_new_env(&shell->envi, node_content))
+				return (free_env(node_content), perror("malloc"), 1);
 		}
 	}
-	if (set_home(shell))
+	if (set_home(shell) || initialize_oldpwd(shell->envi) \
+									|| set_shlvl(shell->envi))
 		return (perror("malloc"), 1);
-	if (initialize_oldpwd(shell->envi))
-		return (perror("malloc"), 1);
-	if (set_shlvl(shell->envi))
-		return (perror("minishell"), 1);
 	return (0);
 }

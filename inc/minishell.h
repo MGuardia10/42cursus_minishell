@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/06 15:17:15 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/07 17:38:47 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ int		initialize_oldpwd(t_env_list *envi);
 int		update_oldpwd(char *old_pwd, t_env_list *envi);
 int		update_pwd(t_env_list *envi);
 int		set_shlvl(t_env_list *envi);
+int		no_env_case(t_shell *shell);
 
 /* BUILTINS */
 int		ft_env(t_env_list **envi, char *arg);
