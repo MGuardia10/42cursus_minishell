@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_tokens.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:25:34 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/06 13:48:02 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:37:41 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**get_tokens(char *line)
 
 	i = 0;
 	j = 0;
-	tokens = (char **)malloc(sizeof(char *) * (num_of_tokens(line) + 1));
+	tokens = ft_calloc((num_of_tokens(line) + 1), sizeof(char *));
 	if (!tokens)
 		return (NULL);
 	while (line[i])
@@ -77,6 +77,5 @@ char	**get_tokens(char *line)
 				return (NULL);
 		}
 	}
-	tokens[j] = NULL;
 	return (tokens);
 }

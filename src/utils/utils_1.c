@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 14:52:47 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/07 17:05:40 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:41:16 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**envi_to_arr(t_env_list *env)
 	char	**arr;
 	int		i;
 
-	arr = malloc((ft_lstsize((t_list *)env) + 1) * sizeof(char *));
+	arr = ft_calloc((ft_lstsize((t_list *)env) + 1), sizeof(char *));
 	i = 0;
 	while (env)
 	{
@@ -101,7 +101,6 @@ char	**envi_to_arr(t_env_list *env)
 		i++;
 		env = env->next;
 	}
-	arr[i] = NULL;
 	return (arr);
 }
 
@@ -121,7 +120,7 @@ char	**create_argv(t_command cmd)
 	char	**arr;
 	int		i;
 
-	arr = malloc((cmd.args_count + 2) * sizeof(char *));
+	arr = ft_calloc((cmd.args_count + 2), sizeof(char *));
 	i = 0;
 	arr[i] = ft_strdup(cmd.exe);
 	if (!arr[i])
@@ -133,6 +132,5 @@ char	**create_argv(t_command cmd)
 			return (ft_free_matrix((void **)arr), NULL);
 		i++;
 	}
-	arr[i + 1] = NULL;
 	return (arr);
 }

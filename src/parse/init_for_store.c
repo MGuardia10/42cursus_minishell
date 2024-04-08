@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:27:12 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/03 21:49:11 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:45:35 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
  */
 int	alloc_io_files_mem(t_shell *shell, int j)
 {
-	shell->cmds[j].infiles = (t_io_files *)malloc(
-			sizeof(t_io_files) * shell->cmds[j].infile_count);
+	shell->cmds[j].infiles = ft_calloc(
+			shell->cmds[j].infile_count, sizeof(t_io_files));
 	if (!shell->cmds[j].infiles)
 		return (1);
 	shell->cmds[j].infile_count = 0;
-	shell->cmds[j].outfiles = (t_io_files *)malloc(
-			sizeof(t_io_files) * shell->cmds[j].outfile_count);
+	shell->cmds[j].outfiles = ft_calloc(
+			shell->cmds[j].outfile_count, sizeof(t_io_files));
 	if (!shell->cmds[j].outfiles)
 		return (1);
 	shell->cmds[j].outfile_count = 0;
@@ -80,10 +80,9 @@ int	io_files_alloc(char **tokens, t_shell *shell)
  */
 int	alloc_arg_mem(t_shell *shell, int *arg_count, int *i, int *j)
 {
-	shell->cmds[*j].args = (char **)malloc(sizeof(char *) * (*arg_count + 1));
+	shell->cmds[*j].args = ft_calloc((*arg_count + 1), sizeof(char *));
 	if (!shell->cmds[*j].args)
 		return (1);
-	shell->cmds[*j].args[*arg_count] = NULL;
 	*arg_count = 0;
 	*j += 1;
 	*i += 1;

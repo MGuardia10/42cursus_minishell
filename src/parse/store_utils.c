@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   store_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raalonso <raalonso@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 22:37:12 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/02 18:18:58 by raalonso         ###   ########.fr       */
+/*   Updated: 2024/04/08 12:11:12 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void	store_exe(char **tokens, t_shell *shell, int *i, int *j)
  */
 int	store_infile(t_command *cmd, char **tokens, int *i)
 {
-	cmd->infiles[cmd->infile_count].redir = isredir(
-			tokens[*i]);
+	cmd->infiles[cmd->infile_count].redir = isredir(tokens[*i]);
 	*i += 1;
 	if ((cmd->infiles[cmd->infile_count].redir == HEREDOC)
 		&& (tokens[*i][0] != '"' && tokens[*i][0] != '\''))
