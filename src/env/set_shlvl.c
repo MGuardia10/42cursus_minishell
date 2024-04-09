@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:50:33 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/09 11:37:12 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:53:17 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @return a boolean value `true` if all characters in the input string are
  * digits, and `false` otherwise.
  */
-bool	ft_all_digits(char *str)
+static bool	ft_all_digits(char *str)
 {
 	int	i;
 
@@ -46,7 +46,7 @@ bool	ft_all_digits(char *str)
  * @return an integer value. If the function is successful, it returns 0. If
  * there is an error it returns 1.
  */
-int	create_shlvl(t_env_list **envi)
+static int	create_shlvl(t_env_list **envi)
 {
 	t_env		*node_content;
 

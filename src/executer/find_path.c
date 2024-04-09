@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:50:24 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/06 20:37:52 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:58:48 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static char	*create_path(t_shell *sh, char *cmd, t_env_list *envi, int *status)
  * @param status a pointer to an integer that is used to store the status of
  * the command execution.
  */
-void	manage_path_errors(char *cmd, t_env_list *envi, int *status)
+static void	manage_path_errors(char *cmd, t_env_list *envi, int *status)
 {
 	if (*status == 2)
 	{

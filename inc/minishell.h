@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/09 11:37:56 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:57:59 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,12 @@ int		create_env_list(t_shell *shell, char **env);
 t_env	*set_env_content(char *env_str);
 int		create_new_env(t_env_list **envi, t_env *node_content);
 int		overwrite_env(t_env_list **envi, char *key, char *value);
+int		verify_no_env_cases(t_env_list **envi);
 int		set_home(t_shell *shell);
 int		initialize_oldpwd(t_env_list **envi);
 int		update_oldpwd(char *old_pwd, t_env_list *envi);
 int		update_pwd(t_env_list *envi);
 int		set_shlvl(t_env_list **envi);
-int		verify_no_env_cases(t_env_list **envi);
 
 /* BUILTINS */
 int		ft_env(t_env_list **envi, char *arg);
@@ -195,20 +195,20 @@ int		move_iters(char *str, int *i, int *j);
 int		isinvalidchar(char *str, int i);
 void	change_quote(char **tokens, int j);
 void	final_quote(char **token, int j);
+bool	isvalidchar(char c);
+bool	is_special_char(char c);
+t_redir	isredir(char *token);
+bool	is_special_char_two(char c);
+void	put_quotes(char **token, int j);
 
 /* UTILS */
 void	free_env(void *content);
 bool	already_exists(t_env_list **envi, char *key);
-bool	isvalidchar(char c);
 bool	is_builtin(char *cmd);
 char	**envi_to_arr(t_env_list *env);
 char	**create_argv(t_command cmd);
 char	*ft_getenv(t_env_list *envi, char *key, int *flag);
 bool	is_directory(const char *path);
 void	clean_exit(t_shell *shell, int exit_code);
-bool	is_special_char(char c);
-t_redir	isredir(char *token);
-bool	is_special_char_two(char c);
-void	put_quotes(char **token, int j);
 
 #endif

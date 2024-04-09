@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 09:49:26 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/24 18:01:30 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:54:30 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * @return a boolean value, either true or false, based on whether the input
  * arguments contain the flag "-n" or not.
  */
-bool	has_n_flag(char **args, int *i)
+static bool	has_n_flag(char **args, int *i)
 {
 	int	j;
 

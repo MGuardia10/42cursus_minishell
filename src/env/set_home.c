@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:42:35 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/26 18:23:47 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:53:57 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*create_from_pwd(char *value)
  * 
  * @return The function `find_home` is returning the `home` variable.
  */
-char	*find_home(t_env_list *envi, int *flag)
+static char	*find_home(t_env_list *envi, int *flag)
 {
 	char	*value;
 	char	*home;

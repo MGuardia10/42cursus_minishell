@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:54 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/06 20:37:44 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:55:51 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * 
  * @return an integer value. On success, returns 0, otherwise return 1.
  */
-int	check_unset_errors(char *arg)
+static int	check_unset_errors(char *arg)
 {
 	int		i;
 
@@ -44,7 +44,7 @@ int	check_unset_errors(char *arg)
  * @param str The parameter `str` is a pointer to a character array, which
  * represents the key of the environment variable that needs to be deleted.
  */
-void	delete_env(t_env_list **envi, char *str)
+static void	delete_env(t_env_list **envi, char *str)
 {
 	t_env_list	*last_node;
 	t_env_list	*curr_node;

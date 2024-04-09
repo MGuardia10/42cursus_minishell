@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 18:00:44 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/07 19:06:14 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:55:27 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * 
  * @return a pointer to a character array (char **) or NULL if an error occurs.
  */
-char	**create_sort_key_list(t_env_list *envi)
+static char	**create_sort_key_list(t_env_list *envi)
 {
 	int		i;
 	char	**key_list;
@@ -55,7 +55,7 @@ char	**create_sort_key_list(t_env_list *envi)
  * @param value The "value" parameter is a string that represents the value of 
  * an environment variable.
  */
-void	print_env_var(char *key, char *value)
+static void	print_env_var(char *key, char *value)
 {
 	printf("declare -x %s", key);
 	if (value && value[0] != '\0')

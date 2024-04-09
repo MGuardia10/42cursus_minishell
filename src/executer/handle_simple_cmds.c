@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 17:12:07 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/05 13:44:08 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:59:35 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @param fd_in a integer that represents the file descriptor for infiles.
  * @param fd_out a integer that represents the file descriptor for outfiles.
  */
-void	child_task(t_shell *shell, int fd_in, int fd_out)
+static void	child_task(t_shell *shell, int fd_in, int fd_out)
 {
 	char	*path;
 	char	**argv;
