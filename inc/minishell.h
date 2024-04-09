@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 19:01:57 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/07 17:38:47 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:37:56 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,11 @@ t_env	*set_env_content(char *env_str);
 int		create_new_env(t_env_list **envi, t_env *node_content);
 int		overwrite_env(t_env_list **envi, char *key, char *value);
 int		set_home(t_shell *shell);
-int		initialize_oldpwd(t_env_list *envi);
+int		initialize_oldpwd(t_env_list **envi);
 int		update_oldpwd(char *old_pwd, t_env_list *envi);
 int		update_pwd(t_env_list *envi);
-int		set_shlvl(t_env_list *envi);
-int		no_env_case(t_shell *shell);
+int		set_shlvl(t_env_list **envi);
+int		verify_no_env_cases(t_env_list **envi);
 
 /* BUILTINS */
 int		ft_env(t_env_list **envi, char *arg);

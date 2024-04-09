@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:50:33 by mguardia          #+#    #+#             */
-/*   Updated: 2024/03/28 19:11:57 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:37:12 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ bool	ft_all_digits(char *str)
  * @return an integer value. If the function is successful, it returns 0. If
  * there is an error it returns 1.
  */
-int	create_shlvl(t_env_list *envi)
+int	create_shlvl(t_env_list **envi)
 {
 	t_env		*node_content;
 
 	node_content = set_env_content("SHLVL=1");
 	if (!node_content)
 		return (1);
-	if (create_new_env(&envi, node_content))
+	if (create_new_env(envi, node_content))
 	{
 		free_env(node_content);
 		return (1);
@@ -71,14 +71,14 @@ int	create_shlvl(t_env_list *envi)
  *  
  * @return an integer that is the result of the `overwrite_env` function.
  */
-int	set_shlvl(t_env_list *envi)
+int	set_shlvl(t_env_list **envi)
 {
 	char	*shlvl_value;
 	char	*shlvl_new_value;
 	char	*shlvl_new_value_with_equal;
 	int		flag;
 
-	shlvl_value = ft_getenv(envi, "SHLVL", &flag);
+	shlvl_value = ft_getenv(*envi, "SHLVL", &flag);
 	if ((!shlvl_value && flag == 1) || ft_all_digits(shlvl_value) == false)
 		return (create_shlvl(envi));
 	shlvl_new_value = ft_itoa(ft_atoi(shlvl_value) + 1);
@@ -86,7 +86,7 @@ int	set_shlvl(t_env_list *envi)
 		return (1);
 	shlvl_new_value_with_equal = ft_strjoin("=", shlvl_new_value);
 	free(shlvl_new_value);
-	if (overwrite_env(&envi, "SHLVL", shlvl_new_value_with_equal))
+	if (overwrite_env(envi, "SHLVL", shlvl_new_value_with_equal))
 		return (free(shlvl_new_value_with_equal), 1);
 	return (free(shlvl_new_value_with_equal), 0);
 }

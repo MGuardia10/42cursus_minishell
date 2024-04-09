@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 20:01:30 by mguardia          #+#    #+#             */
-/*   Updated: 2024/04/05 12:23:12 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/09 11:35:56 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,16 @@ int	update_oldpwd(char *old_pwd, t_env_list *envi)
  * already exists or it´s successfully created and 1 if there was any issue
  * setting the content or creating the variable.
  */
-int	initialize_oldpwd(t_env_list *envi)
+int	initialize_oldpwd(t_env_list **envi)
 {
 	t_env		*node_content;
 
-	if (already_exists(&envi, "OLDPWD"))
+	if (already_exists(envi, "OLDPWD"))
 		return (0);
 	node_content = set_env_content("OLDPWD");
 	if (!node_content)
 		return (1);
-	if (create_new_env(&envi, node_content))
+	if (create_new_env(envi, node_content))
 		return (free_env(node_content), 1);
 	return (0);
 }
