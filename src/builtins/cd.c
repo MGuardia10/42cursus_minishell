@@ -6,7 +6,7 @@
 /*   By: mguardia <mguardia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 08:46:54 by raalonso          #+#    #+#             */
-/*   Updated: 2024/04/06 20:37:15 by mguardia         ###   ########.fr       */
+/*   Updated: 2024/04/10 09:18:30 by mguardia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,11 @@ int	ft_cd(t_shell *shell, t_env_list *envi, char *arg)
 	int		flag;
 
 	if (!getcwd(curr_dir, PATH_MAX))
-		(perror("getcwd"), clean_exit(shell, EXIT_FAILURE));
+	{
+		ft_dprintf(EXIT_FAILURE, "cd: error retrieving current directory: ");
+		perror("getcwd: cannot access parent directories");
+		clean_exit(shell, EXIT_FAILURE);
+	}
 	flag = 0;
 	if (!arg)
 		return (ft_cd_home(shell, envi, curr_dir, &flag));
